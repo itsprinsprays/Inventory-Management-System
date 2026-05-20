@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <div class="container">
 
-    <h2>Add Product</h2>
+    <h2>Add New Product</h2>
 
     <?php if($message): ?>
         <div class="message">

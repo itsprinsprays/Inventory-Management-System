@@ -10,7 +10,7 @@ class ProductController {
     }
 
     public function store($data) {
-        return $this->product->addProduct(
+        return $this->product->addNewProduct(
             $data['name'], 
             $data['description'], 
             $data['price'],
@@ -20,5 +20,13 @@ class ProductController {
     public function minustock($product_id, $quantity) {
         return $this->product->minustock($product_id, $quantity);
     }
-    
+
+    public function restock($product_id, $quantity) {
+        return $this->product->restock($product_id, $quantity);
+    }
+
+    public function getAllProducts() {
+    return $this->product->getAllProducts();
+}
+
 }
