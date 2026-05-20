@@ -5,22 +5,25 @@ require_once "Controller/TeacherController.php";
 
 $ProductController = new ProductController($conn);
 $TeacherController = new TeacherController($conn);
+
 $products = $ProductController->getAllProducts();
 $teachers = $TeacherController->getAllTeachers();
 
 $message = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
     $product_id = $_POST['product_id'];
-    $quantity = $_POST['quantity'];
+    $quantity   = $_POST['quantity'];
 
     if ($ProductController->minustock($product_id, $quantity)) {
-        $message = "Stock updated successfully!";
+        header("Location: ".$_SERVER['PHP_SELF']."?success=1");
+        exit;
     } else {
-        $message = "Failed to update stock.";
+        header("Location: ".$_SERVER['PHP_SELF']."?error=1");
+        exit;
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -92,7 +95,7 @@ button{
 
             <?php foreach ($teachers as $t): ?>
                 <option value="<?= $t['teacher_id'] ?>">
-                    <?= $t['teacher_name'] ?>
+                    <?= $t['teacher_name'] ?> 
                 </option>
             <?php endforeach; ?>
         </select>
@@ -103,6 +106,12 @@ button{
         <button type="submit">Update Stock</button>
 
     </form>
+
+    <?php if(isset($_GET['success'])): ?>
+    <p style="color:green;">Stock updated successfully!</p>
+<?php elseif(isset($_GET['error'])): ?>
+    <p style="color:red;">Failed to update stock.</p>
+<?php endif; ?>
 
 </div>
 

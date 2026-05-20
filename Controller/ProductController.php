@@ -25,7 +25,10 @@ class ProductController {
     }
 
     public function getAllProducts() {
-    return $this->product->getAllProducts();
+        return $this->product->getAllProducts();
     }
 
+    public function deleteProduct($product_id) {
+        return $this->product->deleteProduct($product_id);
+    }
 }
