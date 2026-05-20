@@ -11,11 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data = [
         'name' => $_POST['name'],
         'description' => $_POST['description'],
-        'price' => $_POST['price'],
         'quantity' => $_POST['quantity']
     ];
 
-    if ($controller->store($data)) {
+    if ($controller->storeNewProduct($data)) {
         $message = "Product added successfully!";
     } else {
         $message = "Failed to add product.";
@@ -123,16 +122,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <div class="form-group">
-            <label>Price</label>
-            <input type="number" step="0.01" name="price" required>
-        </div>
-
-        <div class="form-group">
             <label>Quantity</label>
             <input type="number" name="quantity" required>
         </div>
 
-        <button type="submit">Add Product</button>
+        <button type="submit">Add New Product</button>
 
     </form>
 

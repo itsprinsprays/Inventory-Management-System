@@ -9,11 +9,10 @@ class ProductController {
         $this->product = new Product($db);
     }
 
-    public function store($data) {
+    public function storeNewProduct($data) {
         return $this->product->addNewProduct(
             $data['name'], 
             $data['description'], 
-            $data['price'],
             $data['quantity']);
     }
 
@@ -27,6 +26,6 @@ class ProductController {
 
     public function getAllProducts() {
     return $this->product->getAllProducts();
-}
+    }
 
 }

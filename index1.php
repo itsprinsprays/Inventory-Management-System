@@ -1,9 +1,12 @@
 <?php
 require_once "config/connection.php";
 require_once "Controller/ProductController.php";
+require_once "Controller/TeacherController.php";
 
-$controller = new ProductController($conn);
-$products = $controller->getAllProducts();
+$ProductController = new ProductController($conn);
+$TeacherController = new TeacherController($conn);
+$products = $ProductController->getAllProducts();
+$teachers = $TeacherController->getAllTeachers();
 
 $message = "";
 
@@ -12,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $product_id = $_POST['product_id'];
     $quantity = $_POST['quantity'];
 
-    if ($controller->minustock($product_id, $quantity)) {
+    if ($ProductController->minustock($product_id, $quantity)) {
         $message = "Stock updated successfully!";
     } else {
         $message = "Failed to update stock.";
@@ -69,7 +72,7 @@ button{
     <?php endif; ?>
 
     <form method="POST">
-        
+
         <!-- PRODUCT DROPDOWN -->
         <label>Select Product</label>
         <select name="product_id" required>
@@ -81,6 +84,17 @@ button{
                 </option>
             <?php endforeach; ?>
 
+        </select>
+
+        <label>-- Select Teacher -- </label>
+        <select name = "teacher_id" required>
+            <option value ="">-- Select Teacher --</option>
+
+            <?php foreach ($teachers as $t): ?>
+                <option value="<?= $t['teacher_id'] ?>">
+                    <?= $t['teacher_name'] ?>
+                </option>
+            <?php endforeach; ?>
         </select>
 
         <label>Quantity to Deduct</label>
