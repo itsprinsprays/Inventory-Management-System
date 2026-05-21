@@ -23,7 +23,7 @@ class ProductController {
     public function restock($product_id, $quantity) {
         return $this->product->restock($product_id, $quantity);
     }
-
+    
     public function getAllProducts() {
         return $this->product->getAllProducts();
     }
