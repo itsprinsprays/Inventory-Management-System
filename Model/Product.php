@@ -33,6 +33,13 @@ class Product {
         return $stmt->execute([$product_id]);
     }
 
+    public function quantityStatus($product_id) {
+        $stmt = $this->conn->prepare("SELECT stock_quantity FROM product WHERE product_id = ?");
+        $stmt->execute([$product_id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['stock_quantity'] : null;
+    }
+
 
 
 }
