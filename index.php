@@ -1,136 +1,59 @@
 <?php
-require_once "Config/connection.php";
-require_once "Controller/ProductController.php";
 
-$message = "";
+require_once "config/connect.php";
+require_once "controller/ProductController.php";
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+$productController = new ProductController($conn);
 
-    $controller = new ProductController($conn);
+$action = $_GET['action'] ?? 'product_index';
 
-    $data = [
-        'name' => $_POST['name'],
-        'description' => $_POST['description'],
-        'quantity' => $_POST['quantity']
-    ];
+switch ($action) {
 
-    if ($controller->storeNewProduct($data)) {
-        $message = "Product added successfully!";
-    } else {
-        $message = "Failed to add product.";
-    }
+    // SHOW ALL PRODUCTS
+    case 'product_index':
+        $products = $productController->getAllProducts();
+        include "view/product/index.php";
+        break;
+
+    // SHOW CREATE FORM + INSERT PRODUCT
+    case 'product_create':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $productController->storeNewProduct($_POST);
+
+            header("Location: index.php?action=product_index");
+            exit;
+        }
+
+        include "view/product/create.php";
+        break;
+
+    // DELETE PRODUCT
+    case 'product_delete':
+        if (isset($_GET['id'])) {
+            $productController->deleteProduct($_GET['id']);
+        }
+
+        header("Location: index.php?action=product_index");
+        exit;
+
+    // MINUS STOCK
+    case 'product_minus':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $productController->minustock(
+                $_POST['product_id'],
+                $_POST['quantity']
+            );
+
+            header("Location: index.php?action=product_index");
+            exit;
+        }
+
+        $products = $productController->getAllProducts();
+        include "view/product/minus.php";
+        break;
+
+    default:
+        echo "Home Page";
 }
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
-
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body{
-            background: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container{
-            background: white;
-            width: 400px;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        h2{
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .form-group{
-            margin-bottom: 15px;
-        }
-
-        label{
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input, textarea{
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button{
-            width: 100%;
-            padding: 12px;
-            border: none;
-            background: #007bff;
-            color: white;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover{
-            background: #0056b3;
-        }
-
-        .message{
-            text-align: center;
-            margin-bottom: 15px;
-            color: green;
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-
-    <h2>Add New Product</h2>
-
-    <?php if($message): ?>
-        <div class="message">
-            <?= $message ?>
-        </div>
-    <?php endif; ?>
-
-    <form method="POST">
-
-        <div class="form-group">
-            <label>Product Name</label>
-            <input type="text" name="name" required>
-        </div>
-
-        <div class="form-group">
-            <label>Description</label>
-            <textarea name="description" rows="4" required></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Quantity</label>
-            <input type="number" name="quantity" required>
-        </div>
-
-        <button type="submit">Add New Product</button>
-
-    </form>
-
-</div>
-
-</body>
-</html>
