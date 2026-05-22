@@ -36,15 +36,9 @@ class ProductController {
         return $this->product->quantityStatus($product_id);
     }
 
-    public function quantityStatus($product_id) {
-    if($this->product->quantityStatus($product_id) !== null && $this->product->quantityStatus($product_id) < 10) {
-        return "Critical";
-    } else if($this->product->quantityStatus($product_id) !== null && $this->product->quantityStatus($product_id) < 20) {
-        return "Low";
-    } else if($this->product->quantityStatus($product_id) !== null && $this->product->quantityStatus($product_id) >= 20) {
-        return "Good";
-    } else {
-        return "Unknown";
-    }
-    }   
+    public function getStatus($stock){
+        if ($stock < 10) return "CRITICAL";
+        if ($stock < 20) return "LOW";
+        return "GOOD";
+        } 
 }

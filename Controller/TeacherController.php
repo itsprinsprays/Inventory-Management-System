@@ -1,24 +1,24 @@
 <?php
 
-require_once "Model/Teacher.php";
+require_once "Model/Employee.php";
 
-class TeacherController {
-    private $teacher;
+class EmployeeController {
+    private $employee;
 
     public function __construct($db) {
-        $this->teacher = new Teacher($db);
+        $this->employee = new Employee($db);
     }
 
-    public function storeNewTeacher($data) {
-        return $this->teacher->addNewTeacher(
+    public function storeNewEmployee($data) {
+        return $this->employee->addNewEmployee(
             $data['name'], 
             $data['contact_number'], 
             $data['email'], 
             $data['address']);
     }
 
-    public function getAllTeachers() {
-        return $this->teacher->getAllTeachers();
+    public function getAllEmployees() {
+        return $this->employee->getAllEmployees();
     }
                       
 }

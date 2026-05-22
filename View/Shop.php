@@ -12,7 +12,6 @@
 <body>
 
   <!-- SIDEBAR -->
-
   <div class="sidebar">
     <h2>InventorySys</h2>
 
@@ -25,11 +24,19 @@
   </div>
 
   <!-- MAIN -->
-
   <div class="main">
 
-    <!-- DASHBOARD CARDS -->
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div>
+        <h1>Dashboard</h1>
+        <p>Inventory overview and stock monitoring</p>
+      </div>
 
+      <button class="restock-btn">+ Add Product</button>
+    </div>
+
+    <!-- DASHBOARD CARDS -->
     <div class="cards">
 
       <div class="card">
@@ -43,7 +50,7 @@
       </div>
 
       <div class="card">
-        <h3>Products</h3>
+        <h3>Total Products</h3>
         <p>124</p>
       </div>
 
@@ -54,16 +61,16 @@
 
     </div>
 
-    <!-- INVENTORY TABLE -->
-
+    <!-- INVENTORY SECTION -->
     <div class="table-container">
 
       <div class="table-header">
         <h2>Inventory Overview</h2>
+
+        <input type="text" placeholder="Search product...">
       </div>
 
       <table>
-
         <thead>
           <tr>
             <th>Product</th>
@@ -72,64 +79,17 @@
           </tr>
         </thead>
 
-        <tbody>
-
-          <tr>
-            <td>Keyboard</td>
-            <td>3</td>
-            <td>
-              <span class="status critical">
-                CRITICAL
-              </span>
-            </td>
-           </tr>
-
-          <tr>
-            <td>Mouse</td>
-            <td>15</td>
-            <td>
-              <span class="status low">
-                LOW
-              </span>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Monitor</td>
-            <td>45</td>
-            <td>
-              <span class="status good">
-                GOOD
-              </span>
-            </td>
-          </tr>
-
-        </tbody>
+       
 
       </table>
     </div>
+
   </div>
 
-  <!-- SUCCESS TOAST -->
-
+  <!-- TOAST -->
   <div class="toast" id="toast">
     ✓ Stock Updated Successfully
   </div>
-
-  <script>
-
-    function showToast(){
-
-      const toast = document.getElementById("toast");
-
-      toast.style.display = "block";
-
-      setTimeout(() => {
-        toast.style.display = "none";
-      }, 3000);
-    }
-
-  </script>
 
 </body>
 </html>
