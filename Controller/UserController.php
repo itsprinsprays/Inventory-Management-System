@@ -10,7 +10,7 @@ class UserController {
     }
 
     public function storeNewUser($data) {
-        return $this->user->addNewUser(
+        return $this->user->register(
             $data['username'],
             $data['password'],
             $data['role'],
@@ -18,6 +18,4 @@ class UserController {
         );
     }
 }
-
-
 ?>
