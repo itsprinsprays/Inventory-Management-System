@@ -17,4 +17,5 @@ class TransactionController {
             $data['stock_quantity']
         );
     }
+    
 }
