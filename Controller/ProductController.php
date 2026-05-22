@@ -31,4 +31,14 @@ class ProductController {
     public function deleteProduct($product_id) {
         return $this->product->deleteProduct($product_id);
     }
+
+    public function stockQuantity($product_id) {
+        return $this->product->quantityStatus($product_id);
+    }
+
+    public function getStatus($stock){
+        if ($stock < 10) return "CRITICAL";
+        if ($stock < 20) return "LOW";
+        return "GOOD";
+        } 
 }

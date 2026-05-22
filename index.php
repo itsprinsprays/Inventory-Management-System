@@ -1,136 +1,72 @@
 <?php
-require_once "Config/connection.php";
-require_once "Controller/ProductController.php";
 
-$message = "";
+session_start();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+require_once "config/connection.php";
+require_once "controller/ProductController.php";
+require_once "controller/UserController.php";
+require_once "controller/EmployeeController.php";
+require_once "controller/AuthController.php";
+require_once "config/role_guard.php";
 
-    $controller = new ProductController($conn);
+$productController = new ProductController($conn);
+$userController = new UserController($conn);
+$employeeController = new EmployeeController($conn);
+$authController = new AuthController($conn);
 
-    $data = [
-        'name' => $_POST['name'],
-        'description' => $_POST['description'],
-        'quantity' => $_POST['quantity']
-    ];
+$action = $_GET['action'] ?? 'index';
 
-    if ($controller->storeNewProduct($data)) {
-        $message = "Product added successfully!";
-    } else {
-        $message = "Failed to add product.";
-    }
+switch ($action) {
+
+    case 'register':
+        
+        requireRole('admin');
+        $message = "";
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'username' => $_POST['username'],
+                'password' => $_POST['password'],
+                'role' => $_POST['role'],
+                'employee_id' => $_POST['employee_id']
+            ];
+
+            $message = $userController->storeNewUser($data) ? "User registered successfully" : "Failed to register user";
+        }
+        include "View/register.php";
+        break;
+
+    case 'login':
+
+        $message = "";
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $credentials = [
+                'username' => $_POST['username'],
+                'password' => $_POST['password']
+            ];
+
+            $user = $authController->login($credentials);
+
+            if($user) {
+                header("Location: index.php?action=dashboard");
+                exit();
+            } else {
+                $message = "Invalid username or password";
+                header("Location: index.php?action=register");
+            }
+        }
+        include "View/login.php";
+        break;
+        
+    case 'dashboard':
+        
+        include "View/Shop.php";
+        break;
+
+    default:
+        header("Location: index.php?action=login");
+        exit();
+
 }
+
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
-
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body{
-            background: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container{
-            background: white;
-            width: 400px;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        h2{
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .form-group{
-            margin-bottom: 15px;
-        }
-
-        label{
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input, textarea{
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button{
-            width: 100%;
-            padding: 12px;
-            border: none;
-            background: #007bff;
-            color: white;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover{
-            background: #0056b3;
-        }
-
-        .message{
-            text-align: center;
-            margin-bottom: 15px;
-            color: green;
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-
-    <h2>Add New Product</h2>
-
-    <?php if($message): ?>
-        <div class="message">
-            <?= $message ?>
-        </div>
-    <?php endif; ?>
-
-    <form method="POST">
-
-        <div class="form-group">
-            <label>Product Name</label>
-            <input type="text" name="name" required>
-        </div>
-
-        <div class="form-group">
-            <label>Description</label>
-            <textarea name="description" rows="4" required></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Quantity</label>
-            <input type="number" name="quantity" required>
-        </div>
-
-        <button type="submit">Add New Product</button>
-
-    </form>
-
-</div>
-
-</body>
-</html>

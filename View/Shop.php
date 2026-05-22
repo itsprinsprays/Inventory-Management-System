@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="../Public/Shop.css">
+  <link rel="stylesheet" href="../Public/Shops.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Restock Inventory Dashboard</title>
@@ -15,12 +15,15 @@
 
   <div class="sidebar">
     <h2>InventorySys</h2>
-
+  <?php var_dump($_SESSION); ?>
     <ul>
       <li><a href="#">Dashboard</a></li>
       <li><a href="#">Inventory</a></li>
       <li><a href="#">Transaction History</a></li>
-      <li><a href="#">Register Teacher</a></li>
+      
+      <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+        <li><a href="#">Register Teacher</a></li>
+      <?php endif; ?>
     </ul>
   </div>
 
