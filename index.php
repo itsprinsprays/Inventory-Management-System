@@ -7,6 +7,7 @@ require_once "controller/ProductController.php";
 require_once "controller/UserController.php";
 require_once "controller/EmployeeController.php";
 require_once "controller/AuthController.php";
+require_once "config/role_guard.php";
 
 $productController = new ProductController($conn);
 $userController = new UserController($conn);
@@ -18,6 +19,8 @@ $action = $_GET['action'] ?? 'index';
 switch ($action) {
 
     case 'register':
+        
+        requireRole('admin');
         $message = "";
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = [
@@ -33,24 +36,33 @@ switch ($action) {
         break;
 
     case 'login':
+
+        $message = "";
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $credentials = [
                 'username' => $_POST['username'],
                 'password' => $_POST['password']
             ];
+
             $user = $authController->login($credentials);
 
-            if($authController->login($credentials)) {
-                header("Location: index.php?action=product_index");
+            if($user) {
+                header("Location: index.php?action=dashboard");
                 exit();
             } else {
                 $message = "Invalid username or password";
+                header("Location: index.php?action=register");
             }
         }
-        include "view/login.php";
+        include "View/login.php";
         break;
-    
+        
+    case 'dashboard':
+        
+        include "View/Shop.php";
+        break;
+
     default:
         header("Location: index.php?action=login");
         exit();

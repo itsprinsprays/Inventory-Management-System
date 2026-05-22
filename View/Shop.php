@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="../Public/Shop.css">
+  <link rel="stylesheet" href="../Public/Shops.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Restock Inventory Dashboard</title>
@@ -12,31 +12,27 @@
 <body>
 
   <!-- SIDEBAR -->
+
   <div class="sidebar">
     <h2>InventorySys</h2>
-
+  <?php var_dump($_SESSION); ?>
     <ul>
       <li><a href="#">Dashboard</a></li>
       <li><a href="#">Inventory</a></li>
       <li><a href="#">Transaction History</a></li>
-      <li><a href="#">Register Teacher</a></li>
+      
+      <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+        <li><a href="#">Register Teacher</a></li>
+      <?php endif; ?>
     </ul>
   </div>
 
   <!-- MAIN -->
+
   <div class="main">
 
-    <!-- PAGE HEADER -->
-    <div class="page-header">
-      <div>
-        <h1>Dashboard</h1>
-        <p>Inventory overview and stock monitoring</p>
-      </div>
-
-      <button class="restock-btn">+ Add Product</button>
-    </div>
-
     <!-- DASHBOARD CARDS -->
+
     <div class="cards">
 
       <div class="card">
@@ -50,7 +46,7 @@
       </div>
 
       <div class="card">
-        <h3>Total Products</h3>
+        <h3>Products</h3>
         <p>124</p>
       </div>
 
@@ -61,16 +57,16 @@
 
     </div>
 
-    <!-- INVENTORY SECTION -->
+    <!-- INVENTORY TABLE -->
+
     <div class="table-container">
 
       <div class="table-header">
         <h2>Inventory Overview</h2>
-
-        <input type="text" placeholder="Search product...">
       </div>
 
       <table>
+
         <thead>
           <tr>
             <th>Product</th>
@@ -79,17 +75,64 @@
           </tr>
         </thead>
 
-       
+        <tbody>
+
+          <tr>
+            <td>Keyboard</td>
+            <td>3</td>
+            <td>
+              <span class="status critical">
+                CRITICAL
+              </span>
+            </td>
+           </tr>
+
+          <tr>
+            <td>Mouse</td>
+            <td>15</td>
+            <td>
+              <span class="status low">
+                LOW
+              </span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Monitor</td>
+            <td>45</td>
+            <td>
+              <span class="status good">
+                GOOD
+              </span>
+            </td>
+          </tr>
+
+        </tbody>
 
       </table>
     </div>
-
   </div>
 
-  <!-- TOAST -->
+  <!-- SUCCESS TOAST -->
+
   <div class="toast" id="toast">
     ✓ Stock Updated Successfully
   </div>
+
+  <script>
+
+    function showToast(){
+
+      const toast = document.getElementById("toast");
+
+      toast.style.display = "block";
+
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 3000);
+    }
+
+  </script>
 
 </body>
 </html>

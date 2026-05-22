@@ -44,7 +44,7 @@
 
     <h2>Login</h2>
 
-    <form method="POST">
+    <form method="POST" action="index.php?action=login">
 
         <input type="text" name="username" placeholder="Username" required>
 
@@ -57,11 +57,6 @@
     <div class="message">
         <?= $message ?? '' ?>
     </div>
-
-    <p>
-        No account?
-        <a href="index.php?action=register">Register</a>
-    </p>
 
 </div>
 
