@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="../Public/Shops.css">
+  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Shop.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Restock Inventory Dashboard</title>
@@ -15,7 +15,6 @@
 
   <div class="sidebar">
     <h2>InventorySys</h2>
-  <?php var_dump($_SESSION); ?>
     <ul>
       <li><a href="#">Dashboard</a></li>
       <li><a href="#">Inventory</a></li>
@@ -75,39 +74,28 @@
           </tr>
         </thead>
 
-        <tbody>
+        <?php
 
-          <tr>
-            <td>Keyboard</td>
-            <td>3</td>
-            <td>
-              <span class="status critical">
-                CRITICAL
-              </span>
-            </td>
-           </tr>
+        require_once "Model/Product.php";
+        require_once "Controller/ProductController.php";
 
+        $controller = new ProductController($conn);
+        $products = $controller->getAllProducts();
+        ?>
+      <tbody>
+        <?php foreach ($products as $product): ?>
+          <?php $status = $controller->getStatus($product['stock_quantity']); ?>
           <tr>
-            <td>Mouse</td>
-            <td>15</td>
+            <td><?= htmlspecialchars($product['product_name']) ?></td>
+            <td><?= htmlspecialchars($product['stock_quantity']) ?></td>
             <td>
-              <span class="status low">
-                LOW
-              </span>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Monitor</td>
-            <td>45</td>
-            <td>
-              <span class="status good">
-                GOOD
+              <span class="status <?= strtolower($status) ?>">
+                <?= $status ?>
               </span>
             </td>
           </tr>
-
-        </tbody>
+        <?php endforeach; ?>
+      </tbody
 
       </table>
     </div>

@@ -42,7 +42,7 @@ switch ($action) {
 
             $credentials = [
                 'username' => $_POST['username'],
-                'password' => $_POST['password']
+                'password' => $_POST['password'] 
             ];
 
             $user = $authController->login($credentials);
