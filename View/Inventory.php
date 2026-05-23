@@ -1,15 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Inventory.css">
+  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Inventorys.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Restock Inventory Dashboard</title>
 
 
 </head>
+<?php
 
+require_once "Model/Product.php";
+require_once "Controller/ProductController.php";
+
+$controller = new ProductController($conn);
+$products = $controller->getAllProducts();
+
+?>
 <body>
+
+  <?php 
+        $hasCritical = false;
+        foreach($products as $product) {
+            if($controller->getStatus($product['stock_quantity']) === 'CRITICAL') {
+                $hasCritical = true;
+                break;
+            }
+        }
+        ?>
+
+        <?php if($hasCritical): ?>
+      <div class="warning-overlay" id="warningPopup">
+        <div class="warning-box">
+          <h2>⚠️ Critical Stock Alert</h2>
+          <p>One or more products are critically low on stock. Please restock immediately.</p>
+          <button onclick="document.getElementById('warningPopup').style.display='none'">
+            OK, Got it
+          </button>
+        </div>
+      </div>
+      <?php endif; ?>
 
   <!-- SIDEBAR -->
 
@@ -33,18 +63,18 @@
     <div class="cards">
 
       <div class="card">
-        <h3>Low Stock Items</h3>
-        <p>12</p>
+        <h3>Critical Stock Items</h3>
+        <p><?= $controller->countCriticalStock() ?>
       </div>
 
       <div class="card">
         <h3>Pending Restocks</h3>
-        <p>5</p>
+        <p><?= $controller->needRestocks() ?></p>
       </div>
 
       <div class="card">
         <h3>Products</h3>
-        <p>124</p>
+        <p><?= $controller->countProducts() ?></p>
       </div>
 
       <div class="card">
@@ -70,127 +100,43 @@
             <th>Stock</th>
             <th>Status</th>
             <th>Supplier</th>
-            <th colspan="2">Control</th>
+            <th colspan="3">Control</th>
           </tr>
         </thead>
 
-        <tbody>
-
-          <tr>
-            <td>Keyboard</td>
-            <td>3</td>
-            <td>
-              <span class="status critical">
-                CRITICAL
-              </span>
-            </td>
-            <td>TechSource Inc.</td>
-            <td>
-              <form action="/restock" method="POST">
-                <input type="hidden" name="product_id" value="2">
-
-                <button
-                  type="submit"
-                  class="restock-btn"
-                  onclick="showToast()"
-                >
-                  Restock
-                </button>
-              </form>
-            </td>
-            <td>
-              <form action="/pull-out" method="POST">
-
-                <input type="hidden" name="product_id" value="1">
-
-                <button
-                  type="submit"
-                  class="pullout-btn"
-                  onclick="showToast()"
-                >
-                  Pull-out
-                </button>
-
-              </form>
-
-            </td>
-          </tr>
-
-          <tr>
-            <td>Mouse</td>
-            <td>15</td>
-            <td>
-              <span class="status low">
-                LOW
-              </span>
-            </td>
-            <td>ClickWare</td>
-
-            <td>
-              <form action="/restock" method="POST">
-                <input type="hidden" name="product_id" value="2">
-
-                <button
-                  type="submit"
-                  class="restock-btn"
-                  onclick="showToast()"
-                >
-                  Restock
-                </button>
-              </form>
-            </td>
-            <td>
-              <form action="/pull-out" method="POST">
-
-                <input type="hidden" name="product_id" value="1">
-
-                <button
-                  type="submit"
-                  class="pullout-btn"
-                  onclick="showToast()"
-                >
-                  Pull-out
-                </button>
-
-              </form>
-
-            </td>
-          </tr>
-
-          <tr>
-            <td>Monitor</td>
-            <td>45</td>
-            <td>
-              <span class="status good">
-                GOOD
-              </span>
-            </td>
-            <td>VisionTech</td>
-
-            <td>
-              <button class="restock-btn">
-                Restock
-              </button>
-            </td>
-            <td>
-              <form action="/pull-out" method="POST">
-
-                <input type="hidden" name="product_id" value="1">
-
-                <button
-                  type="submit"
-                  class="pullout-btn"
-                  onclick="showToast()"
-                >
-                  Pull-out
-                </button>
-
-              </form>
-
-            </td>
-          </tr>
-
-        </tbody>
+       <tbody>
+  <?php foreach($products as $product): ?>
+    <?php $status = $controller->getStatus($product['stock_quantity']); ?>
+    <tr>
+      <td><?= htmlspecialchars($product['product_name']) ?></td>
+      <td><?= htmlspecialchars($product['stock_quantity']) ?></td>
+      <td>
+        <span class="status <?= strtolower($status) ?>">
+          <?= $status ?>
+        </span>
+      </td>
+      <td><?= htmlspecialchars($product['supplier'] ?? 'N/A') ?></td>
+      <td>
+        <form action="/restock" method="POST">
+          <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
+          <button type="submit" class="restock-btn" onclick="showToast()">Restock</button>
+        </form>
+      </td>
+      <td>
+        <form action="/pull-out" method="POST">
+          <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
+          <button type="submit" class="pullout-btn" onclick="showToast()">Pull-out</button>
+        </form>
+      </td>
+      <td>
+        <form action="/archive" method="POST">
+          <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
+          <button type="submit" class="archive-btn" onclick="showToast()">Archive</button>
+        </form>
+      </td>
+    </tr>
+  <?php endforeach; ?>
+</tbody>
 
       </table>
     </div>
