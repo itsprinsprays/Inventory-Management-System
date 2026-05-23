@@ -54,5 +54,8 @@ class ProductController {
         return $this->product->needRestocks();
     }
 
+    public function archiveProduct($product_id) {
+        return $this->product->archiveProduct($product_id);
+    }
 
 }

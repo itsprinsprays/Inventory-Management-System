@@ -43,14 +43,21 @@ $products = $controller->getAllProducts();
 
   <!-- SIDEBAR -->
 
-  <div class="sidebar">
+   <div class="sidebar">
     <h2>InventorySys</h2>
-
     <ul>
       <li><a href="index.php?action=dashboard">Dashboard</a></li>
+      <li><a href="index.php?action=logout">Log Out</a></li>
+
+      
+      <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
       <li><a href="index.php?action=inventory">Inventory</a></li>
       <li><a href="#">Transaction History</a></li>
-      <li><a href="#">Register Account</a></li>
+      <li><a href="#">Request Tracking</a></li>
+      <li><a href="#">Confirm Product Request</a></li>
+      <li><a href="#">Archive</a></li>
+        <li><a href="#">User Management</a></li>
+      <?php endif; ?>
     </ul>
   </div>
 
@@ -99,8 +106,7 @@ $products = $controller->getAllProducts();
             <th>Product</th>
             <th>Stock</th>
             <th>Status</th>
-            <th>Supplier</th>
-            <th colspan="3">Control</th>
+            <th colspan="2">Control</th>
           </tr>
         </thead>
 
@@ -115,7 +121,6 @@ $products = $controller->getAllProducts();
           <?= $status ?>
         </span>
       </td>
-      <td><?= htmlspecialchars($product['supplier'] ?? 'N/A') ?></td>
       <td>
         <form action="/restock" method="POST">
           <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
@@ -123,16 +128,13 @@ $products = $controller->getAllProducts();
         </form>
       </td>
       <td>
-        <form action="/pull-out" method="POST">
-          <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
-          <button type="submit" class="pullout-btn" onclick="showToast()">Pull-out</button>
-        </form>
-      </td>
-      <td>
-        <form action="/archive" method="POST">
-          <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
-          <button type="submit" class="archive-btn" onclick="showToast()">Archive</button>
-        </form>
+      <form action="index.php?action=archive" method="POST">
+      <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
+      <button type="submit" class="archive-btn" 
+        onclick="return confirm('Archive this product?')">
+        Archive
+      </button>
+    </form>
       </td>
     </tr>
   <?php endforeach; ?>

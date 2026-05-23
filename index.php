@@ -18,22 +18,6 @@ $action = $_GET['action'] ?? 'index';
 
 switch ($action) {
 
-    case 'register':
-        
-        requireRole('admin');
-        $message = "";
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = [
-                'username' => $_POST['username'],
-                'password' => $_POST['password'],
-                'role' => $_POST['role'],
-                'employee_id' => $_POST['employee_id']
-            ];
-
-            $message = $userController->storeNewUser($data) ? "User registered successfully" : "Failed to register user";
-        }
-        include "View/register.php";
-        break;
 
     case 'login':
 
@@ -57,6 +41,23 @@ switch ($action) {
         }
         include "View/login.php";
         break;
+
+    case 'register':
+        
+        requireRole('admin');
+        $message = "";
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'username' => $_POST['username'],
+                'password' => $_POST['password'],
+                'role' => $_POST['role'],
+                'employee_id' => $_POST['employee_id']
+            ];
+
+            $message = $userController->storeNewUser($data) ? "User registered successfully" : "Failed to register user";
+        }
+        include "View/register.php";
+        break;
         
     case 'dashboard':
         
@@ -64,14 +65,29 @@ switch ($action) {
         break;
 
     case 'inventory':
+
         requireRole('admin', 'employee');
         include "View/Inventory.php";
         break;
+
+    case 'archive':
+
+        requireRole('admin');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $product_id = $_POST['product_id'];
+            $productController->archiveProduct($product_id);
+        }
+        header("Location: index.php?action=inventory");
+        exit();
+
     case 'logout':
+
         session_destroy();
         header("Location: index.php?action=login");
         exit();
+
     default:
+
         header("Location: index.php?action=login");
         exit();
 

@@ -53,13 +53,29 @@ class Product {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ? $result['total'] : 0;
     }
-    
+
     public function needRestocks() {
     $stmt = $this->conn->prepare("SELECT COUNT(*) as total FROM product WHERE stock_quantity < 20");
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     return $result ? $result['total'] : 0;
     }
+    
+    public function archiveProduct($product_id) {
+    // copy to archive first
+    $stmt = $this->conn->prepare("
+        INSERT INTO product_archive (product_id, product_name, description, stock_quantity)
+        SELECT product_id, product_name, description, stock_quantity
+        FROM product
+        WHERE product_id = ?
+    ");
+    $stmt->execute([$product_id]);
+
+    // then delete from product table
+    $stmt = $this->conn->prepare("DELETE FROM product WHERE product_id = ?");
+    return $stmt->execute([$product_id]);
+}
+
 
 
 }
