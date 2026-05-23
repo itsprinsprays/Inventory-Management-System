@@ -53,7 +53,13 @@ class Product {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ? $result['total'] : 0;
     }
-
+    
+    public function needRestocks() {
+    $stmt = $this->conn->prepare("SELECT COUNT(*) as total FROM product WHERE stock_quantity < 20");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result ? $result['total'] : 0;
+    }
 
 
 }

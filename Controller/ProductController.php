@@ -50,5 +50,9 @@ class ProductController {
         return $this->product->countCriticalStock();
     }
 
+    public function needRestocks() {
+        return $this->product->needRestocks();
+    }
+
 
 }

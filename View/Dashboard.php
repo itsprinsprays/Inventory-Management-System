@@ -50,7 +50,7 @@
 
       <div class="card">
         <h3>Pending Restocks</h3>
-        <p>5</p>
+        <p><?= $controller->needRestocks() ?></p>
       </div>
 
       <div class="card">
