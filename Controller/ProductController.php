@@ -37,7 +37,7 @@ class ProductController {
     }
 
     public function getStatus($stock){
-        if ($stock < 10) return "CRITICAL";
+        if ($stock < 10)return "CRITICAL";
         if ($stock < 20) return "LOW";
         return "GOOD";
         } 
@@ -45,4 +45,10 @@ class ProductController {
     public function countProducts() {
         return $this->product->countProducts();
     }
+
+    public function countCriticalStock() {
+        return $this->product->countCriticalStock();
+    }
+
+
 }

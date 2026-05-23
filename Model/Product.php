@@ -47,6 +47,13 @@ class Product {
         return $result ? $result['total'] : 0;
     }
 
+    public function countCriticalStock() {
+        $stmt = $this->conn->prepare("SELECT COUNT(*) as total FROM product WHERE stock_quantity < 10");
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['total'] : 0;
+    }
+
 
 
 }

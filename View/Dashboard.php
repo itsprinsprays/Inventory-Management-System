@@ -44,8 +44,8 @@
     <div class="cards">
 
       <div class="card">
-        <h3>Low Stock Items</h3>
-        <p>12</p>
+        <h3>Critical Stock Items</h3>
+        <p><?= $controller->countCriticalStock() ?></p>
       </div>
 
       <div class="card">
