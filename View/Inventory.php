@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="../Public/Inventory.css">
+  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Inventory.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Restock Inventory Dashboard</title>
@@ -17,10 +17,10 @@
     <h2>InventorySys</h2>
 
     <ul>
-      <li><a href="#">Dashboard</a></li>
-      <li><a href="#">Inventory</a></li>
+      <li><a href="index.php?action=dashboard">Dashboard</a></li>
+      <li><a href="index.php?action=inventory">Inventory</a></li>
       <li><a href="#">Transaction History</a></li>
-      <li><a href="#">Register Teacher</a></li>
+      <li><a href="#">Register Account</a></li>
     </ul>
   </div>
 

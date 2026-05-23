@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Shop.css">
+  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Dashboard.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Restock Inventory Dashboard</title>
@@ -9,6 +9,15 @@
 
 </head>
 
+        <?php
+
+        require_once "Model/Product.php";
+        require_once "Controller/ProductController.php";
+
+        $controller = new ProductController($conn);
+        $products = $controller->getAllProducts();
+        ?>
+        
 <body>
 
   <!-- SIDEBAR -->
@@ -16,8 +25,8 @@
   <div class="sidebar">
     <h2>InventorySys</h2>
     <ul>
-      <li><a href="#">Dashboard</a></li>
-      <li><a href="#">Inventory</a></li>
+      <li><a href="index.php?action=dashboard">Dashboard</a></li>
+      <li><a href="index.php?action=inventory">Inventory</a></li>
       <li><a href="#">Transaction History</a></li>
       
       <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
@@ -46,7 +55,7 @@
 
       <div class="card">
         <h3>Products</h3>
-        <p>124</p>
+        <p><?= $controller->countProducts() ?></p>
       </div>
 
       <div class="card">
@@ -74,14 +83,6 @@
           </tr>
         </thead>
 
-        <?php
-
-        require_once "Model/Product.php";
-        require_once "Controller/ProductController.php";
-
-        $controller = new ProductController($conn);
-        $products = $controller->getAllProducts();
-        ?>
       <tbody>
         <?php foreach ($products as $product): ?>
           <?php $status = $controller->getStatus($product['stock_quantity']); ?>

@@ -41,4 +41,8 @@ class ProductController {
         if ($stock < 20) return "LOW";
         return "GOOD";
         } 
+
+    public function countProducts() {
+        return $this->product->countProducts();
+    }
 }

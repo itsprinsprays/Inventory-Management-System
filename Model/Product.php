@@ -40,6 +40,13 @@ class Product {
         return $result ? $result['stock_quantity'] : null;
     }
 
+    public function countProducts() {
+        $stmt = $this->conn->prepare("SELECT COUNT(*) as total FROM product");
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['total'] : 0;
+    }
+
 
 
 }

@@ -60,7 +60,12 @@ switch ($action) {
         
     case 'dashboard':
         
-        include "View/Shop.php";
+        include "View/Dashboard.php";
+        break;
+
+    case 'inventory':
+        requireRole('admin', 'employee');
+        include "View/Inventory.php";
         break;
 
     default:
@@ -68,5 +73,3 @@ switch ($action) {
         exit();
 
 }
-
-?>
