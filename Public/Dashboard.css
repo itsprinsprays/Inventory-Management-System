@@ -169,18 +169,14 @@
 
     /* BUTTON */
 
-    .restock-btn{
-      background:#2563eb;
+    .pullout-btn{
+      background:#3b82f6;
       color:white;
+      padding:8px 16px;
       border:none;
-      padding:10px 15px;
       border-radius:8px;
       cursor:pointer;
       transition:0.3s;
-    }
-
-    .restock-btn:hover{
-      background:#1d4ed8;
     }
 
     /* TOAST */

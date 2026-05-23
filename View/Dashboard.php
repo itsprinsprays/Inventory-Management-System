@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Dashboards.css">
+  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Dashboard.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Restock Inventory Dashboard</title>
@@ -26,11 +26,16 @@
     <h2>InventorySys</h2>
     <ul>
       <li><a href="index.php?action=dashboard">Dashboard</a></li>
-      <li><a href="index.php?action=inventory">Inventory</a></li>
-      <li><a href="#">Transaction History</a></li>
+      <li><a href="index.php?action=logout">Log Out</a></li>
+
       
       <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-        <li><a href="#">Register Teacher</a></li>
+      <li><a href="index.php?action=inventory">Inventory</a></li>
+      <li><a href="#">Transaction History</a></li>
+      <li><a href="#">Request Tracking</a></li>
+      <li><a href="#">Confirm Product Request</a></li>
+      <li><a href="#">Archive</a></li>
+        <li><a href="#">User Management</a></li>
       <?php endif; ?>
     </ul>
   </div>
@@ -80,6 +85,7 @@
             <th>Product</th>
             <th>Stock</th>
             <th>Status</th>
+            <th>Control</th>
           </tr>
         </thead>
     
@@ -94,6 +100,11 @@
                 <?= $status ?>
               </span>
             </td>
+            <td>
+              <form action="/pullout" method="POST">
+                <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
+                <button type="submit" class="pullout-btn" onclick="showToast()">Request</button>
+              </form>
           </tr>
         <?php endforeach; ?>
       </tbody

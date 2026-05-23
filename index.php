@@ -67,7 +67,10 @@ switch ($action) {
         requireRole('admin', 'employee');
         include "View/Inventory.php";
         break;
-
+    case 'logout':
+        session_destroy();
+        header("Location: index.php?action=login");
+        exit();
     default:
         header("Location: index.php?action=login");
         exit();
