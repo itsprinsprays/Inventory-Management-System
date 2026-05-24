@@ -60,6 +60,17 @@ switch ($action) {
         }
         include "View/register.php";
         break;
+
+    case 'register-ui':
+
+        include "View/register.php";
+        break;
+
+    case 'registerPage':
+
+        requireRole('admin');
+        header("Location: index.php?action=register-ui");
+        break;
         
     case 'dashboard':
         
