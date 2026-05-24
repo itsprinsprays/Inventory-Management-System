@@ -142,7 +142,6 @@
       background:#f8fafc;
       color:#475569;
     }
-
     
 
     /* STATUS */
@@ -169,19 +168,42 @@
 
     /* BUTTON */
 
-    .restock-btn{
-      background:#2563eb;
-      color:white;
-      border:none;
-      padding:10px 15px;
-      border-radius:8px;
-      cursor:pointer;
-      transition:0.3s;
-    }
+.restock-btn,
+.pullout-btn,
+.archive-btn {
+  all: unset;
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+}
 
-    .restock-btn:hover{
-      background:#1d4ed8;
-    }
+.restock-btn {
+  background: #2563eb;
+}
+
+.restock-btn:hover {
+  background: #1d4ed8;
+}
+
+.pullout-btn {
+  background: #ef4444;
+}
+
+.pullout-btn:hover {
+  background: #dc2626;
+}
+
+.archive-btn {
+  background: #8b5cf6;
+}
+
+.archive-btn:hover {
+  background: #7c3aed;
+}
 
     /* TOAST */
 
@@ -221,3 +243,48 @@
         width:100%;
       }
     }
+
+    
+    .warning-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.warning-box {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.warning-box h2 {
+  color: #c0392b;
+  margin-bottom: 0.5rem;
+}
+
+.warning-box p {
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.warning-box button {
+  background: #c0392b;
+  color: white;
+  border: none;
+  padding: 10px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.warning-box button:hover {
+  background: #a93226;
+}
+

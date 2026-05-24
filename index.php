@@ -7,16 +7,42 @@ require_once "controller/ProductController.php";
 require_once "controller/UserController.php";
 require_once "controller/EmployeeController.php";
 require_once "controller/AuthController.php";
+require_once "controller/ArchiveController.php";
 require_once "config/role_guard.php";
 
 $productController = new ProductController($conn);
 $userController = new UserController($conn);
 $employeeController = new EmployeeController($conn);
 $authController = new AuthController($conn);
+$archiveController = new ArchiveController($conn);
 
 $action = $_GET['action'] ?? 'index';
 
 switch ($action) {
+
+
+    case 'login':
+
+        $message = "";
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $credentials = [
+                'username' => $_POST['username'],
+                'password' => $_POST['password'] 
+            ];
+
+            $user = $authController->login($credentials);
+
+            if($user) {
+                header("Location: index.php?action=dashboard");
+                exit();
+            } else {
+                $message = "Invalid username or password";
+                header("Location: index.php?action=register");
+            }
+        }
+        include "View/login.php";
+        break;
 
     case 'register':
         
@@ -35,38 +61,88 @@ switch ($action) {
         include "View/register.php";
         break;
 
-    case 'login':
+    case 'register-ui':
 
-        $message = "";
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        include "View/register.php";
+        break;
 
-            $credentials = [
-                'username' => $_POST['username'],
-                'password' => $_POST['password']
-            ];
+    case 'registerPage':
 
-            $user = $authController->login($credentials);
-
-            if($user) {
-                header("Location: index.php?action=dashboard");
-                exit();
-            } else {
-                $message = "Invalid username or password";
-                header("Location: index.php?action=register");
-            }
-        }
-        include "View/login.php";
+        requireRole('admin');
+        header("Location: index.php?action=register-ui");
         break;
         
     case 'dashboard':
         
-        include "View/Shop.php";
+        include "View/Dashboard.php";
+        break;
+    
+    case 'request-button':
+
+        include "View/Request.php";
         break;
 
+    case 'request-Page':
+        
+        requireRole('admin');
+        include "View/Request.php";
+        break;
+
+    case 'inventory':
+
+        requireRole('admin', 'employee');
+        include "View/Inventory.php";
+        break;
+
+    case 'archive':
+
+        requireRole('admin');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $product_id = $_POST['product_id'];
+            $productController->archiveProduct($product_id);
+        }
+        header("Location: index.php?action=inventory");
+        exit();
+
+    case 'restock':
+
+        requireRole('admin');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $product_id = $_POST['product_id'];
+            $quantity = $_POST['stock_quantity'];
+            $productController->restock($product_id, $quantity);
+        }
+
+    case 'archive-ui':
+    
+        include "View/ArchivePage.php";
+        break;
+
+    case 'archived':
+        requireRole('admin');
+        header("Location: index.php?action=archive-ui");
+        break;
+
+    case 'activateProduct':
+        requireRole('admin');
+
+        if($_SERVER['REQUEST_METHOD'] === "POST") {
+            $product_id = $_POST['product_id'];
+            $archiveController->activateProduct($product_id);
+        }
+
+        header("Location: index.php?action=archive-ui");
+        exit;
+
+    case 'logout':
+
+        session_destroy();
+        header("Location: index.php?action=login");
+        exit();
+
     default:
+
         header("Location: index.php?action=login");
         exit();
 
 }
-
-?>

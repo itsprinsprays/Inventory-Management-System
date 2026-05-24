@@ -28,6 +28,10 @@ class ProductController {
         return $this->product->getAllProducts();
     }
 
+ public function getProductName($product_id) {
+    return $this->product->getProductName($product_id);
+}
+
     public function deleteProduct($product_id) {
         return $this->product->deleteProduct($product_id);
     }
@@ -37,8 +41,25 @@ class ProductController {
     }
 
     public function getStatus($stock){
-        if ($stock < 10) return "CRITICAL";
+        if ($stock < 10)return "CRITICAL";
         if ($stock < 20) return "LOW";
         return "GOOD";
         } 
+
+    public function countProducts() {
+        return $this->product->countProducts();
+    }
+
+    public function countCriticalStock() {
+        return $this->product->countCriticalStock();
+    }
+
+    public function needRestocks() {
+        return $this->product->needRestocks();
+    }
+
+    public function archiveProduct($product_id) {
+        return $this->product->archiveProduct($product_id);
+    }
+
 }

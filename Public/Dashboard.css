@@ -142,6 +142,7 @@
       background:#f8fafc;
       color:#475569;
     }
+
     
 
     /* STATUS */
@@ -168,33 +169,16 @@
 
     /* BUTTON */
 
-.restock-btn,
-.pullout-btn {
-  all: unset;
-  display: inline-block;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  color: white;
-  font-size: 14px;
-  text-align: center;
-}
+    .pullout-btn{
+      background:#3b82f6;
+      color:white;
+      padding:8px 16px;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      transition:0.3s;
+    }
 
-.restock-btn {
-  background: #2563eb;
-}
-
-.restock-btn:hover {
-  background: #1d4ed8;
-}
-
-.pullout-btn {
-  background: #ef4444;
-}
-
-.pullout-btn:hover {
-  background: #dc2626;
-}
     /* TOAST */
 
     .toast{
@@ -233,3 +217,5 @@
         width:100%;
       }
     }
+
+    

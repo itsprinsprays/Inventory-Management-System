@@ -66,10 +66,6 @@
         <?= $message ?? '' ?>
     </div>
 
-    <p>
-        Already have an account?
-        <a href="index.php?action=login">Login</a>
-    </p>
 
 </div>
 
