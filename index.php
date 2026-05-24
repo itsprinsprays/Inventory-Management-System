@@ -7,12 +7,14 @@ require_once "controller/ProductController.php";
 require_once "controller/UserController.php";
 require_once "controller/EmployeeController.php";
 require_once "controller/AuthController.php";
+require_once "controller/ArchiveController.php";
 require_once "config/role_guard.php";
 
 $productController = new ProductController($conn);
 $userController = new UserController($conn);
 $employeeController = new EmployeeController($conn);
 $authController = new AuthController($conn);
+$archiveController = new ArchiveController($conn);
 
 $action = $_GET['action'] ?? 'index';
 
@@ -98,6 +100,17 @@ switch ($action) {
         requireRole('admin');
         header("Location: index.php?action=archive-ui");
         break;
+
+    case 'activateProduct':
+        requireRole('admin');
+
+        if($_SERVER['REQUEST_METHOD'] === "POST") {
+            $product_id = $_POST['product_id'];
+            $archiveController->activateProduct($product_id);
+        }
+
+        header("Location: index.php?action=archive-ui");
+        exit;
 
     case 'logout':
 

@@ -91,8 +91,8 @@
             <td><?= htmlspecialchars($archive['archived_at']) ?></td>
 
             <td>
-              <form action="/pullout" method="POST">
-                <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
+              <form action="index.php?action=activateProduct" method="POST">
+                <input type="hidden" name="product_id" value="<?= $archive['product_id'] ?>">
                 <button type="submit" class="pullout-btn" onclick="showToast()">Activate</button>
               </form>
           </tr>

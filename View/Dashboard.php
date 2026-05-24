@@ -34,7 +34,7 @@
       <li><a href="#">Transaction History</a></li>
       <li><a href="#">Request Tracking</a></li>
       <li><a href="#">Confirm Product Request</a></li>
-      <li><a href="#">Archive</a></li>
+      <li><a href="index.php?action=archived">Archive</a></li>
         <li><a href="#">User Management</a></li>
       <?php endif; ?>
     </ul>

@@ -13,6 +13,10 @@ class ArchiveController {
         return $this->archive->getProductArchive();
     }
 
+    public function activateProduct($product_id) {
+        return $this->archive->activateProduct($product_id);
+    }
+
 }
 
 

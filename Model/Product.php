@@ -62,7 +62,6 @@ class Product {
     }
     
     public function archiveProduct($product_id) {
-    // copy to archive first
     $stmt = $this->conn->prepare("
         INSERT INTO product_archive (product_id, product_name, description, stock_quantity)
         SELECT product_id, product_name, description, stock_quantity
@@ -71,7 +70,6 @@ class Product {
     ");
     $stmt->execute([$product_id]);
 
-    // then delete from product table
     $stmt = $this->conn->prepare("DELETE FROM product WHERE product_id = ?");
     return $stmt->execute([$product_id]);
 }
