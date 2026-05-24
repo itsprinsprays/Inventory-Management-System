@@ -28,6 +28,10 @@ class ProductController {
         return $this->product->getAllProducts();
     }
 
+ public function getProductName($product_id) {
+    return $this->product->getProductName($product_id);
+}
+
     public function deleteProduct($product_id) {
         return $this->product->deleteProduct($product_id);
     }

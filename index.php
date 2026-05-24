@@ -76,6 +76,17 @@ switch ($action) {
         
         include "View/Dashboard.php";
         break;
+    
+    case 'request-button':
+
+        include "View/Request.php";
+        break;
+
+    case 'request-Page':
+        
+        requireRole('admin');
+        include "View/Request.php";
+        break;
 
     case 'inventory':
 

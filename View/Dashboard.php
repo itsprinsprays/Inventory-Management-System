@@ -101,10 +101,10 @@
               </span>
             </td>
             <td>
-              <form action="/pullout" method="POST">
-                <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
-                <button type="submit" class="pullout-btn" onclick="showToast()">Request</button>
-              </form>
+              <form action="index.php?action=request-Page" method="POST">
+            <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['product_name']) ?>">
+      <a href="index.php?action=request-Page&product_name=<?= urlencode($product['product_name']) ?>" class="pullout-btn">Request</a> 
+      </form>
           </tr>
         <?php endforeach; ?>
       </tbody
@@ -118,6 +118,8 @@
   <div class="toast" id="toast">
     ✓ Stock Updated Successfully
   </div>
+
+  
 
   <script>
 
