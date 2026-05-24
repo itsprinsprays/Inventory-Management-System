@@ -55,7 +55,7 @@ $products = $controller->getAllProducts();
       <li><a href="#">Transaction History</a></li>
       <li><a href="#">Request Tracking</a></li>
       <li><a href="#">Confirm Product Request</a></li>
-      <li><a href="#">Archive</a></li>
+      <li><a href="index.php?action=archived">Archive</a></li>
         <li><a href="#">User Management</a></li>
       <?php endif; ?>
     </ul>
@@ -115,14 +115,14 @@ $products = $controller->getAllProducts();
     <?php $status = $controller->getStatus($product['stock_quantity']); ?>
     <tr>
       <td><?= htmlspecialchars($product['product_name']) ?></td>
-      <td><?= htmlspecialchars($product['stock_quantity']) ?></td>
+      <td><?= htmlspecialchars($product['stock_quantity']) ?></td> 
       <td>
         <span class="status <?= strtolower($status) ?>">
           <?= $status ?>
         </span>
       </td>
       <td>
-        <form action="/restock" method="POST">
+        <form action="index.php?action=restock" method="POST">
           <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
           <button type="submit" class="restock-btn" onclick="showToast()">Restock</button>
         </form>

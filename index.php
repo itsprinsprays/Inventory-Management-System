@@ -80,6 +80,25 @@ switch ($action) {
         header("Location: index.php?action=inventory");
         exit();
 
+    case 'restock':
+
+        requireRole('admin');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $product_id = $_POST['product_id'];
+            $quantity = $_POST['stock_quantity'];
+            $productController->restock($product_id, $quantity);
+        }
+
+    case 'archive-ui':
+    
+        include "View/ArchivePage.php";
+        break;
+
+    case 'archived':
+        requireRole('admin');
+        header("Location: index.php?action=archive-ui");
+        break;
+
     case 'logout':
 
         session_destroy();
