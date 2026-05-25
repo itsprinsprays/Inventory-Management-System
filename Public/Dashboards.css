@@ -11,6 +11,10 @@
       color:#1e293b;
     }
 
+    a {
+      text-decoration: dotted;
+    }
+
     /* SIDEBAR */
 
     .sidebar{
@@ -177,6 +181,7 @@
       border-radius:8px;
       cursor:pointer;
       transition:0.3s;
+      text-decoration: none;
     }
 
     /* TOAST */
