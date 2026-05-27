@@ -103,7 +103,7 @@
             <td>
               <form action="index.php?action=request-Page" method="POST">
             <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['product_name']) ?>">
-      <a href="index.php?action=request-Page&product_name=<?= urlencode($product['product_name']) ?>" class="pullout-btn">Request</a> 
+      <a href="index.php?action=request-Page&product_id=<?= $product['product_id'] ?>&product_name=<?= urlencode($product['product_name']) ?>" class="pullout-btn">Request</a>
       </form>
           </tr>
         <?php endforeach; ?>

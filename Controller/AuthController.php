@@ -16,9 +16,10 @@ class AuthController {
         );
 
         if ($user) {
-            $_SESSION['user_id']  = $user['user_id'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['role']     = $user['role'];
+            $_SESSION['user_id']     = $user['user_id'];
+            $_SESSION['username']    = $user['username'];
+            $_SESSION['role']        = $user['role'];
+            $_SESSION['employee_id'] = $user['Employee_id'];
             return $user;
         }
         return false;

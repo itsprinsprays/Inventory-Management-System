@@ -9,12 +9,14 @@ require_once "controller/EmployeeController.php";
 require_once "controller/AuthController.php";
 require_once "controller/ArchiveController.php";
 require_once "config/role_guard.php";
+require_once "controller/RequestController.php";
 
 $productController = new ProductController($conn);
 $userController = new UserController($conn);
 $employeeController = new EmployeeController($conn);
 $authController = new AuthController($conn);
 $archiveController = new ArchiveController($conn);
+$requestController = new RequestController($conn);
 
 $action = $_GET['action'] ?? 'index';
 
@@ -76,16 +78,10 @@ switch ($action) {
         
         include "View/Dashboard.php";
         break;
-    
-    case 'request-button':
-
-        include "View/Request.php";
-        break;
 
     case 'request-Page':
         
-        requireRole('admin');
-        include "View/Request.php";
+        include "View/RequestPage.php";
         break;
 
     case 'inventory':
@@ -133,6 +129,20 @@ switch ($action) {
 
         header("Location: index.php?action=archive-ui");
         exit;
+
+    case 'submit-request':
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'product_id'     => $_POST['product_id'],
+                'product_name'   => $_POST['product_name'],
+                'stock_quantity' => $_POST['stock_quantity'],
+                'employee_id'    => $_SESSION['employee_id'] // from session
+            ];
+            $requestController->storeNewRequest($data);
+            }
+            header("Location: index.php?action=dashboard");
+        exit();
+        break;
 
     case 'logout':
 
