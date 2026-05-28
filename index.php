@@ -217,6 +217,12 @@ switch ($action) {
         include "View/TransactionHistory.php";
         break;
 
+    case 'user-information':
+
+        requireRole('admin');
+        include "View/UserInformation.php";
+        break;
+
     case 'logout':
 
         session_destroy();

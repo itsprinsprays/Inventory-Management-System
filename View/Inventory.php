@@ -55,7 +55,8 @@ $products = $controller->getAllProducts();
       <li><a href="index.php?action=transaction-history">Transaction History</a></li>
       <li><a href="index.php?action=request-tracking">Confirm Product Request</a></li>
       <li><a href="index.php?action=archived">Archive</a></li>
-        <li><a href="index.php?action=registerPage">User Management</a></li>
+      <li><a href="index.php?action=registerPage">User Management</a></li>
+      <li><a href="index.php?action=user-information">User Information</a></li>
       <?php endif; ?>
     </ul>
   </div>
