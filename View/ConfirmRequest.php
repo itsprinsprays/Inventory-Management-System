@@ -79,7 +79,7 @@
     <div class="table-container">
 
       <div class="table-header">
-        <h2>Request Tracking Overview</h2>
+        <h2>Confirm Request</h2>
       </div>
 
       <table>
@@ -97,25 +97,30 @@
           </tr>
         </thead>
     
-      <tbody>
-        <?php foreach ($request as $request) :?>
-          <tr>
-            <td><?= htmlspecialchars($request['request_id']) ?></td>
-            <td><?= htmlspecialchars($request['product_id']) ?></td>
-            <td><?= htmlspecialchars($request['product_name']) ?></td>
-            <td><?= htmlspecialchars($request['stock_quantity']) ?></td>
-            <td><?= htmlspecialchars($request['request_date']) ?></td>
-            <td><?= htmlspecialchars($request['employee_id']) ?></td>
-        
-            </td>
-            <td>
-              <form action="index.php?action=request-Page" method="POST">
-            <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['product_name']) ?>">
-      <a href="index.php?action=request-Page&product_id=<?= $product['product_id'] ?>&product_name=<?= urlencode($product['product_name']) ?>" class="pullout-btn">Request</a>
-      </form>
-          </tr>
-        <?php endforeach; ?>
-      </tbody
+        <tbody>
+    <?php foreach ($request as $req): ?>
+        <tr>
+        <td><?= htmlspecialchars($req['request_id']) ?></td>
+        <td><?= htmlspecialchars($req['product_id']) ?></td>
+        <td><?= htmlspecialchars($req['product_name']) ?></td>
+        <td><?= htmlspecialchars($req['stock_quantity']) ?></td>
+        <td><?= htmlspecialchars($req['request_date']) ?></td>
+        <td><?= htmlspecialchars($req['employee_id']) ?></td>
+        <td>
+            <form action="index.php?action=confirm-request-submit" method="POST">
+            <input type="hidden" name="request_id"     value="<?= $req['request_id'] ?>">
+            <input type="hidden" name="product_id"     value="<?= $req['product_id'] ?>">
+            <input type="hidden" name="product_name"   value="<?= $req['product_name'] ?>">
+            <input type="hidden" name="stock_quantity" value="<?= $req['stock_quantity'] ?>">
+            <input type="hidden" name="request_date"   value="<?= $req['request_date'] ?>">
+            <input type="hidden" name="employee_name"  value="<?= $req['employee_name'] ?? '' ?>">
+            <input type="hidden" name="employee_id"    value="<?= $req['employee_id'] ?>">
+            <button type="submit" class="pullout-btn">Confirm</button>
+            </form>
+        </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
 
       </table>
     </div>

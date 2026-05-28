@@ -10,6 +10,7 @@ require_once "controller/AuthController.php";
 require_once "controller/ArchiveController.php";
 require_once "config/role_guard.php";
 require_once "controller/RequestController.php";
+require_once "Controller/TransactionController.php";
 
 $productController = new ProductController($conn);
 $userController = new UserController($conn);
@@ -17,6 +18,7 @@ $employeeController = new EmployeeController($conn);
 $authController = new AuthController($conn);
 $archiveController = new ArchiveController($conn);
 $requestController = new RequestController($conn);
+$transactionController = new TransactionController($conn);
 
 $action = $_GET['action'] ?? 'index';
 
@@ -148,6 +150,35 @@ switch ($action) {
 
         requireRole('admin');
         include "View/RequestTracking.php";
+        break;
+
+    case 'confirm-request':
+
+        requireRole('admin');
+        include "View/ConfirmRequest.php";
+        break;
+
+    case 'confirm-request-submit':
+
+        requireRole('admin');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'product_id'     => $_POST['product_id'],
+                'product_name'   => $_POST['product_name'],
+                'stock_quantity' => $_POST['stock_quantity'],
+                'request_date'   => $_POST['request_date'],
+                'employee_name'  => $_POST['employee_name'],
+                'employee_id'    => $_POST['employee_id']
+            ];
+
+            $transactionController->confirmRequest($data);
+
+            // delete request after confirming
+            $stmt = $conn->prepare("DELETE FROM request WHERE request_id = ?");
+            $stmt->execute([$_POST['request_id']]);
+        }
+        header("Location: index.php?action=confirm-request");
+        exit();
         break;
 
     case 'logout':

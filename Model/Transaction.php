@@ -3,12 +3,16 @@
 class Transaction {
     private $conn;
 
-    private function __construct($db){
+    public function __construct($db){
         $this->conn = $db;
     } 
 
-    public function addNewTransaction($product_name, $quantity, $stock_quantity) {
-        $stmt = $this->conn->prepare("INSERT INTO transaction (product_name, quantity, stock_quantity) VALUES (?, ?, ?)");
-        return $stmt->execute([$product_name, $quantity, $stock_quantity]);
+    public function addNewTransaction($product_id, $product_name, $stock_quantity, $request_date, $employee_name, $employee_id) {
+
+        $stmt = $this->conn->prepare("Update product set stock_quantity = (stock_quantity - ?) where product_id = ?");
+        $stmt->execute([$stock_quantity, $product_id]);
+
+        $stmt = $this->conn->prepare("INSERT INTO transaction (product_id, product_name, stock_quantity, request_date, employee_name, employee_id) VALUES (?, ?, ?, ?, ?, ?)");
+        return $stmt->execute([$product_id, $product_name, $stock_quantity, $request_date, $employee_name, $employee_id]);
     }
 }
