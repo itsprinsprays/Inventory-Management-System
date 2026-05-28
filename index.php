@@ -138,6 +138,7 @@ switch ($action) {
                 'product_id'     => $_POST['product_id'],
                 'product_name'   => $_POST['product_name'],
                 'stock_quantity' => $_POST['stock_quantity'],
+                'unit'           => $_POST['unit'],
                 'employee_id'    => $_SESSION['employee_id'] // from session
             ];
             $requestController->storeNewRequest($data);
@@ -160,6 +161,7 @@ switch ($action) {
                 'product_id'     => $_POST['product_id'],
                 'product_name'   => $_POST['product_name'],
                 'stock_quantity' => $_POST['stock_quantity'],
+                'unit'           => $_POST['unit'],
                 'request_date'   => $_POST['request_date'],
                 'employee_name'  => $_POST['employee_name'],
                 'employee_id'    => $_POST['employee_id'],
@@ -181,6 +183,7 @@ switch ($action) {
                 'product_id'     => $_POST['product_id'],
                 'product_name'   => $_POST['product_name'],
                 'stock_quantity' => $_POST['stock_quantity'],
+                'unit'           => $_POST['unit'],
                 'request_date'   => $_POST['request_date'],
                 'employee_name'  => $_POST['employee_name'],
                 'employee_id'    => $_POST['employee_id'],

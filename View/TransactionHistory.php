@@ -88,48 +88,40 @@
       <table>
 
         <thead>
-          <tr>
-            <th>Request ID</th>
-            <th>Product ID</th>
-            <th>Product Name</th>
-            <th>Stock Quantity</th>
-            <th>Request Date</th>
-            <th>Confirm Request Date</th> 
-            <th>Employee Name </th>
-            <th>Employee ID</th>
-            <th>Status</th>
+  <tr>
+    <th>Transaction ID</th>
+    <th>Product ID</th>
+    <th>Product Name</th>
+    <th>Stock Quantity</th>
+    <th>Unit</th>
+    <th>Request Date</th>
+    <th>Confirm Date</th>
+    <th>Employee Name</th>
+    <th>Employee ID</th>
+    <th>Status</th>
+  </tr>
+</thead>
 
-          </tr>
-        </thead>
-    
-        <tbody>
-    <?php foreach ($transaction as $transaction): ?>
-        <tr>
-        <td><?= htmlspecialchars($transaction['transaction_id']) ?></td>
-        <td><?= htmlspecialchars($transaction['product_id']) ?></td>
-        <td><?= htmlspecialchars($transaction['product_name']) ?></td>
-        <td><?= htmlspecialchars($transaction['stock_quantity']) ?></td>
-        <td><?= htmlspecialchars($transaction['request_date']) ?></td>
-        <td><?= htmlspecialchars($transaction['confirmRequest']) ?></td>
-        <td><?= htmlspecialchars($transaction['employee_name']) ?></td>
-        <td><?= htmlspecialchars($transaction['employee_id']) ?></td>
-        <td><?= htmlspecialchars($transaction['status']) ?></td>
-        <td>
-            <form action="index.php?action=confirm-request-submit" method="POST">
-            <input type="hidden" name="request_id"     value="<?= $transaction['transaction_id'] ?>">
-            <input type="hidden" name="product_id"     value="<?= $transaction['product_id'] ?>">
-            <input type="hidden" name="product_name"   value="<?= $transaction['product_name'] ?>">
-            <input type="hidden" name="stock_quantity" value="<?= $transaction['stock_quantity'] ?>">
-            <input type="hidden" name="request_date"   value="<?= $transaction['request_date'] ?>">
-            <input type="hidden" name="confirmRequest"   value="<?= $transaction['confirmRequest'] ?>">
-            <input type="hidden" name="employee_name"  value="<?= $transaction['employee_name'] ?>">
-            <input type="hidden" name="employee_id"    value="<?= $transaction['employee_id'] ?>">
-            <input type="hidden" name="status"    value="<?= $transaction['status'] ?>"
-        
-        </td>
-        </tr>
-    <?php endforeach; ?>
-    </tbody>
+<tbody>
+  <?php foreach ($transaction as $transaction): ?>
+    <tr>
+      <td><?= htmlspecialchars($transaction['transaction_id']) ?></td>
+      <td><?= htmlspecialchars($transaction['product_id']) ?></td>
+      <td><?= htmlspecialchars($transaction['product_name']) ?></td>
+      <td><?= htmlspecialchars($transaction['stock_quantity']) ?></td>
+      <td><?= htmlspecialchars($transaction['unit'] ?? '') ?></td>
+      <td><?= htmlspecialchars($transaction['request_date']) ?></td>
+      <td><?= htmlspecialchars($transaction['confirmRequest']) ?></td>
+      <td><?= htmlspecialchars($transaction['employee_name']) ?></td>
+      <td><?= htmlspecialchars($transaction['employee_id']) ?></td>
+      <td>
+        <span class="status <?= strtolower($transaction['status']) ?>">
+          <?= htmlspecialchars($transaction['status']) ?>
+        </span>
+      </td>
+    </tr>
+  <?php endforeach; ?>
+</tbody>
 
       </table>
     </div>

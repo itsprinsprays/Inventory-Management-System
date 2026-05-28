@@ -9,14 +9,15 @@ class RequestController {
         $this->request = new Request($db); 
     }
 
-    public function storeNewRequest($data) {
-        return $this->request->createRequest(
-            $data['product_id'],
-            $data['product_name'],
-            $data['stock_quantity'],
-            $data['employee_id']
-        );
-    }
+   public function storeNewRequest($data) {
+    return $this->request->createRequest(
+        $data['product_id'],
+        $data['product_name'],
+        $data['stock_quantity'],
+        $data['unit'],
+        $data['employee_id']
+    );
+}
 
     public function getAllRequest() {
         return $this->request->getAllRequest();

@@ -89,6 +89,7 @@
             <th>Product ID</th>
             <th>Product Name</th>
             <th>Stock Quantity</th>
+            <th>Unit</th>
             <th>Request Date</th> 
             <th>Employee ID</th>
             <th colspan = 2>Control</th>
@@ -103,15 +104,16 @@
         <td><?= htmlspecialchars($req['product_id']) ?></td>
         <td><?= htmlspecialchars($req['product_name']) ?></td>
         <td><?= htmlspecialchars($req['stock_quantity']) ?></td>
+        <td><?= htmlspecialchars($req['unit'] ?? '') ?></td>
         <td><?= htmlspecialchars($req['request_date']) ?></td>
         <td><?= htmlspecialchars($req['employee_id']) ?></td>
-                </td>
             <td>
         <form action="index.php?action=remove-request" method="POST">
             <input type="hidden" name="request_id"     value="<?= $req['request_id'] ?>">
             <input type="hidden" name="product_id"     value="<?= $req['product_id'] ?>">
             <input type="hidden" name="product_name"   value="<?= $req['product_name'] ?>">
             <input type="hidden" name="stock_quantity" value="<?= $req['stock_quantity'] ?>">
+            <input type="hidden" name="unit" value="<?= htmlspecialchars($req['unit'] ?? '') ?>">
             <input type="hidden" name="request_date"   value="<?= $req['request_date'] ?>">
             <input type="hidden" name="employee_name"  value="<?= $req['name'] ?? '' ?>">
             <input type="hidden" name="employee_id"    value="<?= $req['employee_id'] ?>">

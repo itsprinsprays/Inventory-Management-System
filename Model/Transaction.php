@@ -7,19 +7,18 @@ class Transaction {
         $this->conn = $db;
     } 
 
-    public function addNewTransaction($product_id, $product_name, $stock_quantity, $request_date, $employee_name, $employee_id, $status) {
-    // only deduct stock if confirmed
+  public function addNewTransaction($product_id, $product_name, $stock_quantity, $unit, $request_date, $employee_name, $employee_id, $status) {
     if ($status === 'confirmed') {
         $stmt = $this->conn->prepare("UPDATE product SET stock_quantity = (stock_quantity - ?) WHERE product_id = ?");
         $stmt->execute([$stock_quantity, $product_id]);
     }
 
-    $stmt = $this->conn->prepare("INSERT INTO transaction (product_id, product_name, stock_quantity, request_date, employee_name, employee_id, status) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    return $stmt->execute([$product_id, $product_name, $stock_quantity, $request_date, $employee_name, $employee_id, $status]);
+    $stmt = $this->conn->prepare("INSERT INTO transaction (product_id, product_name, stock_quantity, unit, request_date, employee_name, employee_id, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    return $stmt->execute([$product_id, $product_name, $stock_quantity, $unit, $request_date, $employee_name, $employee_id, $status]);
 }
 
     public function getAllTransaction() {
-        $stmt = $this->conn->prepare("SELECT * from transaction");
+        $stmt = $this->conn->prepare("SELECT * from transaction ORDER BY confirmRequest DESC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

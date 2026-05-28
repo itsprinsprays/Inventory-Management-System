@@ -14,6 +14,7 @@ class TransactionController {
         $data['product_id'],
         $data['product_name'],
         $data['stock_quantity'],
+        $data['unit'],
         $data['request_date'],
         $data['employee_name'],
         $data['employee_id'],
