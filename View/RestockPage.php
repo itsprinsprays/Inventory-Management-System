@@ -75,7 +75,6 @@
       <h3>Restock Request</h3>
       <p>Fill in the details below</p>
     </div>
-<?php echo "<pre>"; print_r($_SESSION); echo "</pre>"; ?>
     <!-- Form body -->
     <form action="index.php?action=submit-request" method="POST">
 
@@ -110,7 +109,7 @@
 
       <!-- Footer buttons -->
       <div class="form-footer w3-container w3-border-top w3-padding-16 w3-light-grey">
-        <a href="index.php?action=dashboard" class="btn-back w3-button w3-border w3-round">
+        <a href="index.php?action=inventory" class="btn-back w3-button w3-border w3-round">
           &#8592; Back
         </a>
         <button type="submit" class="btn-submit w3-button w3-blue w3-round">

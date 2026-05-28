@@ -142,6 +142,11 @@ table th {
     color: white;
 }
 
+.empty {
+    background: black;
+    color: white;
+}
+
 /* BUTTON */
 
 .pullout-btn {

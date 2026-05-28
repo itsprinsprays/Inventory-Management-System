@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Inventorys.css">
+  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Inventory.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Restock Inventory Dashboard</title>
@@ -129,7 +129,7 @@ $products = $controller->getAllProducts();
       <td>
         <form action="index.php?action=restock" method="POST">
           <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
-          <button type="submit" class="restock-btn" onclick="showToast()">Restock</button>
+<a href="index.php?action=restock-page&product_id=<?= $product['product_id'] ?>&product_name=<?= urlencode($product['product_name']) ?>&unit=<?= urlencode($product['unit'] ?? '') ?>" class="restock-btn">Restock</a>
         </form>
       </td>
       <td>

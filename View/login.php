@@ -21,9 +21,8 @@
     </form>
 
     <div class="message">
-        <?= $message ?? '' ?>
-    </div>
-
+    <?= $message ?? '' ?>
+</div>
 </div>
 
 </body>

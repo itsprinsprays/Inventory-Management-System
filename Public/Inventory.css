@@ -142,6 +142,11 @@ table th {
     color: white;
 }
 
+.empty {
+    background: #000000;
+    color: white;
+}
+
 /* BUTTON */
 
 .restock-btn {
@@ -152,6 +157,10 @@ table th {
     border-radius: 8px;
     cursor: pointer;
     transition: 0.3s;
+}
+
+.restock-btn a {
+    text-transform: none;
 }
 
 .archive-btn {

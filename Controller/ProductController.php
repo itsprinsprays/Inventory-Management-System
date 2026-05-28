@@ -41,6 +41,7 @@ class ProductController {
     }
 
     public function getStatus($stock){
+        if ($stock <= 0) return "EMPTY";
         if ($stock < 10)return "CRITICAL";
         if ($stock < 20) return "LOW";
         return "GOOD";

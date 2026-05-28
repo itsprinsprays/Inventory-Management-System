@@ -28,6 +28,7 @@ switch ($action) {
     case 'login':
 
         $message = "";
+
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $credentials = [
@@ -38,15 +39,18 @@ switch ($action) {
             $user = $authController->login($credentials);
 
             if($user) {
+
                 header("Location: index.php?action=dashboard");
                 exit();
+
             } else {
+
                 $message = "Invalid username or password";
-                header("Location: index.php?action=register");
             }
         }
-        include "View/login.php";
-        break;
+
+    include "View/login.php";
+    break;
 
     case 'register':
         
@@ -101,7 +105,8 @@ switch ($action) {
         }
         header("Location: index.php?action=inventory");
         exit();
-
+        break;
+        
     case 'restock':
 
         requireRole('admin');
@@ -110,6 +115,13 @@ switch ($action) {
             $quantity = $_POST['stock_quantity'];
             $productController->restock($product_id, $quantity);
         }
+        break;
+
+    case 'restock-page':
+
+        requireRole('admin');
+        include "View/RestockPage.php";
+        break;
 
     case 'archive-ui':
     
@@ -131,6 +143,7 @@ switch ($action) {
 
         header("Location: index.php?action=archive-ui");
         exit;
+        break;
 
     case 'submit-request':
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -209,10 +222,11 @@ switch ($action) {
         session_destroy();
         header("Location: index.php?action=login");
         exit();
+        break;
 
     default:
 
         header("Location: index.php?action=login");
         exit();
-
+        break;
 }
