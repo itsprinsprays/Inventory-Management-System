@@ -153,8 +153,7 @@ switch ($action) {
         include "View/ConfirmRequest.php";
         break;
 
-    case 'confirm-request-submit':
-
+   case 'confirm-request-submit':
         requireRole('admin');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = [
@@ -163,12 +162,32 @@ switch ($action) {
                 'stock_quantity' => $_POST['stock_quantity'],
                 'request_date'   => $_POST['request_date'],
                 'employee_name'  => $_POST['employee_name'],
-                'employee_id'    => $_POST['employee_id']
+                'employee_id'    => $_POST['employee_id'],
+                'status'         => 'confirmed'
             ];
-
             $transactionController->confirmRequest($data);
 
-            // delete request after confirming
+            $stmt = $conn->prepare("DELETE FROM request WHERE request_id = ?");
+            $stmt->execute([$_POST['request_id']]);
+        }
+        header("Location: index.php?action=confirm-request");
+        exit();
+        break;
+
+    case 'remove-request':
+        requireRole('admin');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'product_id'     => $_POST['product_id'],
+                'product_name'   => $_POST['product_name'],
+                'stock_quantity' => $_POST['stock_quantity'],
+                'request_date'   => $_POST['request_date'],
+                'employee_name'  => $_POST['employee_name'],
+                'employee_id'    => $_POST['employee_id'],
+                'status'         => 'removed'
+            ];
+            $transactionController->confirmRequest($data);
+
             $stmt = $conn->prepare("DELETE FROM request WHERE request_id = ?");
             $stmt->execute([$_POST['request_id']]);
         }

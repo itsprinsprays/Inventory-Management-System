@@ -91,7 +91,7 @@
             <th>Stock Quantity</th>
             <th>Request Date</th> 
             <th>Employee ID</th>
-            <th>Control</th>
+            <th colspan = 2>Control</th>
 
           </tr>
         </thead>
@@ -105,18 +105,31 @@
         <td><?= htmlspecialchars($req['stock_quantity']) ?></td>
         <td><?= htmlspecialchars($req['request_date']) ?></td>
         <td><?= htmlspecialchars($req['employee_id']) ?></td>
-        <td>
-            <form action="index.php?action=confirm-request-submit" method="POST">
+                </td>
+            <td>
+        <form action="index.php?action=remove-request" method="POST">
             <input type="hidden" name="request_id"     value="<?= $req['request_id'] ?>">
             <input type="hidden" name="product_id"     value="<?= $req['product_id'] ?>">
             <input type="hidden" name="product_name"   value="<?= $req['product_name'] ?>">
             <input type="hidden" name="stock_quantity" value="<?= $req['stock_quantity'] ?>">
             <input type="hidden" name="request_date"   value="<?= $req['request_date'] ?>">
-            <input type="hidden" name="employee_name"  value="<?= $req['name'] ?>">
+            <input type="hidden" name="employee_name"  value="<?= $req['name'] ?? '' ?>">
             <input type="hidden" name="employee_id"    value="<?= $req['employee_id'] ?>">
-            <button type="submit" class="pullout-btn">Confirm</button>
-            </form>
-        </td>
+        <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to remove this request?')">Remove</button>
+        </form>
+    </td>
+    <td>
+        <form action="index.php?action=confirm-request-submit" method="POST">
+            <input type="hidden" name="request_id"     value="<?= $req['request_id'] ?>">
+            <input type="hidden" name="product_id"     value="<?= $req['product_id'] ?>">
+            <input type="hidden" name="product_name"   value="<?= $req['product_name'] ?>">
+            <input type="hidden" name="stock_quantity" value="<?= $req['stock_quantity'] ?>">
+            <input type="hidden" name="request_date"   value="<?= $req['request_date'] ?>">
+            <input type="hidden" name="employee_name"  value="<?= $req['name'] ?? '' ?>">
+            <input type="hidden" name="employee_id"    value="<?= $req['employee_id'] ?>">
+        <button type="submit" class="pullout-btn" onclick="return confirm('Are you sure you want to confirm this request?')">Confirm</button>
+        </form>
+    </td>
         </tr>
     <?php endforeach; ?>
     </tbody>

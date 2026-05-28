@@ -97,6 +97,7 @@
             <th>Confirm Request Date</th> 
             <th>Employee Name </th>
             <th>Employee ID</th>
+            <th>Status</th>
 
           </tr>
         </thead>
@@ -112,6 +113,7 @@
         <td><?= htmlspecialchars($transaction['confirmRequest']) ?></td>
         <td><?= htmlspecialchars($transaction['employee_name']) ?></td>
         <td><?= htmlspecialchars($transaction['employee_id']) ?></td>
+        <td><?= htmlspecialchars($transaction['status']) ?></td>
         <td>
             <form action="index.php?action=confirm-request-submit" method="POST">
             <input type="hidden" name="request_id"     value="<?= $transaction['transaction_id'] ?>">
@@ -122,6 +124,7 @@
             <input type="hidden" name="confirmRequest"   value="<?= $transaction['confirmRequest'] ?>">
             <input type="hidden" name="employee_name"  value="<?= $transaction['employee_name'] ?>">
             <input type="hidden" name="employee_id"    value="<?= $transaction['employee_id'] ?>">
+            <input type="hidden" name="status"    value="<?= $transaction['status'] ?>"
         
         </td>
         </tr>
