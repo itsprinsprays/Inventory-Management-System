@@ -94,9 +94,13 @@ $products = $controller->getAllProducts();
 
     <div class="table-container">
 
-      <div class="table-header">
-        <h2>Inventory Overview</h2>
-      </div>
+     <div class="table-header">
+  <h2>Inventory Overview</h2>
+  <div class="table-actions">
+    <input type="text" id="searchInput" placeholder="Search product..." onkeyup="searchTable()">
+    <a href="index.php?action=addProduct" class="add-btn">+ Add Product</a>
+  </div>
+</div>
 
       <table>
 
@@ -160,6 +164,15 @@ $products = $controller->getAllProducts();
         toast.style.display = "none";
       }, 3000);
     }
+
+    function searchTable() {
+  const input = document.getElementById('searchInput').value.toLowerCase();
+  const rows = document.querySelectorAll('tbody tr');
+  rows.forEach(row => {
+    const name = row.cells[0].textContent.toLowerCase();
+    row.style.display = name.includes(input) ? '' : 'none';
+  });
+}
 
   </script>
 

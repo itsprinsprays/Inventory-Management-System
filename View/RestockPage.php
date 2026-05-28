@@ -54,16 +54,16 @@
 
 <?php
 
-//   require_once "Model/Product.php";
-//   require_once "Controller/ProductController.php";
-//   require_once "Controller/RequestController.php";
+  require_once "Model/Product.php";
+  require_once "Controller/ProductController.php";
+  require_once "Controller/RequestController.php";
 
-//   $controller = new ProductController($conn);
-//   $requestController = new RequestController($conn);
+  $controller = new ProductController($conn);
+  $requestController = new RequestController($conn);
 
-//   $product_id   = isset($_GET['product_id']) ? $_GET['product_id'] : '';
-//   $product_name = isset($_GET['product_name']) ? $_GET['product_name'] : '';
-// ?>
+  $product_id   = isset($_GET['product_id']) ? $_GET['product_id'] : '';
+  $product_name = isset($_GET['product_name']) ? $_GET['product_name'] : '';
+?>
 
 <body>
 
