@@ -52,9 +52,8 @@ $products = $controller->getAllProducts();
       
       <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
       <li><a href="index.php?action=inventory">Inventory</a></li>
-      <li><a href="#">Transaction History</a></li>
-      <li><a href="#">Request Tracking</a></li>
-      <li><a href="#">Confirm Product Request</a></li>
+      <li><a href="index.php?action=transaction-history">Transaction History</a></li>
+      <li><a href="index.php?action=request-tracking">Confirm Product Request</a></li>
       <li><a href="index.php?action=archived">Archive</a></li>
         <li><a href="index.php?action=registerPage">User Management</a></li>
       <?php endif; ?>
@@ -71,7 +70,7 @@ $products = $controller->getAllProducts();
 
       <div class="card">
         <h3>Critical Stock Items</h3>
-        <p><?= $controller->countCriticalStock() ?>
+        <p><?= $controller->countCriticalStock() ?></p>
       </div>
 
       <div class="card">
@@ -101,21 +100,23 @@ $products = $controller->getAllProducts();
 
       <table>
 
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Stock</th>
-            <th>Status</th>
-            <th colspan="2">Control</th>
-          </tr>
-        </thead>
+       <thead>
+  <tr>
+    <th>Product</th>
+    <th>Stock</th>
+    <th>Unit</th>
+    <th>Status</th>
+    <th colspan="2">Control</th>
+  </tr>
+</thead>
 
-       <tbody>
+<tbody>
   <?php foreach($products as $product): ?>
     <?php $status = $controller->getStatus($product['stock_quantity']); ?>
     <tr>
       <td><?= htmlspecialchars($product['product_name']) ?></td>
-      <td><?= htmlspecialchars($product['stock_quantity']) ?></td> 
+      <td><?= htmlspecialchars($product['stock_quantity']) ?></td>
+      <td><?= htmlspecialchars($product['unit'] ?? '') ?></td>
       <td>
         <span class="status <?= strtolower($status) ?>">
           <?= $status ?>
@@ -128,13 +129,10 @@ $products = $controller->getAllProducts();
         </form>
       </td>
       <td>
-      <form action="index.php?action=archive" method="POST">
-      <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
-      <button type="submit" class="archive-btn" 
-        onclick="return confirm('Archive this product?')">
-        Archive
-      </button>
-    </form>
+        <form action="index.php?action=archive" method="POST">
+          <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
+          <button type="submit" class="archive-btn" onclick="return confirm('Archive this product?')">Archive</button>
+        </form>
       </td>
     </tr>
   <?php endforeach; ?>

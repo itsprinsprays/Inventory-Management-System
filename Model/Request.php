@@ -1,0 +1,22 @@
+<?php
+
+class Request {
+    private $conn;
+
+    public function __construct($db) {
+        $this->conn = $db;
+    }
+
+    public function createRequest($product_id, $product_name, $stock_quantity, $unit, $employee_id) {
+    $stmt = $this->conn->prepare("INSERT INTO request (product_id, product_name, stock_quantity, unit, employee_id) VALUES (?, ?, ?, ?, ?)");
+    return $stmt->execute([$product_id, $product_name, $stock_quantity, $unit, $employee_id]);
+}
+
+    public function getAllRequest() {
+        $stmt = $this->conn->prepare("SELECT r.*, e.name FROM request r JOIN employee e ON r.employee_id = e.employee_id ");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+}
+
+?>

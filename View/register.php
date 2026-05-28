@@ -2,42 +2,9 @@
 <html>
 <head>
     <title>Register</title>
-
-    <style>
-        body{
-            font-family:Arial;
-            background:#f4f4f4;
-        }
-
-        .container{
-            width:350px;
-            margin:80px auto;
-            background:white;
-            padding:30px;
-            border-radius:10px;
-        }
-
-        input, select{
-            width:100%;
-            padding:10px;
-            margin-top:10px;
-        }
-
-        button{
-            width:100%;
-            padding:10px;
-            margin-top:15px;
-            background:#007bff;
-            color:white;
-            border:none;
-        }
-
-        .message{
-            color:green;
-            margin-top:10px;
-        }
-    </style>
 </head>
+
+<link rel = "StyleSheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Register.css">
 <body>
 
 <div class="container">

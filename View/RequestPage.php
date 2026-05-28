@@ -51,16 +51,22 @@
   }
 
 </style>
- <?php
 
-        require_once "Model/Product.php";
-        require_once "Controller/ProductController.php";
+<?php
+  require_once "Model/Product.php";
+  require_once "Controller/ProductController.php";
+  require_once "Controller/RequestController.php";
 
-        $controller = new ProductController($conn);
-        $products = $controller->getAllProducts();
-        ?>
+  $controller = new ProductController($conn);
+  $requestController = new RequestController($conn);
+
+  $product_id   = $_GET['product_id'] ?? '';
+  $product_name = $_GET['product_name'] ?? '';
+  $unit         = $_GET['unit'] ?? ''; // was reading $_GET['product_name'] by mistake
+?>
+
 <body>
-<?php $product_name = isset($_GET['product_name']) ? $_GET['product_name'] : ''; ?>
+
 <div class="page-wrapper">
   <div class="form-card w3-card-4">
 
@@ -71,16 +77,24 @@
     </div>
 
     <!-- Form body -->
-    <form action="/pullout" method="POST">
+    <form action="index.php?action=submit-request" method="POST">
+
+      <input type="hidden" name="product_id"   value="<?= htmlspecialchars($product_id) ?>">
+      <input type="hidden" name="employee_id"  value="<?= htmlspecialchars($_SESSION['employee_id'] ?? '') ?>">
+
       <div class="form-body w3-container">
 
         <label class="form-label w3-text-grey">PRODUCT NAME</label>
-       <input class="w3-input w3-border w3-round w3-margin-bottom"
-  type="text" name="product_name" value="<?= htmlspecialchars($product_name) ?>" readonly required>
+        <input class="w3-input w3-border w3-round w3-margin-bottom"
+          type="text" name="product_name" value="<?= htmlspecialchars($product_name) ?>" readonly required>
+
+        <label class="form-label w3-text-grey">UNIT</label>
+        <input class="w3-input w3-border w3-round w3-margin-bottom"
+          type="text" name="unit" value="<?= htmlspecialchars($unit) ?>" readonly required>
 
         <label class="form-label w3-text-grey">QUANTITY</label>
         <input class="w3-input w3-border w3-round"
-          type="number" name="quantity" min="1" value="1" required>
+          type="number" name="stock_quantity" min="1" value="1" required>
 
       </div>
 

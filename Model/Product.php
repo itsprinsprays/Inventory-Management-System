@@ -28,12 +28,12 @@ class Product {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
- public function getProductName($product_id) {
-    $stmt = $this->conn->prepare("SELECT product_name FROM product WHERE product_id = ?");
-    $stmt->execute([$product_id]);
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $row['product_name'];
-}
+    public function getProductName($product_id) {
+        $stmt = $this->conn->prepare("SELECT product_name FROM product WHERE product_id = ?");
+        $stmt->execute([$product_id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['product_name'];
+    }
 
     public function deleteProduct($product_id) {
         $stmt = $this->conn->prepare("Delete from product where product_id =?");

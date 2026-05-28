@@ -9,12 +9,16 @@ require_once "controller/EmployeeController.php";
 require_once "controller/AuthController.php";
 require_once "controller/ArchiveController.php";
 require_once "config/role_guard.php";
+require_once "controller/RequestController.php";
+require_once "Controller/TransactionController.php";
 
 $productController = new ProductController($conn);
 $userController = new UserController($conn);
 $employeeController = new EmployeeController($conn);
 $authController = new AuthController($conn);
 $archiveController = new ArchiveController($conn);
+$requestController = new RequestController($conn);
+$transactionController = new TransactionController($conn);
 
 $action = $_GET['action'] ?? 'index';
 
@@ -76,16 +80,10 @@ switch ($action) {
         
         include "View/Dashboard.php";
         break;
-    
-    case 'request-button':
-
-        include "View/Request.php";
-        break;
 
     case 'request-Page':
         
-        requireRole('admin');
-        include "View/Request.php";
+        include "View/RequestPage.php";
         break;
 
     case 'inventory':
@@ -133,6 +131,78 @@ switch ($action) {
 
         header("Location: index.php?action=archive-ui");
         exit;
+
+    case 'submit-request':
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'product_id'     => $_POST['product_id'],
+                'product_name'   => $_POST['product_name'],
+                'stock_quantity' => $_POST['stock_quantity'],
+                'unit'           => $_POST['unit'],
+                'employee_id'    => $_SESSION['employee_id'] // from session
+            ];
+            $requestController->storeNewRequest($data);
+            }
+            header("Location: index.php?action=dashboard");
+        exit();
+        break;
+
+
+    case 'confirm-request':
+
+        requireRole('admin');
+        include "View/ConfirmRequest.php";
+        break;
+
+   case 'confirm-request-submit':
+        requireRole('admin');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'product_id'     => $_POST['product_id'],
+                'product_name'   => $_POST['product_name'],
+                'stock_quantity' => $_POST['stock_quantity'],
+                'unit'           => $_POST['unit'],
+                'request_date'   => $_POST['request_date'],
+                'employee_name'  => $_POST['employee_name'],
+                'employee_id'    => $_POST['employee_id'],
+                'status'         => 'confirmed'
+            ];
+            $transactionController->confirmRequest($data);
+
+            $stmt = $conn->prepare("DELETE FROM request WHERE request_id = ?");
+            $stmt->execute([$_POST['request_id']]);
+        }
+        header("Location: index.php?action=confirm-request");
+        exit();
+        break;
+
+    case 'remove-request':
+        requireRole('admin');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'product_id'     => $_POST['product_id'],
+                'product_name'   => $_POST['product_name'],
+                'stock_quantity' => $_POST['stock_quantity'],
+                'unit'           => $_POST['unit'],
+                'request_date'   => $_POST['request_date'],
+                'employee_name'  => $_POST['employee_name'],
+                'employee_id'    => $_POST['employee_id'],
+                'status'         => 'removed'
+            ];
+            $transactionController->confirmRequest($data);
+
+            $stmt = $conn->prepare("DELETE FROM request WHERE request_id = ?");
+            $stmt->execute([$_POST['request_id']]);
+        }
+        header("Location: index.php?action=confirm-request");
+        exit();
+        break;
+
+    case 'transaction-history':
+
+        requireRole('admin');
+        include "View/TransactionHistory.php";
+        break;
 
     case 'logout':
 

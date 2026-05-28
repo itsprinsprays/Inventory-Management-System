@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Dashboard.css">
+  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Archive.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Restock Inventory Dashboard</title>
@@ -37,8 +37,7 @@
       <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
       <li><a href="index.php?action=inventory">Inventory</a></li>
       <li><a href="#">Transaction History</a></li>
-      <li><a href="#">Request Tracking</a></li>
-      <li><a href="#">Confirm Product Request</a></li>
+      <li><a href="index.php?action=confirm-request">Confirm Product Request</a></li>
       <li><a href="#">Archive</a></li>
         <li><a href="index.php?action=registerPage">User Management</a></li>
       <?php endif; ?>
@@ -71,33 +70,35 @@
       <table>
 
         <thead>
-          <tr>
-            <th>Product ID</th>
-            <th>Name</th>
-            <th>Stock</th>
-            <th>Description</th>
-            <th>Archived Date</th>
-            <th>Control</th>
-          </tr>
-        </thead>
-    
-      <tbody>
-        <?php foreach ($archive as $archive): ?>
-          <tr>
-            <td><?= htmlspecialchars($archive['product_id']) ?></td>
-            <td><?= htmlspecialchars($archive['product_name']) ?></td>
-            <td><?= htmlspecialchars($archive['stock_quantity']) ?></td>
-            <td><?= htmlspecialchars($archive['description']) ?></td>
-            <td><?= htmlspecialchars($archive['archived_at']) ?></td>
+  <tr>
+    <th>Product ID</th>
+    <th>Name</th>
+    <th>Stock</th>
+    <th>Unit</th>
+    <th>Description</th>
+    <th>Archived Date</th>
+    <th>Control</th>
+  </tr>
+</thead>
 
-            <td>
-              <form action="index.php?action=activateProduct" method="POST">
-                <input type="hidden" name="product_id" value="<?= $archive['product_id'] ?>">
-                <button type="submit" class="pullout-btn" onclick="showToast()">Activate</button>
-              </form>
-          </tr>
-        <?php endforeach; ?>
-      </tbody
+<tbody>
+  <?php foreach ($archive as $archive): ?>
+    <tr>
+      <td><?= htmlspecialchars($archive['product_id']) ?></td>
+      <td><?= htmlspecialchars($archive['product_name']) ?></td>
+      <td><?= htmlspecialchars($archive['stock_quantity']) ?></td>
+      <td><?= htmlspecialchars($archive['unit'] ?? '') ?></td>
+      <td><?= htmlspecialchars($archive['description']) ?></td>
+      <td><?= htmlspecialchars($archive['archived_at']) ?></td>
+      <td>
+        <form action="index.php?action=activateProduct" method="POST">
+          <input type="hidden" name="product_id" value="<?= $archive['product_id'] ?>">
+          <button type="submit" class="pullout-btn" onclick="return confirm('Activate this product?')">Activate</button>
+        </form>
+      </td>
+    </tr>
+  <?php endforeach; ?>
+</tbody>
 
       </table>
     </div>
