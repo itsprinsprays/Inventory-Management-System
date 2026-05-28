@@ -146,11 +146,6 @@ switch ($action) {
         exit();
         break;
 
-    case 'request-tracking':
-
-        requireRole('admin');
-        include "View/RequestTracking.php";
-        break;
 
     case 'confirm-request':
 

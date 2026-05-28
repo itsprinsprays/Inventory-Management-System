@@ -32,8 +32,7 @@
       <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
       <li><a href="index.php?action=inventory">Inventory</a></li>
       <li><a href="#">Transaction History</a></li>
-      <li><a href="index.php?action=request-tracking">Request Tracking</a></li>
-      <li><a href="#">Confirm Product Request</a></li>
+      <li><a href="index.php?action=confirm-request">Confirm Product Request</a></li>
       <li><a href="index.php?action=archived">Archive</a></li>
         <li><a href="index.php?action=registerPage">User Management</a></li>
       <?php endif; ?>
