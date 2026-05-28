@@ -13,9 +13,13 @@
 
         require_once "Model/Product.php";
         require_once "Controller/ProductController.php";
+        require_once "Model/Request.php";
+        require_once "Controller/RequestController.php";
 
         $controller = new ProductController($conn);
         $products = $controller->getAllProducts();
+        $requestController = new RequestController($conn);
+        $request = $requestController->getAllRequest();
         ?>
         
 <body>
@@ -32,7 +36,7 @@
       <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
       <li><a href="index.php?action=inventory">Inventory</a></li>
       <li><a href="#">Transaction History</a></li>
-      <li><a href="index.php?action=request-tracking">Request Tracking</a></li>
+      <li><a href="#">Request Tracking</a></li>
       <li><a href="#">Confirm Product Request</a></li>
       <li><a href="index.php?action=archived">Archive</a></li>
         <li><a href="index.php?action=registerPage">User Management</a></li>
@@ -75,30 +79,34 @@
     <div class="table-container">
 
       <div class="table-header">
-        <h2>Dashboard Overview</h2>
+        <h2>Request Tracking Overview</h2>
       </div>
 
       <table>
 
         <thead>
           <tr>
-            <th>Product</th>
-            <th>Stock</th>
-            <th>Status</th>
+            <th>Request ID</th>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Stock Quantity</th>
+            <th>Request Date</th> 
+            <th>Employee ID</th>
             <th>Control</th>
+
           </tr>
         </thead>
     
       <tbody>
-        <?php foreach ($products as $product): ?>
-          <?php $status = $controller->getStatus($product['stock_quantity']); ?>
+        <?php foreach ($request as $request) :?>
           <tr>
-            <td><?= htmlspecialchars($product['product_name']) ?></td>
-            <td><?= htmlspecialchars($product['stock_quantity']) ?></td>
-            <td>
-              <span class="status <?= strtolower($status) ?>">
-                <?= $status ?>
-              </span>
+            <td><?= htmlspecialchars($request['request_id']) ?></td>
+            <td><?= htmlspecialchars($request['product_id']) ?></td>
+            <td><?= htmlspecialchars($request['product_name']) ?></td>
+            <td><?= htmlspecialchars($request['stock_quantity']) ?></td>
+            <td><?= htmlspecialchars($request['request_date']) ?></td>
+            <td><?= htmlspecialchars($request['employee_id']) ?></td>
+        
             </td>
             <td>
               <form action="index.php?action=request-Page" method="POST">

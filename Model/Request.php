@@ -11,6 +11,12 @@ class Request {
         $stmt = $this->conn->prepare("INSERT INTO request (product_id, product_name, stock_quantity, employee_id) VALUES (?, ?, ?, ?)");
         return $stmt->execute([$product_id, $product_name, $stock_quantity, $employee_id]);
     }
+
+    public function getAllRequest() {
+        $stmt = $this->conn->prepare("SELECT * from request");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
 ?>

@@ -17,6 +17,10 @@ class RequestController {
             $data['employee_id']
         );
     }
+
+    public function getAllRequest() {
+        return $this->request->getAllRequest();
+    }
 }
 
 ?>
