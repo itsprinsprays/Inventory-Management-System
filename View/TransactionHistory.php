@@ -15,11 +15,15 @@
         require_once "Controller/ProductController.php";
         require_once "Model/Request.php";
         require_once "Controller/RequestController.php";
+        require_once "Model/Transaction.php";
+        require_once "Controller/TransactionController.php";
 
         $controller = new ProductController($conn);
         $products = $controller->getAllProducts();
         $requestController = new RequestController($conn);
         $request = $requestController->getAllRequest();
+        $transactionController = new TransactionController($conn);
+        $transaction = $transactionController->getAllTransaction();
         ?>
         
 <body>
@@ -35,7 +39,7 @@
       
       <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
       <li><a href="index.php?action=inventory">Inventory</a></li>
-      <li><a href="index.php?action=transaction-history">Transaction History</a></li>
+      <li><a href="#">Transaction History</a></li>
       <li><a href="index.php?action=confirm-request">Confirm Product Request</a></li>
       <li><a href="index.php?action=archived">Archive</a></li>
         <li><a href="index.php?action=registerPage">User Management</a></li>
@@ -78,7 +82,7 @@
     <div class="table-container">
 
       <div class="table-header">
-        <h2>Confirm Request</h2>
+        <h2>Transaction History</h2>
       </div>
 
       <table>
@@ -89,33 +93,36 @@
             <th>Product ID</th>
             <th>Product Name</th>
             <th>Stock Quantity</th>
-            <th>Request Date</th> 
+            <th>Request Date</th>
+            <th>Confirm Request Date</th> 
+            <th>Employee Name </th>
             <th>Employee ID</th>
-            <th>Control</th>
 
           </tr>
         </thead>
     
         <tbody>
-    <?php foreach ($request as $req): ?>
+    <?php foreach ($transaction as $transaction): ?>
         <tr>
-        <td><?= htmlspecialchars($req['request_id']) ?></td>
-        <td><?= htmlspecialchars($req['product_id']) ?></td>
-        <td><?= htmlspecialchars($req['product_name']) ?></td>
-        <td><?= htmlspecialchars($req['stock_quantity']) ?></td>
-        <td><?= htmlspecialchars($req['request_date']) ?></td>
-        <td><?= htmlspecialchars($req['employee_id']) ?></td>
+        <td><?= htmlspecialchars($transaction['transaction_id']) ?></td>
+        <td><?= htmlspecialchars($transaction['product_id']) ?></td>
+        <td><?= htmlspecialchars($transaction['product_name']) ?></td>
+        <td><?= htmlspecialchars($transaction['stock_quantity']) ?></td>
+        <td><?= htmlspecialchars($transaction['request_date']) ?></td>
+        <td><?= htmlspecialchars($transaction['confirmRequest']) ?></td>
+        <td><?= htmlspecialchars($transaction['employee_name']) ?></td>
+        <td><?= htmlspecialchars($transaction['employee_id']) ?></td>
         <td>
             <form action="index.php?action=confirm-request-submit" method="POST">
-            <input type="hidden" name="request_id"     value="<?= $req['request_id'] ?>">
-            <input type="hidden" name="product_id"     value="<?= $req['product_id'] ?>">
-            <input type="hidden" name="product_name"   value="<?= $req['product_name'] ?>">
-            <input type="hidden" name="stock_quantity" value="<?= $req['stock_quantity'] ?>">
-            <input type="hidden" name="request_date"   value="<?= $req['request_date'] ?>">
-            <input type="hidden" name="employee_name"  value="<?= $req['name'] ?>">
-            <input type="hidden" name="employee_id"    value="<?= $req['employee_id'] ?>">
-            <button type="submit" class="pullout-btn">Confirm</button>
-            </form>
+            <input type="hidden" name="request_id"     value="<?= $transaction['transaction_id'] ?>">
+            <input type="hidden" name="product_id"     value="<?= $transaction['product_id'] ?>">
+            <input type="hidden" name="product_name"   value="<?= $transaction['product_name'] ?>">
+            <input type="hidden" name="stock_quantity" value="<?= $transaction['stock_quantity'] ?>">
+            <input type="hidden" name="request_date"   value="<?= $transaction['request_date'] ?>">
+            <input type="hidden" name="confirmRequest"   value="<?= $transaction['confirmRequest'] ?>">
+            <input type="hidden" name="employee_name"  value="<?= $transaction['employee_name'] ?>">
+            <input type="hidden" name="employee_id"    value="<?= $transaction['employee_id'] ?>">
+        
         </td>
         </tr>
     <?php endforeach; ?>

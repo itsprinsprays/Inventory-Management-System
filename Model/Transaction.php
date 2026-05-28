@@ -15,4 +15,10 @@ class Transaction {
         $stmt = $this->conn->prepare("INSERT INTO transaction (product_id, product_name, stock_quantity, request_date, employee_name, employee_id) VALUES (?, ?, ?, ?, ?, ?)");
         return $stmt->execute([$product_id, $product_name, $stock_quantity, $request_date, $employee_name, $employee_id]);
     }
+
+    public function getAllTransaction() {
+        $stmt = $this->conn->prepare("SELECT * from transaction");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

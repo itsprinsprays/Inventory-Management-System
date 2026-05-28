@@ -176,6 +176,12 @@ switch ($action) {
         exit();
         break;
 
+    case 'transaction-history':
+
+        requireRole('admin');
+        include "View/TransactionHistory.php";
+        break;
+
     case 'logout':
 
         session_destroy();

@@ -19,4 +19,9 @@ class TransactionController {
             $data['employee_id']
         );
     }
+
+    public function getAllTransaction() {
+        return $this->transaction->getAllTransaction();
+    }
+
 }

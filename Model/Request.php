@@ -13,7 +13,7 @@ class Request {
     }
 
     public function getAllRequest() {
-        $stmt = $this->conn->prepare("SELECT * from request");
+        $stmt = $this->conn->prepare("SELECT r.*, e.name FROM request r JOIN employee e ON r.employee_id = e.employee_id");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
