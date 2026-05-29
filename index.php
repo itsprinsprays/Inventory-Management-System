@@ -264,6 +264,29 @@ switch ($action) {
         include "View/UserInformation.php";
         break;
 
+    case 'add-employee':
+        requireRole('admin');
+        $message = "";
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'name'           => trim($_POST['name'] ?? ''),
+                'contact_number' => trim($_POST['contact_number'] ?? ''),
+                'email'          => trim($_POST['email'] ?? ''),
+                'address'        => trim($_POST['address'] ?? ''),
+            ];
+    
+            if ($data['name'] && $data['contact_number'] && $data['email'] && $data['address']) {
+                $result = $employeeController->storeNewEmployee($data);
+                $message = $result ? "Employee added successfully." : "Failed to add employee.";
+            } else {
+                $message = "All fields are required.";
+            }
+        }
+    
+        include "View/AddEmployee.php";
+        break;
+
     case 'logout':
 
         session_destroy();

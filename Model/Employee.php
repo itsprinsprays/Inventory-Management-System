@@ -8,7 +8,7 @@ class Employee {
     }
 
    public function addNewEmployee($name, $contact_number, $email, $address) {
-        $stmt = $this->conn->prepare("INSERT INTO employee (employee_name, contact_number, email, address) VALUES (?, ?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO employee (`name`, contact_number, email, `address`) VALUES (?, ?, ?, ?)");
         return $stmt->execute([$name, $contact_number, $email, $address]);
     }
 
