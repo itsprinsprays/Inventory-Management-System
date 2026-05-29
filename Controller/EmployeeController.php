@@ -20,5 +20,9 @@ class EmployeeController {
     public function getAllEmployees() {
         return $this->employee->getAllEmployees();
     }
+
+    public function deleteEmployee($employee_id) {
+        return $this->employee->deleteEmployee($employee_id);
+    }
                       
 }

@@ -37,9 +37,6 @@
         <select name="table" class="w3-input w3-border w3-round w3-margin-bottom">
           <option value="product">Products</option>
           <option value="employee">Employees</option>
-          <option value="user">Users</option>
-          <option value="request">Requests</option>
-          <option value="transaction">Transactions</option>
         </select>
 
         <label class="form-label">UPLOAD XML FILE</label>

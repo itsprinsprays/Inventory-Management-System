@@ -46,8 +46,6 @@
       <li><a href="index.php?action=archived">Archive</a></li>
       <li><a href="index.php?action=registerPage">User Management</a></li>
       <li><a href="index.php?action=user-information">User Information</a></li>
-      <li><a href="index.php?action=import-xml">Import XML Files</a></li>
-
       <?php endif; ?>
     </ul>
   </div>
@@ -84,11 +82,7 @@
     <th>Contact Number</th>
     <th>Email</th>
     <th>Address</th>
-    <th>User ID</th>
-    <th>Username</th>
-    <th>Role</th>
-
-    <th>Control</th>
+    <th colspan = 2>Control</th>
   </tr>
 </thead>
 
@@ -100,14 +94,16 @@
       <td><?= htmlspecialchars($employee['contact_number']) ?></td>
       <td><?= htmlspecialchars($employee['email'] ) ?></td>
       <td><?= htmlspecialchars($employee['address']) ?></td>
-      <td><?= htmlspecialchars($employee['user_id'] ?? '') ?></td>
-      <td><?= htmlspecialchars($employee['username'] ?? '') ?></td>
-      <td><?= htmlspecialchars($employee['role'] ?? '') ?></td>
-
       <td>
-        <form action="index.php?action=import-xml" method="POST">
+        <form action="index.php?action=activateProduct" method="POST">
           <input type="hidden" name="product_id" value="<?= $employee['Employee_id'] ?>">
           <button type="submit" class="pullout-btn" onclick="return confirm('Update this Employee?')">Update</button>
+        </form>
+      </td>
+      <td>
+        <form action="index.php?action=delete-employee" method="POST">
+          <input type="hidden" name="employee_id" value="<?= $employee['Employee_id'] ?>">
+          <button type="submit" class="pullout-btn" onclick="return confirm('Delete this Employee?')">Delete</button>
         </form>
       </td>
     </tr>

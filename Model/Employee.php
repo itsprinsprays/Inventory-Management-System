@@ -13,8 +13,15 @@ class Employee {
     }
 
     public function getAllEmployees() {
-        $stmt = $this->conn->prepare("SELECT e.*, u.user_id, u.username, u.role from employee e inner join user u on e.Employee_id = u.Employee_id");
+        $stmt = $this->conn->prepare("SELECT * FROM employee");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function deleteEmployee($employee_id) {
+        $stmt = $this->conn->prepare("DELETE FROM user WHERE Employee_id = ?");
+        $stmt->execute([$employee_id]);
+        $stmt = $this->conn->prepare("DELETE from employee where employee_id = ?");
+        return $stmt->execute([$employee_id]);
     }
 }

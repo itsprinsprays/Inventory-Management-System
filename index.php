@@ -255,6 +255,15 @@ switch ($action) {
         include "View/UserInformation.php";
         break;
 
+    case 'delete-employee':
+        requireRole('admin');
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $employee_id = $_POST['employee_id'];
+            $employeeController->deleteEmployee($employee_id);
+        }
+        include "View/UserInformation.php";
+        break;
+
     case 'logout':
 
         session_destroy();
