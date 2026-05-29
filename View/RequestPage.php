@@ -56,7 +56,7 @@
   require_once "Model/Product.php";
   require_once "Controller/ProductController.php";
   require_once "Controller/RequestController.php";
-
+http://localhost/Integrated_Programming/InventorySystem/Inventory-Management-System/index.php?action=transaction-history#
   $controller = new ProductController($conn);
   $requestController = new RequestController($conn);
 

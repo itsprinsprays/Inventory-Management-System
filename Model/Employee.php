@@ -13,7 +13,7 @@ class Employee {
     }
 
     public function getAllEmployees() {
-        $stmt = $this->conn->prepare("SELECT * FROM employee");
+        $stmt = $this->conn->prepare("SELECT e.*, u.user_id, u.username, u.role from employee e inner join user u on e.Employee_id = u.Employee_id");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

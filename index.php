@@ -262,6 +262,53 @@ switch ($action) {
         exit();
         break;
 
+    case 'import-xml':
+    requireRole('admin');
+    $message = "";
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['xml_file'])) {
+        $file  = $_FILES['xml_file']['tmp_name'];
+        $table = $_POST['table'] ?? '';
+
+        $dom = new DOMDocument("1.0", "UTF-8");
+        $dom->load($file);
+
+        switch ($table) {
+
+            case 'product':
+                foreach ($dom->getElementsByTagName("product") as $node) {
+                    $data = [
+                        'id'             => $node->getElementsByTagName("id")->item(0)?->nodeValue ?? null,
+                        'name'           => $node->getElementsByTagName("product_name")->item(0)->nodeValue,
+                        'description'    => $node->getElementsByTagName("description")->item(0)->nodeValue,
+                        'stock_quantity' => $node->getElementsByTagName("stock_quantity")->item(0)->nodeValue,
+                        'unit'           => $node->getElementsByTagName("unit")->item(0)->nodeValue,
+                    ];
+                    $productController->storeNewProduct($data);
+                }
+                $message = "Products imported successfully";
+                break;
+
+            case 'employee':
+                foreach ($dom->getElementsByTagName("employee") as $node) {
+                    $data = [
+                        'id'             => $node->getElementsByTagName("id")->item(0)?->nodeValue ?? null,
+                        'name'           => $node->getElementsByTagName("name")->item(0)->nodeValue,
+                        'contact_number' => $node->getElementsByTagName("contact_number")->item(0)->nodeValue,
+                        'email'          => $node->getElementsByTagName("email")->item(0)->nodeValue,
+                        'address'        => $node->getElementsByTagName("address")->item(0)->nodeValue,
+                    ];
+                    $employeeController->storeNewEmployee($data);
+                }
+                $message = "Employees imported successfully";
+                break;
+
+        }
+    }
+
+    include "View/ImportXML.php";
+    break;
+
     default:
 
         header("Location: index.php?action=login");
