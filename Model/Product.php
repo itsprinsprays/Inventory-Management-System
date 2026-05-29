@@ -7,9 +7,9 @@ class Product {
         $this->conn = $db;
     }
 
-    public function addNewProduct($name, $description, $quantity) {
-        $stmt = $this->conn->prepare("INSERT INTO product (product_name, description, stock_quantity) VALUES (?, ?, ?)");
-        return $stmt->execute([$name, $description, $quantity]);
+    public function addNewProduct($name, $description, $quantity, $unit) {
+        $stmt = $this->conn->prepare("INSERT INTO product (product_name, description, stock_quantity, unit) VALUES (?, ?, ?, ?)");
+        return $stmt->execute([$name, $description, $quantity, $unit]);
     }
 
     public function minustock($product_id, $quantity) {

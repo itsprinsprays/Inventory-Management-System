@@ -99,7 +99,7 @@ $products = $controller->getAllProducts();
   <h2>Inventory Overview</h2>
   <div class="table-actions">
     <input type="text" id="searchInput" placeholder="Search product..." onkeyup="searchTable()">
-    <a href="index.php?action=addProduct" class="add-btn">+ Add Product</a>
+    <a href="index.php?action=add-product" class="add-btn">+ Add Product</a>
   </div>
 </div>
 

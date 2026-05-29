@@ -13,7 +13,8 @@ class ProductController {
         return $this->product->addNewProduct(
             $data['name'], 
             $data['description'], 
-            $data['quantity']);
+            $data['stock_quantity'],
+            $data['unit']);
     }
 
     public function minustock($product_id, $quantity) {

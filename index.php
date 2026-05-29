@@ -52,6 +52,27 @@ switch ($action) {
     include "View/login.php";
     break;
 
+    case 'add-product':
+
+        requireRole('admin');
+        $message = "";
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'name' => $_POST['product_name'],
+                'description' => $_POST['description'],
+                'stock_quantity' => $_POST['stock_quantity'],
+                'unit' => $_POST['unit']
+            ];
+
+         $message = $productController->storeNewProduct($data) ? "Product Added successfully" : "Failed to add product";
+
+        }
+
+        include "View/AddProductPage.php";
+
+        break;
+    
+
     case 'register':
         
         requireRole('admin');
@@ -190,6 +211,7 @@ switch ($action) {
                 'employee_id'    => $_POST['employee_id'],
                 'status'         => 'confirmed'
             ];
+            
             $transactionController->confirmRequest($data);
 
             $stmt = $conn->prepare("DELETE FROM request WHERE request_id = ?");

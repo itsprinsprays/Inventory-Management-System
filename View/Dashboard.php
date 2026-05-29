@@ -88,7 +88,12 @@
                 </span>
               </td>
               <td>
-<a href="index.php?action=request-Page&product_id=<?= $product['product_id'] ?>&product_name=<?= urlencode($product['product_name']) ?>&unit=<?= urlencode($product['unit'] ?? '') ?>" class="pullout-btn">Request</a>
+  <?php if (!empty($product['stock_quantity']) && $product['stock_quantity'] > 0): ?>
+<a href="index.php?action=request-Page&product_id=<?= $product['product_id'] ?>&product_name=<?= urlencode($product['product_name']) ?>&unit=
+<?= urlencode($product['unit'] ?? '') ?>&stock_quantity=<?= $product['stock_quantity'] ?>" class="pullout-btn">Request</a>
+  <?php else: ?>
+    <a class="pullout-btn disabled" style="pointer-events:none; opacity:0.4; cursor:not-allowed;">Request</a>
+  <?php endif; ?>
 </td>
             </tr>
           <?php endforeach; ?>
