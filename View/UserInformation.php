@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Archive.css">
+  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/UserInformation.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Restock Inventory Dashboard</title>
@@ -25,7 +25,7 @@
         $archive = $controllerArch->getAllArchive();
 
         $employeeController = new EmployeeController($conn);
-        $employee = $employeeController->getallEmployees();
+        $employees = $employeeController->getallEmployees();
         ?>
         
 <body>
@@ -46,6 +46,7 @@
       <li><a href="index.php?action=archived">Archive</a></li>
       <li><a href="index.php?action=registerPage">User Management</a></li>
       <li><a href="index.php?action=user-information">User Information</a></li>
+      <li><a href="index.php?action=import-xml">Import XML Files</a></li>
       <?php endif; ?>
     </ul>
   </div>
@@ -73,7 +74,7 @@
         <h2>User Information</h2>
          <div class="table-actions">
     <input type="text" id="searchInput" placeholder="Search Employee..." onkeyup="searchTable()">
-    <a href="index.php?action=add-employee" class="add-btn">+ Add Product</a>
+    <a href="index.php?action=add-employee" class="add-btn">+ Add Employee</a>
   </div>
       </div>
 
@@ -91,7 +92,7 @@
 </thead>
 
 <tbody>
-  <?php foreach ($employee as $employee): ?>
+  <?php foreach ($employees as $employee): ?>
     <tr>
       <td><?= htmlspecialchars($employee['Employee_id']) ?></td>
       <td><?= htmlspecialchars($employee['name']) ?></td>
@@ -99,11 +100,12 @@
       <td><?= htmlspecialchars($employee['email'] ) ?></td>
       <td><?= htmlspecialchars($employee['address']) ?></td>
       <td>
-        <form action="index.php?action=activateProduct" method="POST">
-          <input type="hidden" name="product_id" value="<?= $employee['Employee_id'] ?>">
-          <button type="submit" class="pullout-btn" onclick="return confirm('Update this Employee?')">Update</button>
-        </form>
-      </td>
+    <form action="index.php?action=edit-employee" method="GET">
+        <input type="hidden" name="action" value="edit-employee">
+        <input type="hidden" name="employee_id" value="<?= $employee['Employee_id'] ?>">
+        <button type="submit" class="pullout-btn" onclick="return confirm('Update this Employee?')">Update</button>
+    </form>
+</td>
       <td>
         <form action="index.php?action=delete-employee" method="POST">
           <input type="hidden" name="employee_id" value="<?= $employee['Employee_id'] ?>">

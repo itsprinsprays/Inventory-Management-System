@@ -24,5 +24,18 @@ class EmployeeController {
     public function deleteEmployee($employee_id) {
         return $this->employee->deleteEmployee($employee_id);
     }
+
+    public function updateEmployee($data) {
+    return $this->employee->updateEmployee(
+        $data['name'],
+        $data['contact_number'],
+        $data['email'],
+        $data['address'],
+        $data['employee_id']);  
+}
+
+    public function getEmployeeById($employee_id) {
+        return $this->employee->getEmployeeById($employee_id);
+    }
                       
 }

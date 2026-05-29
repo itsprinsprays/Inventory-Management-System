@@ -286,6 +286,45 @@ switch ($action) {
     
         include "View/AddEmployee.php";
         break;
+    
+    case 'edit-employee':
+        requireRole('admin');
+        $message = "";
+
+        $employee_id = $_GET['employee_id'] ?? $_POST['Employee_id'] ?? null;
+        //                                              ^ capital E
+
+        if (!$employee_id) {
+            header("Location: index.php?action=user-information");
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'employee_id'    => trim($_POST['Employee_id'] ?? ''),
+                'name'           => trim($_POST['name'] ?? ''),
+                'contact_number' => trim($_POST['contact_number'] ?? ''),
+                'email'          => trim($_POST['email'] ?? ''),
+                'address'        => trim($_POST['address'] ?? ''),
+            ];
+
+            if ($data['name'] && $data['contact_number'] && $data['email'] && $data['address']) {
+                $result = $employeeController->updateEmployee($data);
+                $message = $result ? "Employee updated successfully." : "Failed to update employee.";
+            } else {
+                $message = "All fields are required.";
+            }
+        }
+
+        $employee = $employeeController->getEmployeeById($employee_id);
+
+        if (!$employee) {
+            header("Location: index.php?action=user-information");
+            exit;
+        }
+
+        include "View/EditEmployee.php";
+        break;
 
     case 'logout':
 

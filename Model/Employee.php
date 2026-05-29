@@ -21,7 +21,18 @@ class Employee {
     public function deleteEmployee($employee_id) {
         $stmt = $this->conn->prepare("DELETE FROM user WHERE Employee_id = ?");
         $stmt->execute([$employee_id]);
-        $stmt = $this->conn->prepare("DELETE from employee where employee_id = ?");
+        $stmt = $this->conn->prepare("DELETE from employee where Employee_id = ?");
         return $stmt->execute([$employee_id]);
+    }
+
+    public function updateEmployee($name, $contact_number, $email, $address, $employee_id) {
+        $stmt = $this->conn->prepare("UPDATE employee SET `name`=?, contact_number=?, email=?, `address`=? WHERE Employee_id=?");
+        return $stmt->execute([$name, $contact_number, $email, $address, $employee_id]);
+    }
+
+    public function getEmployeeById($employee_id) {
+        $stmt = $this->conn->prepare("SELECT * FROM employee WHERE Employee_id = ?");
+        $stmt->execute([$employee_id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
