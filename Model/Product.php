@@ -23,7 +23,7 @@ class Product {
     }
 
     public function getAllProducts() {
-        $stmt = $this->conn->prepare("SELECT * FROM product");
+        $stmt = $this->conn->prepare("SELECT * FROM product WHERE is_archived = 0");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -77,7 +77,7 @@ class Product {
     ");
     $stmt->execute([$product_id]);
 
-    $stmt = $this->conn->prepare("DELETE FROM product WHERE product_id = ?");
+    $stmt = $this->conn->prepare("UPDATE product SET is_archived = 1 WHERE product_id = ?");
     return $stmt->execute([$product_id]);
 }
 

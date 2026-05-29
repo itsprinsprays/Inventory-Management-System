@@ -188,3 +188,18 @@ table th {
         width: 100%;
     }
 }
+
+.table-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.table-actions input {
+    padding: 8px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    width: 200px;
+}
