@@ -128,7 +128,7 @@ $products = $controller->getAllProducts();
         </span>
       </td>
       <td>
-        <form action="index.php?action=restock" method="POST">
+        <form action="index.php?action=restock-page" method="POST">
           <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
 <a href="index.php?action=restock-page&product_id=<?= $product['product_id'] ?>&product_name=<?= urlencode($product['product_name']) ?>&unit=<?= urlencode($product['unit'] ?? '') ?>" class="restock-btn">Restock</a>
         </form>

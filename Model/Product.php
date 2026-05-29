@@ -17,7 +17,7 @@ class Product {
         return $stmt->execute([$quantity, $product_id]);
     }
 
-    public function restock($product_id, $quantity) {
+    public function restock($product_id, $quantity) {   
         $stmt = $this->conn->prepare("UPDATE product SET stock_quantity = (stock_quantity + ?) WHERE product_id = ?");
         return $stmt->execute([$quantity, $product_id]);
     }

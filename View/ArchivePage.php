@@ -36,10 +36,11 @@
       
       <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
       <li><a href="index.php?action=inventory">Inventory</a></li>
-      <li><a href="#">Transaction History</a></li>
+      <li><a href="index.php?action=transaction-history">Transaction History</a></li>
       <li><a href="index.php?action=confirm-request">Confirm Product Request</a></li>
-      <li><a href="#">Archive</a></li>
-        <li><a href="index.php?action=registerPage">User Management</a></li>
+      <li><a href="index.php?action=archived">Archive</a></li>
+      <li><a href="index.php?action=registerPage">User Management</a></li>
+      <li><a href="index.php?action=user-information">User Information</a></li>
       <?php endif; ?>
     </ul>
   </div>

@@ -106,22 +106,6 @@ switch ($action) {
         header("Location: index.php?action=inventory");
         exit();
         break;
-        
-    case 'restock':
-
-        requireRole('admin');
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $product_id = $_POST['product_id'];
-            $quantity = $_POST['stock_quantity'];
-            $productController->restock($product_id, $quantity);
-        }
-        break;
-
-    case 'restock-page':
-
-        requireRole('admin');
-        include "View/RestockPage.php";
-        break;
 
     case 'archive-ui':
     
@@ -143,6 +127,32 @@ switch ($action) {
 
         header("Location: index.php?action=archive-ui");
         exit;
+        break;
+
+    case 'restock':
+        
+        requireRole('admin');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
+            $product_id = $_POST['product_id'] ?? null;
+            $quantity   = $_POST['stock_quantity'] ?? 0;
+
+
+            $result = $productController->restock($product_id, $quantity);
+
+            if ($result) {
+                header("Location: index.php?action=inventory&success=restocked");
+                exit();
+            } else {
+                echo "Failed to restock product.";
+            }
+        } 
+        break;
+
+    case 'restock-page':
+
+        requireRole('admin');
+        include "View/RestockPage.php";
         break;
 
     case 'submit-request':
