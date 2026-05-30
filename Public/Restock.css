@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+body {
+    background-color: #EAECEF;
+    font-family: 'DM Sans', Arial, sans-serif;
+    color: #111111;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.form-card {
+    width: 100%;
+    max-width: 460px;
+    background: #FFFFFF !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06) !important;
+    border: none !important;
+    overflow: hidden;
+}
+
+/* --- HEADER --- */
+.form-header {
+    padding: 40px 40px 10px 40px !important;
+    text-align: center;
+    background: #1C1C1C !important;
+    color: #FFFFFF !important;
+}
+
+.form-header h3 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+    color: #FFFFFF !important;
+    letter-spacing: -0.02em;
+}
+
+.form-header p {
+    margin: 8px 0 0;
+    font-size: 14px;
+    color: #8C94A3 !important;
+    line-height: 1.5;
+}
+
+/* --- FORM BODY --- */
+.form-body {
+    padding: 20px 40px 40px 40px !important;
+    background: #FFFFFF !important;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111111 !important;
+    display: block;
+    margin-bottom: 5px;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+/* --- INPUTS — override w3-input w3-border w3-round --- */
+input.w3-input,
+select.w3-select,
+textarea.w3-input {
+    width: 100% !important;
+    padding: 10px 0 !important;
+    margin-bottom: 24px !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid #111111 !important;
+    border-radius: 0 !important;
+    color: #111111 !important;
+    font-size: 15px !important;
+    font-family: 'DM Sans', Arial, sans-serif !important;
+    box-sizing: border-box !important;
+    transition: all 0.2s ease !important;
+    resize: none;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+input.w3-input::placeholder,
+textarea.w3-input::placeholder {
+    color: #8C94A3 !important;
+}
+
+input.w3-input:hover,
+select.w3-select:hover,
+textarea.w3-input:hover {
+    border-bottom: 1px solid #000000 !important;
+}
+
+input.w3-input:focus,
+select.w3-select:focus,
+textarea.w3-input:focus {
+    border-bottom: 2px solid #FFCC00 !important;
+    box-shadow: none !important;
+}
+
+/* --- FOOTER --- */
+.form-footer {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+    padding: 24px 40px !important;
+    background: #F9FAFB !important;
+    border-top: 1px solid #E5E7EB !important;
+}
+
+.btn-back,
+.btn-submit {
+    padding: 14px 20px !important;
+    border-radius: 30px !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    cursor: pointer;
+    transition: all 0.2s ease !important;
+    font-family: 'DM Sans', Arial, sans-serif !important;
+    text-align: center;
+    text-decoration: none !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.btn-back {
+    flex: 1;
+    background: transparent !important;
+    color: #111111 !important;
+    border: 1px solid #111111 !important;
+}
+
+.btn-back:hover {
+    background: #F9FAFB !important;
+    color: #111111 !important;
+}
+
+.btn-submit {
+    flex: 2;
+    background: #1C1C1C !important;
+    color: #FFFFFF !important;
+    border: none !important;
+}
+
+.btn-submit:hover {
+    background: #FFCC00 !important;
+    color: #111111 !important;
+    transform: translateY(-1px);
+}
+
+/* --- MESSAGES --- */
+.success { color: #059669; font-size: 14px; margin-top: 16px; font-weight: 500; text-align: center; }
+.error   { color: #DC2626; font-size: 14px; margin-top: 16px; font-weight: 500; text-align: center; }

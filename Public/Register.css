@@ -1,32 +1,103 @@
-        body{
-            font-family:Arial;
-            background:#f4f4f4;
-        }
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
 
-        .container{
-            width:350px;
-            margin:80px auto;
-            background:white;
-            padding:30px;
-            border-radius:10px;
-        }
+/* --- NAKA-SENTRO SA GITNA --- */
+body {
+    font-family: 'DM Sans', Arial, sans-serif;
+    background: #EAECEF; /* Same light gray background para malinis */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center; /* Sinesentro nang pahalang */
+    align-items: center;     /* Sinesentro nang patayo */
+    color: #111111;
+}
 
-        input, select{
-            width:100%;
-            padding:10px;
-            margin-top:10px;
-        }
+/* --- FORM CONTAINER (White Card) --- */
+.container {
+    width: 100%;
+    max-width: 400px;
+    background: #FFFFFF;
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Manipis na shadow para umangat tingnan */
+    box-sizing: border-box;
+}
 
-        button{
-            width:100%;
-            padding:10px;
-            margin-top:15px;
-            background:#007bff;
-            color:white;
-            border:none;
-        }
+h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+}
 
-        .message{
-            color:green;
-            margin-top:10px;
-        }
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* -- INPUT STYLES (Underline Theme) -- */
+input, select {
+    width: 100%;
+    padding: 12px 10px 12px 5px;
+    margin-bottom: 25px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #111111;
+    color: #111111;
+    font-size: 15px;
+    font-family: 'DM Sans', Arial, sans-serif;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+input::placeholder {
+    color: #8C94A3; 
+}
+
+/* Yellow highlight kapag nagta-type */
+input:focus, select:focus {
+    border-bottom: 2px solid #FFCC00;
+}
+
+select {
+    cursor: pointer;
+    color: #8C94A3; 
+}
+
+/* Para maging black ang text kapag may napili na sa dropdown */
+select:focus, select:valid {
+    color: #111111;
+}
+
+/* -- BUTTON (Black Pill na nagiging Yellow) -- */
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    background: #1C1C1C;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'DM Sans', Arial, sans-serif;
+}
+
+button:hover {
+    background: #FFCC00;
+    color: #111111;
+    transform: translateY(-2px);
+}
+
+.message {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #00875A; 
+}
