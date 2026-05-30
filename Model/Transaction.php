@@ -13,7 +13,7 @@ class Transaction {
         $stmt->execute([$stock_quantity, $product_id]);
     }
 
-    $stmt = $this->conn->prepare("INSERT INTO transaction (product_id, product_name, stock_quantity, unit, request_date, employee_name, employee_id, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $this->conn->prepare("INSERT INTO transaction (product_id, product_name, stock_quantity, unit, request_date, employee_name, Employee_id, `status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     return $stmt->execute([$product_id, $product_name, $stock_quantity, $unit, $request_date, $employee_name, $employee_id, $status]);
 }
 
