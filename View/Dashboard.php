@@ -31,7 +31,7 @@
     <li><a href="index.php?action=confirm-request"><i class="fas fa-circle-check"></i> Confirm Product Request</a></li>
     <li><a href="index.php?action=archived"><i class="fas fa-box-archive"></i> Archive</a></li>
     <li><a href="index.php?action=registerPage"><i class="fas fa-users-gear"></i> User Management</a></li>
-    <li><a href="index.php?action=user-information"><i class="fas fa-id-card"></i> User Information</a></li>
+    <li><a href="index.php?action=user-information"><i class="fas fa-id-card"></i> User Information</a></li> 
     <li><a href="index.php?action=import-xml"><i class="fas fa-file-import"></i> Import XML Files</a></li>
   <?php endif; ?>
 
