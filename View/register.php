@@ -4,7 +4,7 @@
     <title>Register</title>
 </head>
 
-<link rel = "StyleSheet" href="../Public/Register.css">
+  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Register.css">
 <body>
 
 <div class="container">
