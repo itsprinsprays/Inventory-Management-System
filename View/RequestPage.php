@@ -56,13 +56,14 @@
   require_once "Model/Product.php";
   require_once "Controller/ProductController.php";
   require_once "Controller/RequestController.php";
-
+http://localhost/Integrated_Programming/InventorySystem/Inventory-Management-System/index.php?action=transaction-history#
   $controller = new ProductController($conn);
   $requestController = new RequestController($conn);
 
   $product_id   = $_GET['product_id'] ?? '';
   $product_name = $_GET['product_name'] ?? '';
-  $unit         = $_GET['unit'] ?? ''; // was reading $_GET['product_name'] by mistake
+  $unit         = $_GET['unit'] ?? ''; 
+  $stock_quantity = $_GET['stock_quantity'] ?? 0;
 ?>
 
 <body>
@@ -94,7 +95,7 @@
 
         <label class="form-label w3-text-grey">QUANTITY</label>
         <input class="w3-input w3-border w3-round"
-          type="number" name="stock_quantity" min="1" value="1" required>
+  type="number" name="stock_quantity" id="qty_input" min="1" max="<?= (int) $stock_quantity ?>" value="1" required>
 
       </div>
 
@@ -103,6 +104,7 @@
         <a href="index.php?action=dashboard" class="btn-back w3-button w3-border w3-round">
           &#8592; Back
         </a>
+        
         <button type="submit" class="btn-submit w3-button w3-blue w3-round">
           &#10003; Submit request
         </button>

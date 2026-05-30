@@ -142,6 +142,11 @@ table th {
     color: white;
 }
 
+.empty {
+    background: #000000;
+    color: white;
+}
+
 /* BUTTON */
 
 .restock-btn {
@@ -152,6 +157,10 @@ table th {
     border-radius: 8px;
     cursor: pointer;
     transition: 0.3s;
+}
+
+.restock-btn a {
+    text-transform: none;
 }
 
 .archive-btn {
@@ -232,4 +241,37 @@ table th {
         margin-left: 0;
         width: 100%;
     }
+}
+
+
+.table-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.table-actions input {
+    padding: 8px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    width: 200px;
+}
+
+.add-btn {
+    background: #22c55e;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.add-btn:hover {
+    background: #16a34a;
 }

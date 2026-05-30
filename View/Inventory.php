@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Inventorys.css">
+  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Inventory.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Restock Inventory Dashboard</title>
@@ -55,7 +55,10 @@ $products = $controller->getAllProducts();
       <li><a href="index.php?action=transaction-history">Transaction History</a></li>
       <li><a href="index.php?action=request-tracking">Confirm Product Request</a></li>
       <li><a href="index.php?action=archived">Archive</a></li>
-        <li><a href="index.php?action=registerPage">User Management</a></li>
+      <li><a href="index.php?action=registerPage">User Management</a></li>
+      <li><a href="index.php?action=user-information">User Information</a></li>
+      <li><a href="index.php?action=import-xml">Import XML Files</a></li>
+
       <?php endif; ?>
     </ul>
   </div>
@@ -94,9 +97,13 @@ $products = $controller->getAllProducts();
 
     <div class="table-container">
 
-      <div class="table-header">
-        <h2>Inventory Overview</h2>
-      </div>
+     <div class="table-header">
+  <h2>Inventory Overview</h2>
+  <div class="table-actions">
+    <input type="text" id="searchInput" placeholder="Search product..." onkeyup="searchTable()">
+    <a href="index.php?action=add-product" class="add-btn">+ Add Product</a>
+  </div>
+</div>
 
       <table>
 
@@ -123,9 +130,9 @@ $products = $controller->getAllProducts();
         </span>
       </td>
       <td>
-        <form action="index.php?action=restock" method="POST">
+        <form action="index.php?action=restock-page" method="POST">
           <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
-          <button type="submit" class="restock-btn" onclick="showToast()">Restock</button>
+<a href="index.php?action=restock-page&product_id=<?= $product['product_id'] ?>&product_name=<?= urlencode($product['product_name']) ?>&unit=<?= urlencode($product['unit'] ?? '') ?>" class="restock-btn">Restock</a>
         </form>
       </td>
       <td>
@@ -160,6 +167,15 @@ $products = $controller->getAllProducts();
         toast.style.display = "none";
       }, 3000);
     }
+
+    function searchTable() {
+  const input = document.getElementById('searchInput').value.toLowerCase();
+  const rows = document.querySelectorAll('tbody tr');
+  rows.forEach(row => {
+    const name = row.cells[0].textContent.toLowerCase();
+    row.style.display = name.includes(input) ? '' : 'none';
+  });
+}
 
   </script>
 

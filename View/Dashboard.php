@@ -30,6 +30,9 @@
         <li><a href="index.php?action=confirm-request">Confirm Product Request</a></li>
         <li><a href="index.php?action=archived">Archive</a></li>
         <li><a href="index.php?action=registerPage">User Management</a></li>
+        <li><a href="index.php?action=user-information">User Information</a></li>
+        <li><a href="index.php?action=import-xml">Import XML Files</a></li>
+
       <?php endif; ?>
     </ul>
   </div>
@@ -61,6 +64,9 @@
     <div class="table-container">
       <div class="table-header">
         <h2>Dashboard Overview</h2>
+        <div class="table-actions">
+    <input type="text" id="searchInput" placeholder="Search product..." onkeyup="searchTable()">
+  </div>
       </div>
 
       <table>
@@ -87,7 +93,12 @@
                 </span>
               </td>
               <td>
-<a href="index.php?action=request-Page&product_id=<?= $product['product_id'] ?>&product_name=<?= urlencode($product['product_name']) ?>&unit=<?= urlencode($product['unit'] ?? '') ?>" class="pullout-btn">Request</a>
+  <?php if (!empty($product['stock_quantity']) && $product['stock_quantity'] > 0): ?>
+<a href="index.php?action=request-Page&product_id=<?= $product['product_id'] ?>&product_name=<?= urlencode($product['product_name']) ?>&unit=
+<?= urlencode($product['unit'] ?? '') ?>&stock_quantity=<?= $product['stock_quantity'] ?>" class="pullout-btn">Request</a>
+  <?php else: ?>
+    <a class="pullout-btn disabled" style="pointer-events:none; opacity:0.4; cursor:not-allowed;">Request</a>
+  <?php endif; ?>
 </td>
             </tr>
           <?php endforeach; ?>
@@ -110,6 +121,15 @@
         toast.style.display = "none";
       }, 3000);
     }
+
+      function searchTable() {
+  const input = document.getElementById('searchInput').value.toLowerCase();
+  const rows = document.querySelectorAll('tbody tr');
+  rows.forEach(row => {
+    const name = row.cells[0].textContent.toLowerCase();
+    row.style.display = name.includes(input) ? '' : 'none';
+  });
+}
   </script>
 
 </body>

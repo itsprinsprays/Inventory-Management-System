@@ -54,16 +54,12 @@
 
 <?php
 
-//   require_once "Model/Product.php";
-//   require_once "Controller/ProductController.php";
-//   require_once "Controller/RequestController.php";
 
-//   $controller = new ProductController($conn);
-//   $requestController = new RequestController($conn);
+  $product_id   = isset($_GET['product_id']) ? $_GET['product_id'] : '';
+  $product_name = isset($_GET['product_name']) ? $_GET['product_name'] : '';
+  $unit         = $_GET['unit'] ?? ''; 
 
-//   $product_id   = isset($_GET['product_id']) ? $_GET['product_id'] : '';
-//   $product_name = isset($_GET['product_name']) ? $_GET['product_name'] : '';
-// ?>
+?>
 
 <body>
 
@@ -75,9 +71,8 @@
       <h3>Restock Request</h3>
       <p>Fill in the details below</p>
     </div>
-<?php echo "<pre>"; print_r($_SESSION); echo "</pre>"; ?>
     <!-- Form body -->
-    <form action="index.php?action=submit-request" method="POST">
+    <form action="index.php?action=restock" method="POST">
 
       <input type="hidden" name="product_id" value="<?= htmlspecialchars($product_id) ?>">
       <input type="hidden" name="employee_id" value="<?= htmlspecialchars($_SESSION['employee_id'] ?? '') ?>">
@@ -92,29 +87,19 @@
         <input class="w3-input w3-border w3-round"
             type="number" name="stock_quantity" min="1" value="1" required>
 
-        <label class="form-label w3-text-grey">UNIT</label>
-        <select class="w3-select w3-border w3-round" name="unit" required>
-        <option value="" disabled selected>Select unit</option>
-        <option value="pcs">Pieces (pcs)</option>
-        <option value="box">Box</option>
-        <option value="pack">Pack</option>
-        <option value="ream">Ream (paper)</option>
-        <option value="roll">Roll (tape, art paper)</option>
-        <option value="bottle">Bottle (glue, ink)</option>
-        <option value="set">Set (geometry set, lab kit)</option>
-        <option value="unit">Unit (computer, projector, chair)</option>
-        </select>
-
+          <label class="form-label w3-text-grey">UNIT</label>
+        <input class="w3-input w3-border w3-round w3-margin-bottom"
+          type="text" name="unit" value="<?= htmlspecialchars($unit) ?>" readonly required>
 
       </div>
 
       <!-- Footer buttons -->
       <div class="form-footer w3-container w3-border-top w3-padding-16 w3-light-grey">
-        <a href="index.php?action=dashboard" class="btn-back w3-button w3-border w3-round">
+        <a href="index.php?action=inventory" class="btn-back w3-button w3-border w3-round">
           &#8592; Back
         </a>
         <button type="submit" class="btn-submit w3-button w3-blue w3-round">
-          &#10003; Submit request
+          &#10003; Restock
         </button>
       </div>
 

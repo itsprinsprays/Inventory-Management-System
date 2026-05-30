@@ -16,8 +16,7 @@ public function getProductArchive() {
 
 public function activateProduct($product_id) {
 
-    $stmt = $this->conn->prepare("INSERT into product (product_id, product_name, description, stock_quantity)
-        select product_id, product_name, description, stock_quantity from product_archive where product_id = ?");
+    $stmt = $this->conn->prepare("UPDATE product SET is_archived = 1 WHERE product_id = ?");
     $stmt->execute([$product_id]);
     
     $stmt = $this->conn->prepare("DELETE from product_archive where product_id = ?");

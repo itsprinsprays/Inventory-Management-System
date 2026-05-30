@@ -118,35 +118,6 @@ table th {
     color: #475569;
 }
 
-/* STATUS */
-
-.status {
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.low {
-    background: #f59e0b;
-    color: white;
-}
-
-.critical {
-    background: #ef4444;
-    color: white;
-}
-
-.good {
-    background: #22c55e;
-    color: white;
-}
-
-.empty {
-    background: black;
-    color: white;
-}
-
 /* BUTTON */
 
 .pullout-btn {
@@ -202,4 +173,21 @@ table th {
     outline: none;
     font-size: 14px;
     width: 200px;
+}
+
+.add-btn {
+    background: #22c55e;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.add-btn:hover {
+    background: #16a34a;
 }

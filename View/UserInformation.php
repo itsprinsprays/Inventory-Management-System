@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Archive.css">
+  <link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/UserInformation.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Restock Inventory Dashboard</title>
@@ -15,12 +15,17 @@
         require_once "Controller/ProductController.php";
         require_once "Model/Archive.php";
         require_once "Controller/ArchiveController.php";
+        require_once "Model/Employee.php";
+        require_once "Controller/EmployeeController.php";
 
         $controller = new ProductController($conn);
         $products = $controller->getAllProducts();
 
         $controllerArch = new ArchiveController($conn);
         $archive = $controllerArch->getAllArchive();
+
+        $employeeController = new EmployeeController($conn);
+        $employees = $employeeController->getallEmployees();
         ?>
         
 <body>
@@ -66,36 +71,45 @@
     <div class="table-container">
 
       <div class="table-header">
-        <h2>Archive</h2>
+        <h2>User Information</h2>
+         <div class="table-actions">
+    <input type="text" id="searchInput" placeholder="Search Employee..." onkeyup="searchTable()">
+    <a href="index.php?action=add-employee" class="add-btn">+ Add Employee</a>
+  </div>
       </div>
 
       <table>
 
         <thead>
   <tr>
-    <th>Product ID</th>
+    <th>Employee ID</th>
     <th>Name</th>
-    <th>Stock</th>
-    <th>Unit</th>
-    <th>Description</th>
-    <th>Archived Date</th>
-    <th>Control</th>
+    <th>Contact Number</th>
+    <th>Email</th>
+    <th>Address</th>
+    <th colspan = 2>Control</th>
   </tr>
 </thead>
 
 <tbody>
-  <?php foreach ($archive as $archive): ?>
+  <?php foreach ($employees as $employee): ?>
     <tr>
-      <td><?= htmlspecialchars($archive['product_id']) ?></td>
-      <td><?= htmlspecialchars($archive['product_name']) ?></td>
-      <td><?= htmlspecialchars($archive['stock_quantity']) ?></td>
-      <td><?= htmlspecialchars($archive['unit'] ?? '') ?></td>
-      <td><?= htmlspecialchars($archive['description']) ?></td>
-      <td><?= htmlspecialchars($archive['archived_at']) ?></td>
+      <td><?= htmlspecialchars($employee['Employee_id']) ?></td>
+      <td><?= htmlspecialchars($employee['name']) ?></td>
+      <td><?= htmlspecialchars($employee['contact_number']) ?></td>
+      <td><?= htmlspecialchars($employee['email'] ) ?></td>
+      <td><?= htmlspecialchars($employee['address']) ?></td>
       <td>
-        <form action="index.php?action=activateProduct" method="POST">
-          <input type="hidden" name="product_id" value="<?= $archive['product_id'] ?>">
-          <button type="submit" class="pullout-btn" onclick="return confirm('Activate this product?')">Activate</button>
+    <form action="index.php?action=edit-employee" method="GET">
+        <input type="hidden" name="action" value="edit-employee">
+        <input type="hidden" name="employee_id" value="<?= $employee['Employee_id'] ?>">
+        <button type="submit" class="pullout-btn" onclick="return confirm('Update this Employee?')">Update</button>
+    </form>
+</td>
+      <td>
+        <form action="index.php?action=delete-employee" method="POST">
+          <input type="hidden" name="employee_id" value="<?= $employee['Employee_id'] ?>">
+          <button type="submit" class="pullout-btn" onclick="return confirm('Delete this Employee?')">Delete</button>
         </form>
       </td>
     </tr>
@@ -124,6 +138,15 @@
         toast.style.display = "none";
       }, 3000);
     }
+
+      function searchTable() {
+  const input = document.getElementById('searchInput').value.toLowerCase();
+  const rows = document.querySelectorAll('tbody tr');
+  rows.forEach(row => {
+    const name = row.cells[1].textContent.toLowerCase();
+    row.style.display = name.includes(input) ? '' : 'none';
+  });
+}
 
   </script>
 

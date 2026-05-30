@@ -7,9 +7,9 @@ class Product {
         $this->conn = $db;
     }
 
-    public function addNewProduct($name, $description, $quantity) {
-        $stmt = $this->conn->prepare("INSERT INTO product (product_name, description, stock_quantity) VALUES (?, ?, ?)");
-        return $stmt->execute([$name, $description, $quantity]);
+    public function addNewProduct($name, $description, $quantity, $unit) {
+        $stmt = $this->conn->prepare("INSERT INTO product (product_name, description, stock_quantity, unit) VALUES (?, ?, ?, ?)");
+        return $stmt->execute([$name, $description, $quantity, $unit]);
     }
 
     public function minustock($product_id, $quantity) {
@@ -17,13 +17,13 @@ class Product {
         return $stmt->execute([$quantity, $product_id]);
     }
 
-    public function restock($product_id, $quantity) {
+    public function restock($product_id, $quantity) {   
         $stmt = $this->conn->prepare("UPDATE product SET stock_quantity = (stock_quantity + ?) WHERE product_id = ?");
         return $stmt->execute([$quantity, $product_id]);
     }
 
     public function getAllProducts() {
-        $stmt = $this->conn->prepare("SELECT * FROM product");
+        $stmt = $this->conn->prepare("SELECT * FROM product WHERE is_archived = 1");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -77,7 +77,7 @@ class Product {
     ");
     $stmt->execute([$product_id]);
 
-    $stmt = $this->conn->prepare("DELETE FROM product WHERE product_id = ?");
+    $stmt = $this->conn->prepare("UPDATE product SET is_archived = 0 WHERE product_id = ?");
     return $stmt->execute([$product_id]);
 }
 
