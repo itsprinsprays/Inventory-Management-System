@@ -24,6 +24,12 @@ class User {
         }
         return false;
     }
+
+    public function getAllUser() {
+        $stmt = $this->conn->prepare("Select * from user");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
 

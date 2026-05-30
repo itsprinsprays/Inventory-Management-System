@@ -17,5 +17,9 @@ class UserController {
             $data['employee_id']
         );
     }
+
+    public function getAllUser() {
+        return $this->user->getAllUser();
+    }
 }
 ?>

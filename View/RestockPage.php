@@ -2,7 +2,7 @@
 <html>
 <title>Restock Request</title> 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../Public/Restock.css">
+<link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/Restock.css">
 <?php
 
 
