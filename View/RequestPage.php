@@ -3,7 +3,7 @@
 <title>Restock Request</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
-<link rel="stylesheet" href="../Public/RequestPage.css">
+<link rel="stylesheet" href="/Integrated_Programming/InventorySystem/Inventory-Management-System/Public/RequestPage.css">
 
 <?php
   require_once "Model/Product.php";
@@ -26,7 +26,7 @@ http://localhost/Integrated_Programming/InventorySystem/Inventory-Management-Sys
 
     <!-- Header -->
     <div class="form-header w3-blue w3-padding-16">
-      <h3>Restock Request</h3>
+      <h3>Stock Request</h3>
       <p>Fill in the details below</p>
     </div>
 
