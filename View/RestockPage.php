@@ -1,57 +1,8 @@
 <!DOCTYPE html>
 <html>
-<title>Restock Request</title>
+<title>Restock Request</title> 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
-<style>
-
-  .page-wrapper {
-    margin-top: 80px;
-    text-align: center;
-  }
-
-  .form-card {
-    max-width: 420px;
-    margin: auto;
-    border-radius: 12px;
-    overflow: hidden;
-  }
-
-  .form-header p {
-    margin: 4px 0 0;
-    font-size: 13px;
-    opacity: 0.85;
-  }
-
-  .form-header h3 {
-    margin: 0;
-  }
-
-  .form-body {
-    padding: 24px;
-  }
-
-  .form-label {
-    font-size: 13px;
-    font-weight: 600;
-  }
-
-  .form-footer {
-    display: flex;
-    gap: 8px;
-  }
-
-  .btn-back {
-    flex: 1;
-    text-decoration: none;
-  }
-
-  .btn-submit {
-    flex: 2;
-  }
-
-</style>
-
+<link rel="stylesheet" href=".bn./Public/Restock.css">
 <?php
 
 

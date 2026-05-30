@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+body {
+    background-color: #EAECEF; /* Light gray background para lumitaw yung puting form */
+    font-family: 'DM Sans', Arial, sans-serif;
+    color: #111111;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.form-card {
+    width: 100%;
+    max-width: 460px;
+    background: #FFFFFF; /* Pure white card gaya ng nasa image */
+    border-radius: 16px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06); 
+    border: none; /* Tinanggal yung border para malinis */
+    overflow: hidden;
+}
+
+/* --- MALINIS NA HEADER (Centered gaya ng image) --- */
+.form-header {
+    padding: 40px 40px 10px 40px;
+    text-align: center; /* Naka-center gaya ng "Welcome back!" */
+    background: #1C1C1C !important; /* Override w3-blue */
+    color: #FFFFFF !important;
+}
+
+.form-header h3 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+}
+
+.form-header p {
+    margin: 8px 0 0;
+    font-size: 14px;
+    color: #8C94A3;
+    line-height: 1.5;
+}
+
+/* --- KATAWAN NG FORM --- */
+.form-body {
+    padding: 20px 40px 40px 40px;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111111;
+    display: block;
+    margin-bottom: 5px;
+    text-transform: none; 
+    letter-spacing: normal;
+}
+
+/* --- TEXTBOXES (Underline lang, walang background box) --- */
+input, select, textarea {
+    width: 100%;
+    padding: 10px 0; /* Tinanggal yung side padding para pantay sa underline */
+    margin-bottom: 24px;
+    background-color: transparent; /* Transparent para underline lang */
+    border: none;
+    border-bottom: 1px solid #111111; /* Solid dark line */
+    border-radius: 0; /* Tinanggal rounded corners */
+    color: #111111;
+    font-size: 15px;
+    font-family: 'DM Sans', Arial, sans-serif;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    resize: none; 
+    outline: none;
+}
+
+input::placeholder, textarea::placeholder {
+    color: #8C94A3;
+}
+
+input:hover, select:hover, textarea:hover {
+    border-bottom: 1px solid #000000;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-bottom: 2px solid #FFCC00; /* Yellow focus para may accent pa rin */
+}
+
+/* --- FOOTER AT BUTTONS --- */
+.form-footer {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+    padding-top: 24px;
+    background: #F9FAFB !important; /* Override w3-light-grey */
+    border-top: 1px solid #E5E7EB !important;
+}
+
+.btn-back, .btn-submit {
+    padding: 14px 20px;
+    border-radius: 30px; /* Pill shaped gaya ng "Log In" button */
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'DM Sans', Arial, sans-serif;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.btn-back {
+    flex: 1;
+    background: transparent;
+    color: #111111;
+    border: 1px solid #111111 !important; /* Override w3-border */
+}
+
+.btn-back:hover {
+    background: #F9FAFB;
+}
+
+.btn-submit {
+    flex: 2;
+    background: #1C1C1C !important; /* Solid Black Button — override w3-blue */
+    color: #FFFFFF !important;
+    border: none;
+}
+
+.btn-submit:hover {
+    background: #FFCC00 !important; /* Yellow sa hover para swak sa theme */
+    color: #111111 !important;
+    transform: translateY(-1px);
+}
+
+/* --- MESSAGES --- */
+.success { color: #059669; font-size: 14px; margin-top: 16px; font-weight: 500; text-align: center; }
+.error   { color: #DC2626; font-size: 14px; margin-top: 16px; font-weight: 500; text-align: center; }
