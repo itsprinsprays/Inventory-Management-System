@@ -35,6 +35,12 @@ public function stockAverage() {
     return $stmt->fetchColumn();
 }
 
+public function archiveToday() {
+    $stmt = $this->conn->prepare("SELECT COUNT(*) from product_archive where DATE(archived_at) = CURDATE()");
+    $stmt->execute();
+    return $stmt->fetchColumn();
+}
+
 }
 
 ?>

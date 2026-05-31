@@ -25,6 +25,10 @@ class ArchiveController {
         return $this->archive->stockAverage();
     }
 
+    public function archiveToday() {
+        return $this->archive->archiveToday();
+    }
+
 }
 
 

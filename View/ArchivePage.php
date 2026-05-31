@@ -62,7 +62,7 @@
       </div>
       <div class="card">
         <h3>Archived Today</h3>
-        <p><?= $controller->countCriticalStock() ?></p>
+        <p><?= $controllerArch->archiveToday() ?></p>
       </div>
       <div class="card">
         <h3>Average Stock Quantity</h3>
