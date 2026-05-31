@@ -46,9 +46,9 @@
             <input type="number" name="employee_id" placeholder="Employee ID" required>
             <button type="submit">Register</button>
         </form>
-        <div class="message">
-            <?= $message ?? '' ?>
-        </div>
+        <div class="message <?= htmlspecialchars($messageType ?? '') ?>">
+        <?= htmlspecialchars($message ?? '') ?>
+    </div>
     </div>
 
     <!-- VIEW USERS TABLE -->

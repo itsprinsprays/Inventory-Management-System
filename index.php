@@ -73,21 +73,20 @@ switch ($action) {
             break;
         
 
-        case 'register':
+    case 'register':
             requireRole('admin');
             $message = "";
+            $messageType = "";
+
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $data = [
-                    'username'    => $_POST['username'],
-                    'password'    => $_POST['password'],
-                    'role'        => $_POST['role'],
-                    'employee_id' => $_POST['employee_id']
-                ];
-                $message = $userController->storeNewUser($data) ? "User registered successfully" : "Failed to register user";
+                $result = $authController->register($_POST);
+                $message = $result['message'];
+                $messageType = $result['status'];
             }
+
             $users = $userController->getAllUser(); 
             include "View/register.php";
-            break;
+    break;
 
     case 'register-ui':
 
