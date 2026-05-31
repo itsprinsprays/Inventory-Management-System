@@ -70,52 +70,48 @@ switch ($action) {
 
         include "View/AddProductPage.php";
 
-        break;
-    
+            break;
+        
 
     case 'register':
-        
-        requireRole('admin');
-        $message = "";
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = [
-                'username' => $_POST['username'],
-                'password' => $_POST['password'],
-                'role' => $_POST['role'],
-                'employee_id' => $_POST['employee_id']
-            ];
+            requireRole('admin');
+            $message = "";
+            $messageType = "";
 
-            $message = $userController->storeNewUser($data) ? "User registered successfully" : "Failed to register user";
-        }
-        include "View/register.php";
-        break;
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $result = $authController->register($_POST);
+                $message = $result['message'];
+                $messageType = $result['status'];
+            }
+
+            $users = $userController->getAllUser(); 
+            include "View/register.php";
+    break;
 
     case 'register-ui':
 
-        include "View/register.php";
-        break;
+            requireRole('admin');
+            $users = $userController->getAllUser(); 
+            include "View/register.php";
+            break;
 
     case 'registerPage':
 
-        requireRole('admin');
-        header("Location: index.php?action=register-ui");
-        break;
-        
-    case 'dashboard':
-        
-        include "View/Dashboard.php";
-        break;
+            requireRole('admin');
+            header("Location: index.php?action=register-ui"); // tanggalin na ang $users dito, redirect lang
+            exit();
+            break;
 
-    case 'request-Page':
-        
-        include "View/RequestPage.php";
-        break;
+    case 'dashboard':
+            requireRole('admin', 'employee');
+            include "View/Dashboard.php";
+            break;
 
     case 'inventory':
 
-        requireRole('admin', 'employee');
-        include "View/Inventory.php";
-        break;
+            requireRole('admin', 'employee');
+            include "View/Inventory.php";
+            break;
 
     case 'archive':
 
@@ -189,6 +185,11 @@ switch ($action) {
             }
             header("Location: index.php?action=dashboard");
         exit();
+        break;
+
+    case 'submit-request-Page':
+
+        include "View/RequestPage.php";
         break;
 
 

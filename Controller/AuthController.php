@@ -9,6 +9,26 @@ class AuthController {
         $this->user = new User($db);
     }
 
+    public function register($data) {
+        $result = $this->user->register(
+            $data['username'],
+            $data['password'],
+            $data['role'],
+            $data['employee_id']
+        );
+
+        switch ($result) {
+            case 'success':
+                return ['status' => 'success', 'message' => 'User registered successfully.'];
+            case 'invalid_employee':
+                return ['status' => 'error', 'message' => 'Employee ID does not exist. Please enter a valid Employee ID.'];
+            case 'already_registered':
+                return ['status' => 'error', 'message' => 'This Employee ID is already linked to an existing user.'];
+            default:
+                return ['status' => 'error', 'message' => 'Registration failed. Please try again.'];
+        }
+    }
+
     public function login($credentials) {
         $user = $this->user->login(
             $credentials['username'],

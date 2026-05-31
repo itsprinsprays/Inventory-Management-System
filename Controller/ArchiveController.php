@@ -17,6 +17,18 @@ class ArchiveController {
         return $this->archive->activateProduct($product_id);
     }
 
+    public function countArchivedProduct() {
+        return $this->archive->countArchive();
+    }
+
+    public function stockAverage() {
+        return $this->archive->stockAverage();
+    }
+
+    public function archiveToday() {
+        return $this->archive->archiveToday();
+    }
+
 }
 
 

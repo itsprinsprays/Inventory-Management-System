@@ -59,9 +59,8 @@
         <p><?= $controller->countProducts() ?></p>
       </div>
       <div class="card">
-        <h3>Restocked Today</h3>
-        <p>34</p>
-      </div>
+        <h3>Unavailable Product</h3>
+      <p><?= $controller->unavailProduct() ?></p>      </div>
     </div>
 
     <!-- INVENTORY TABLE -->
@@ -98,8 +97,8 @@
               </td>
               <td>
   <?php if (!empty($product['stock_quantity']) && $product['stock_quantity'] > 0): ?>
-<a href="index.php?action=request-Page&product_id=<?= $product['product_id'] ?>&product_name=<?= urlencode($product['product_name']) ?>&unit=
-<?= urlencode($product['unit'] ?? '') ?>&stock_quantity=<?= $product['stock_quantity'] ?>" class="pullout-btn">Request</a>
+<a href="index.php?action=submit-request-Page&product_id=<?= $product['product_id'] ?>&product_name=<?= urlencode($product['product_name']) ?>&unit=<?= urlencode($product['unit'] ?? '') ?>&stock_quantity=<?= $product['stock_quantity'] ?>" class="pullout-btn">Request</a>
+
   <?php else: ?>
     <a class="pullout-btn disabled" style="pointer-events:none; opacity:0.4; cursor:not-allowed;">Request</a>
   <?php endif; ?>

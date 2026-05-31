@@ -62,29 +62,6 @@
 
     <!-- DASHBOARD CARDS -->
 
-    <div class="cards">
-
-      <div class="card">
-        <h3>Critical Stock Items</h3>
-        <p><?= $controller->countCriticalStock() ?></p>
-      </div>
-
-      <div class="card">
-        <h3>Pending Restocks</h3>
-        <p><?= $controller->needRestocks() ?></p>
-      </div>
-
-      <div class="card">
-        <h3>Products</h3>
-        <p><?= $controller->countProducts() ?></p>
-      </div>
-
-      <div class="card">
-        <h3>Restocked Today</h3>
-        <p>34</p>
-      </div>
-
-    </div>
 
     <!-- INVENTORY TABLE -->
 
