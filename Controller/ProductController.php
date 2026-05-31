@@ -64,4 +64,16 @@ class ProductController {
         return $this->product->archiveProduct($product_id);
     }
 
+    public function pulloutToday() {
+        return $this->product->pulloutToday();
+    }
+
+    public function totalStocks() {
+        return $this->product->totalStocks();
+    }
+
+    public function unavailProduct() {
+        return $this->product->unavailableProduct();
+    }
+
 }

@@ -53,29 +53,7 @@
 
     <!-- DASHBOARD CARDS -->
 
-    <div class="cards">
-
-      <div class="card">
-        <h3>Critical Stock Items</h3>
-        <p><?= $controller->countCriticalStock() ?></p>
-      </div>
-
-      <div class="card">
-        <h3>Pending Restocks</h3>
-        <p><?= $controller->needRestocks() ?></p>
-      </div>
-
-      <div class="card">
-        <h3>Products</h3>
-        <p><?= $controller->countProducts() ?></p>
-      </div>
-
-      <div class="card">
-        <h3>Restocked Today</h3>
-        <p>34</p>
-      </div>
-
-    </div>
+    
 
     <!-- INVENTORY TABLE -->
 
@@ -131,6 +109,7 @@
             <input type="hidden" name="product_name"   value="<?= $req['product_name'] ?>">
             <input type="hidden" name="stock_quantity" value="<?= $req['stock_quantity'] ?>">
             <input type="hidden" name="request_date"   value="<?= $req['request_date'] ?>">
+            <input type="hidden" name="unit" value="<?= htmlspecialchars($req['unit'] ?? '') ?>">
             <input type="hidden" name="employee_name"  value="<?= $req['name'] ?? '' ?>">
             <input type="hidden" name="employee_id"    value="<?= $req['employee_id'] ?>">
         <button type="submit" class="pullout-btn" onclick="return confirm('Are you sure you want to confirm this request?')">Confirm</button>

@@ -103,6 +103,11 @@ switch ($action) {
             exit();
             break;
 
+    case 'dashboard':
+            requireRole('admin', 'employee');
+            include "View/Dashboard.php";
+            break;
+
     case 'inventory':
 
             requireRole('admin', 'employee');
@@ -181,6 +186,11 @@ switch ($action) {
             }
             header("Location: index.php?action=dashboard");
         exit();
+        break;
+
+    case 'submit-request-Page':
+
+        include "View/RequestPage.php";
         break;
 
 

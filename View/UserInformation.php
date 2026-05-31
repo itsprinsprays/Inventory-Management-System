@@ -60,14 +60,7 @@
 
     <!-- DASHBOARD CARDS -->
 
-    <div class="cards">
-
-      <div class="card">
-        <h3>Critical Stock Items</h3>
-        <p><?= $controller->countCriticalStock() ?></p>
-      </div>
-
-    </div>
+   
 
     <!-- INVENTORY TABLE -->
 

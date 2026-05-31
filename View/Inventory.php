@@ -88,8 +88,13 @@ $products = $controller->getAllProducts();
       </div>
 
       <div class="card">
-        <h3>Restocked Today</h3>
-        <p>34</p>
+      <h3>Total Units in Stock</h3>
+        <p><?= $controller->totalStocks() ?></p>
+    </div>
+
+      <div class="card">
+        <h3>Pull-out Today</h3>
+        <p><?= $controller->pulloutToday() ?></p>
       </div>
 
     </div>
@@ -139,6 +144,7 @@ $products = $controller->getAllProducts();
       <td>
         <form action="index.php?action=archive" method="POST">
           <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
+            <input type="hidden" name="unit" value="<?= $product['unit'] ?>">
           <button type="submit" class="archive-btn" onclick="return confirm('Archive this product?')">Archive</button>
         </form>
       </td>

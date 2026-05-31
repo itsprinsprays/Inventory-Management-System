@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
 
 body {
-    background-color: #EAECEF; /* Light gray background para lumitaw yung puting form */
+    background-color: #EAECEF; 
     font-family: 'DM Sans', Arial, sans-serif;
     color: #111111;
     margin: 0;
@@ -21,18 +21,18 @@ body {
 .form-card {
     width: 100%;
     max-width: 460px;
-    background: #FFFFFF; /* Pure white card gaya ng nasa image */
+    background: #FFFFFF; 
     border-radius: 16px; 
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06); 
-    border: none; /* Tinanggal yung border para malinis */
+    border: none; 
     overflow: hidden;
 }
 
-/* --- MALINIS NA HEADER (Centered gaya ng image) --- */
+/* ---HEADER --- */
 .form-header {
     padding: 40px 40px 10px 40px;
-    text-align: center; /* Naka-center gaya ng "Welcome back!" */
-    background: #1C1C1C !important; /* Override w3-blue */
+    text-align: center; 
+    background: #1C1C1C !important; 
     color: #FFFFFF !important;
 }
 
@@ -66,15 +66,14 @@ body {
     letter-spacing: normal;
 }
 
-/* --- TEXTBOXES (Underline lang, walang background box) --- */
 input, select, textarea {
     width: 100%;
-    padding: 10px 0; /* Tinanggal yung side padding para pantay sa underline */
+    padding: 10px 0; 
     margin-bottom: 24px;
-    background-color: transparent; /* Transparent para underline lang */
+    background-color: transparent; 
     border: none;
-    border-bottom: 1px solid #111111; /* Solid dark line */
-    border-radius: 0; /* Tinanggal rounded corners */
+    border-bottom: 1px solid #111111; 
+    border-radius: 0; 
     color: #111111;
     font-size: 15px;
     font-family: 'DM Sans', Arial, sans-serif;
@@ -93,7 +92,7 @@ input:hover, select:hover, textarea:hover {
 }
 
 input:focus, select:focus, textarea:focus {
-    border-bottom: 2px solid #FFCC00; /* Yellow focus para may accent pa rin */
+    border-bottom: 2px solid #FFCC00; 
 }
 
 /* --- FOOTER AT BUTTONS --- */
@@ -102,13 +101,13 @@ input:focus, select:focus, textarea:focus {
     gap: 16px;
     margin-top: 10px;
     padding-top: 24px;
-    background: #F9FAFB !important; /* Override w3-light-grey */
+    background: #F9FAFB !important; 
     border-top: 1px solid #E5E7EB !important;
 }
 
 .btn-back, .btn-submit {
     padding: 14px 20px;
-    border-radius: 30px; /* Pill shaped gaya ng "Log In" button */
+    border-radius: 30px; 
     font-weight: 600;
     font-size: 15px;
     cursor: pointer;
@@ -126,7 +125,7 @@ input:focus, select:focus, textarea:focus {
     flex: 1;
     background: transparent;
     color: #111111;
-    border: 1px solid #111111 !important; /* Override w3-border */
+    border: 1px solid #111111 !important; 
 }
 
 .btn-back:hover {
@@ -135,13 +134,13 @@ input:focus, select:focus, textarea:focus {
 
 .btn-submit {
     flex: 2;
-    background: #1C1C1C !important; /* Solid Black Button — override w3-blue */
+    background: #1C1C1C !important; 
     color: #FFFFFF !important;
     border: none;
 }
 
 .btn-submit:hover {
-    background: #FFCC00 !important; /* Yellow sa hover para swak sa theme */
+    background: #FFCC00 !important;
     color: #111111 !important;
     transform: translateY(-1px);
 }

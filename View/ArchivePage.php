@@ -57,9 +57,18 @@
     <div class="cards">
 
       <div class="card">
-        <h3>Critical Stock Items</h3>
+        <h3>Archived Product</h3>
+        <p><?= $controllerArch->countArchivedProduct() ?></p>
+      </div>
+      <div class="card">
+        <h3>Archived Today</h3>
         <p><?= $controller->countCriticalStock() ?></p>
       </div>
+      <div class="card">
+        <h3>Average Stock Quantity</h3>
+        <p><?= $controllerArch->stockAverage() ?></p>
+      </div>
+
 
     </div>
 
@@ -79,7 +88,6 @@
     <th>Name</th>
     <th>Stock</th>
     <th>Unit</th>
-    <th>Description</th>
     <th>Archived Date</th>
     <th>Control</th>
   </tr>
@@ -91,8 +99,7 @@
       <td><?= htmlspecialchars($archive['product_id']) ?></td>
       <td><?= htmlspecialchars($archive['product_name']) ?></td>
       <td><?= htmlspecialchars($archive['stock_quantity']) ?></td>
-      <td><?= htmlspecialchars($archive['unit'] ?? '') ?></td>
-      <td><?= htmlspecialchars($archive['description']) ?></td>
+      <td><?= htmlspecialchars($archive['unit']) ?></td>
       <td><?= htmlspecialchars($archive['archived_at']) ?></td>
       <td>
         <form action="index.php?action=activateProduct" method="POST">
