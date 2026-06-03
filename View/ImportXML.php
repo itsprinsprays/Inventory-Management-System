@@ -417,9 +417,7 @@
         </div>
 
         <div class="form-footer">
-          <a href="index.php?action=inventory" class="btn-back">
-            <i class="fas fa-arrow-left"></i> Back
-          </a>
+
           <button type="submit" class="btn-submit">
             <i class="fas fa-upload"></i> Import
           </button>
