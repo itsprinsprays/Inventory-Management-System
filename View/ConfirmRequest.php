@@ -125,26 +125,34 @@
 
   <!-- SUCCESS TOAST -->
 
-  <div class="toast" id="toast">
-    ✓ Stock Updated Successfully
-  </div>
+  <!-- SUCCESS TOAST -->
+<div class="toast" id="toast-success">
+  ✓ Request Confirmed Successfully
+</div>
+
+<!-- ERROR TOAST -->
+<div class="toast" id="toast-error" style="background-color: #e74c3c;">
+  ✗ Not Enough Stock Available
+</div>
 
   
 
   <script>
-
-    function showToast(){
-
-      const toast = document.getElementById("toast");
-
+  <?php if (isset($_GET['success'])): ?>
+    window.onload = function() {
+      const toast = document.getElementById("toast-success");
       toast.style.display = "block";
-
-      setTimeout(() => {
-        toast.style.display = "none";
-      }, 3000);
-    }
-
-  </script>
+      setTimeout(() => { toast.style.display = "none"; }, 3000);
+    };
+  <?php elseif (isset($_GET['error']) && $_GET['error'] === 'insufficient_stock'): ?>
+    window.onload = function() {
+      const toast = document.getElementById("toast-error");
+      toast.innerText = "✗ Not enough stock. Available: <?= (int) $_GET['available'] ?>, Requested: <?= (int) $_GET['requested'] ?>";
+      toast.style.display = "block";
+      setTimeout(() => { toast.style.display = "none"; }, 4000);
+    };
+  <?php endif; ?>
+</script>
 
 </body>
 </html>
