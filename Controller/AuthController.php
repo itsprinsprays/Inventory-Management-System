@@ -28,6 +28,10 @@ class AuthController {
         }
     }
 
+    public function updateRole($employee_id, $role) {
+    return $this->userModel->updateRole($employee_id, $role);
+}
+
     public function login($credentials) {
         $user = $this->user->login(
             $credentials['username'],

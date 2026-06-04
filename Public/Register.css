@@ -343,3 +343,42 @@ table tr:hover td {
 .message.error   {
      color: #dc2626; 
 } 
+
+.edit-btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 6px;
+}
+
+.edit-row td {
+    background: #f1f5f9;
+    padding: 12px 16px;
+}
+
+.edit-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.save-btn {
+    background: #22c55e;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background: #94a3b8;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}

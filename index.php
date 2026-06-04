@@ -102,6 +102,15 @@ switch ($action) {
             exit();
             break;
 
+    case 'updateRole':
+            requireRole('admin');
+            $employee_id = $_POST['employee_id'];
+            $role        = $_POST['role'];
+            $userController->updateRole($employee_id, $role);
+            header("Location: index.php?action=registerPage");
+            exit;
+        break;
+
     case 'dashboard':
             requireRole('admin', 'employee');
             include "View/Dashboard.php";

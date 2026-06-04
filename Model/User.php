@@ -67,5 +67,11 @@ private function usernameExists($username) {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+  public function updateRole($employee_id, $role) {
+    $stmt = $this->conn->prepare("UPDATE user SET role = ? WHERE Employee_id = ?");
+    $stmt->execute([$role, $employee_id]);
+    return $stmt->rowCount() > 0;
+}
 }
 ?>
