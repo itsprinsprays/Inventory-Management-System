@@ -11,7 +11,6 @@ class AuthController {
 
     public function register($data) {
         $result = $this->user->register(
-            $data['username'],
             $data['password'],
             $data['role'],
             $data['employee_id']

@@ -142,7 +142,7 @@
     window.onload = function() {
       const toast = document.getElementById("toast-success");
       toast.style.display = "block";
-      setTimeout(() => { toast.style.display = "none"; }, 3000);
+      setTimeout(() => { toast.style.display = "none"; }, 3000);   
     };
   <?php elseif (isset($_GET['error']) && $_GET['error'] === 'insufficient_stock'): ?>
     window.onload = function() {

@@ -35,16 +35,17 @@
     <!-- REGISTER FORM -->
     <div class="container">
         <h2>Register</h2>
-        <form method="POST" action="index.php?action=register">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <select name="role" required>
-                <option value="">Select Role</option>
-                <option value="admin">Admin</option>
-                <option value="employee">Teacher</option>
-            </select>
-            <input type="number" name="employee_id" placeholder="Employee ID" required>
-            <button type="submit">Register</button>
+<!-- Form should now look like this -->
+    <form method="POST" action="index.php?action=register">
+        <input type="password" name="password"    placeholder="Password"    required>
+        <select name="role" required>
+            <option value="">Select Role</option>
+            <option value="admin">Admin</option>
+            <option value="employee">Teacher</option>
+        </select>
+        <input type="number"   name="employee_id" placeholder="Employee ID" required>
+        <button type="submit">Register</button>
+    </form>
         </form>
         <div class="message <?= htmlspecialchars($messageType ?? '') ?>">
         <?= htmlspecialchars($message ?? '') ?>
