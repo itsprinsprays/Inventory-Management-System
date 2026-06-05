@@ -11,7 +11,6 @@ class AuthController {
 
     public function register($data) {
         $result = $this->user->register(
-            $data['username'],
             $data['password'],
             $data['role'],
             $data['employee_id']
@@ -28,6 +27,10 @@ class AuthController {
                 return ['status' => 'error', 'message' => 'Registration failed. Please try again.'];
         }
     }
+
+    public function updateRole($employee_id, $role) {
+    return $this->userModel->updateRole($employee_id, $role);
+}
 
     public function login($credentials) {
         $user = $this->user->login(

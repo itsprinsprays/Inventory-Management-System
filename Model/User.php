@@ -13,27 +13,43 @@ class User {
         return $stmt->fetch() !== false;
     }
 
-    public function register($Username, $Password, $Role, $Employee_id) {
-        if (!$this->employeeExists($Employee_id)) {
-            return 'invalid_employee';
-        }
-
-        $stmt = $this->conn->prepare("SELECT user_id FROM user WHERE employee_id = ?");
-        $stmt->execute([$Employee_id]);
-        if ($stmt->fetch()) {
-            return 'already_registered';
-        }
-
-        $hashedPassword = password_hash($Password, PASSWORD_DEFAULT);
-        $stmt = $this->conn->prepare("INSERT INTO user (username, password, role, employee_id) VALUES (?,?,?,?)");
-        
-        try {
-            $stmt->execute([$Username, $hashedPassword, $Role, $Employee_id]);
-            return 'success';
-        } catch (PDOException $e) {
-            return 'error';
-        }
+    public function register($Password, $Role, $Employee_id) {
+    if (!$this->employeeExists($Employee_id)) {
+        return 'invalid_employee';
     }
+
+    $email = $this->getEmployeeEmail($Employee_id);
+    if (!$email) {
+        return 'no_email';
+    }
+
+    if ($this->usernameExists($email)) {
+        return 'already_registered';
+    }
+
+    $hashedPassword = password_hash($Password, PASSWORD_BCRYPT);
+
+    $stmt = $this->conn->prepare(      // ← was $this->db
+        "INSERT INTO user (username, password, role, Employee_id) VALUES (?, ?, ?, ?)"
+    );
+    $stmt->execute([$email, $hashedPassword, $Role, $Employee_id]);
+
+    return 'success';
+}
+
+private function getEmployeeEmail($Employee_id) {
+    $stmt = $this->conn->prepare("SELECT email FROM employee WHERE Employee_id = ?");  // ← was $this->db, "employees"
+    $stmt->execute([$Employee_id]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $row['email'] ?? null;
+}
+
+private function usernameExists($username) {
+    $stmt = $this->conn->prepare("SELECT COUNT(*) FROM user WHERE username = ?");  // ← was $this->db, "users"
+    $stmt->execute([$username]);
+    return $stmt->fetchColumn() > 0;
+}
+
 
     public function login($username, $password) {
         $stmt = $this->conn->prepare("SELECT * FROM user WHERE username = ?");
@@ -51,5 +67,11 @@ class User {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+  public function updateRole($employee_id, $role) {
+    $stmt = $this->conn->prepare("UPDATE user SET role = ? WHERE Employee_id = ?");
+    $stmt->execute([$role, $employee_id]);
+    return $stmt->rowCount() > 0;
+}
 }
 ?>
