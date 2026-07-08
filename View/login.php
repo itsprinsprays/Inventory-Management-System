@@ -38,7 +38,6 @@
                     <div class="input-group">
                         <i class="fa-solid fa-lock"></i>
                         <input type="password" name="password" placeholder="Password" required>
-                        <i class="fa-regular fa-eye eye-icon"></i>
                     </div>
                 </div>
 

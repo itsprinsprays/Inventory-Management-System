@@ -159,7 +159,7 @@
   <?php elseif (isset($_GET['error']) && $_GET['error'] === 'insufficient_stock'): ?>
     window.onload = function() {
       const toast = document.getElementById("toast-error");
-      toast.innerText = "Remove Succesfully";
+      toast.innerText = "Removed Succesfully";
 
       toast.style.color = "White";
       toast.style.opacity = "0";
