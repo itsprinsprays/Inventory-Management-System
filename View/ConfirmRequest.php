@@ -124,8 +124,6 @@
   </div>
 
   <!-- SUCCESS TOAST -->
-
-  <!-- SUCCESS TOAST -->
 <div class="toast" id="toast-success">
   ✓ Request Confirmed Successfully
 </div>
@@ -141,15 +139,44 @@
   <?php if (isset($_GET['success'])): ?>
     window.onload = function() {
       const toast = document.getElementById("toast-success");
-      toast.style.display = "block";
-      setTimeout(() => { toast.style.display = "none"; }, 3000);   
+
+        toast.style.opacity = "0";
+        toast.style.display = "block";
+        toast.style.transition = "opacity 0.5s"
+
+      setTimeout(() => {
+        toast.style.opacity = "1";
+      }, 100);
+
+      setTimeout(() => { 
+        toast.style.opacity = "0";
+        setTimeout(() => {
+        toast.style.display = "none";   ;
+        }, 500);
+
+      }, 3000);   
     };
   <?php elseif (isset($_GET['error']) && $_GET['error'] === 'insufficient_stock'): ?>
     window.onload = function() {
       const toast = document.getElementById("toast-error");
-      toast.innerText = "✗ Not enough stock. Available: <?= (int) $_GET['available'] ?>, Requested: <?= (int) $_GET['requested'] ?>";
+      toast.innerText = "Removed Succesfully";
+
+      toast.style.color = "White";
+      toast.style.opacity = "0";
       toast.style.display = "block";
-      setTimeout(() => { toast.style.display = "none"; }, 4000);
+      toast.style.transition = "opacity 0.5s";
+
+      setTimeout(() => {
+        toast.style.opacity = "1";
+      }, 100);
+
+      setTimeout(() => {
+      toast.style.opacity = "0";
+      setTimeout(() => { 
+        toast.style.display = "none"; 
+      }, 500);
+
+    }, 3000);
     };
   <?php endif; ?>
 </script>

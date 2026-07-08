@@ -260,8 +260,8 @@ switch ($action) {
             $stmt = $conn->prepare("DELETE FROM request WHERE request_id = ?");
             $stmt->execute([$_POST['request_id']]);
         }
-        header("Location: index.php?action=confirm-request");
-        exit();
+        header("Location: index.php?action=confirm-request&error=insufficient_stock&available={$available}&requested={$requested_qty}");
+            exit();
         break;
 
     case 'transaction-history':
@@ -366,34 +366,51 @@ switch ($action) {
         $dom->load($file);
 
         switch ($table) {
-
+            
             case 'product':
-                foreach ($dom->getElementsByTagName("product") as $node) {
-                    $data = [
-                        'id'             => $node->getElementsByTagName("id")->item(0)?->nodeValue ?? null,
-                        'name'           => $node->getElementsByTagName("product_name")->item(0)->nodeValue,
-                        'description'    => $node->getElementsByTagName("description")->item(0)->nodeValue,
-                        'stock_quantity' => $node->getElementsByTagName("stock_quantity")->item(0)->nodeValue,
-                        'unit'           => $node->getElementsByTagName("unit")->item(0)->nodeValue,
-                    ];
-                    $productController->storeNewProduct($data);
-                }
-                $message = "Products imported successfully";
-                break;
+    $imported = 0;
+    foreach ($dom->getElementsByTagName("product") as $node) {
+        $data = [
+            'id'             => $node->getElementsByTagName("id")->item(0)?->nodeValue ?? null,
+            'name'           => $node->getElementsByTagName("product_name")->item(0)?->nodeValue ?? '',
+            'description'    => $node->getElementsByTagName("description")->item(0)?->nodeValue ?? '',
+            'stock_quantity' => $node->getElementsByTagName("stock_quantity")->item(0)?->nodeValue ?? 0,
+            'unit'           => $node->getElementsByTagName("unit")->item(0)?->nodeValue ?? '',
+        ];
+        if ($productController->storeNewProduct($data)) {
+            $imported++;
+        }
+    }
 
-            case 'employee':
-                foreach ($dom->getElementsByTagName("employee") as $node) {
-                    $data = [
-                        'id'             => $node->getElementsByTagName("id")->item(0)?->nodeValue ?? null,
-                        'name'           => $node->getElementsByTagName("name")->item(0)->nodeValue,
-                        'contact_number' => $node->getElementsByTagName("contact_number")->item(0)->nodeValue,
-                        'email'          => $node->getElementsByTagName("email")->item(0)->nodeValue,
-                        'address'        => $node->getElementsByTagName("address")->item(0)->nodeValue,
-                    ];
-                    $employeeController->storeNewEmployee($data);
-                }
-                $message = "Employees imported successfully";
-                break;
+    if ($imported > 0) {
+        $message = "Products imported successfully ({$imported} records).";
+    } else {
+        $message = "No product records found in XML.";
+    }
+    break;
+
+case 'employee':
+    $imported = 0;
+    foreach ($dom->getElementsByTagName("employee") as $node) {
+        $data = [
+            'id'             => $node->getElementsByTagName("id")->item(0)?->nodeValue ?? null,
+            'name'           => $node->getElementsByTagName("name")->item(0)?->nodeValue ?? '',
+            'contact_number' => $node->getElementsByTagName("contact_number")->item(0)?->nodeValue ?? '',
+            'email'          => $node->getElementsByTagName("email")->item(0)?->nodeValue ?? '',
+            'address'        => $node->getElementsByTagName("address")->item(0)?->nodeValue ?? '',
+        ];
+        if ($employeeController->storeNewEmployee($data)) {
+            $imported++;
+        }
+    }
+
+    if ($imported > 0) {
+        $message = "Employees imported successfully ({$imported} records).";
+    } else {
+        $message = "No employee records found in XML.";
+    }
+    break;
+
 
         }
     }
