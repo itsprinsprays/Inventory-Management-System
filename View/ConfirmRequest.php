@@ -141,26 +141,42 @@
   <?php if (isset($_GET['success'])): ?>
     window.onload = function() {
       const toast = document.getElementById("toast-success");
-      toast.style.display = "block";
-      toast.style.transition = "opacity 0.5s";
-      toast.style.opacity = "1";
-      
+
+        toast.style.opacity = "0";
+        toast.style.display = "block";
+        toast.style.transition = "opacity 0.5s"
+
+      setTimeout(() => {
+        toast.style.opacity = "1";
+      }, 100);
+
       setTimeout(() => { 
         toast.style.opacity = "0";
         setTimeout(() => {
         toast.style.display = "none";   ;
         }, 500);
+
       }, 3000);   
     };
   <?php elseif (isset($_GET['error']) && $_GET['error'] === 'insufficient_stock'): ?>
     window.onload = function() {
       const toast = document.getElementById("toast-error");
       toast.innerText = "✗ Not enough stock. Available: <?= (int) $_GET['available'] ?>, Requested: <?= (int) $_GET['requested'] ?>";
+      toast.style.opacity = "0";
       toast.style.display = "block";
+      toast.style.transition = "opacity 0.5s";
+
+      setTimeout(() => {
+        toast.style.opacity = "1";
+      }, 100);
+
+      setTimeout(() => {
+      toast.style.opacity = "0";
       setTimeout(() => { 
         toast.style.display = "none"; 
-        toast.style.transition = "0.5s";
-      }, 4000);
+      }, 500);
+
+    }, 3000);
     };
   <?php endif; ?>
 </script>
