@@ -124,8 +124,6 @@
   </div>
 
   <!-- SUCCESS TOAST -->
-
-  <!-- SUCCESS TOAST -->
 <div class="toast" id="toast-success">
   ✓ Request Confirmed Successfully
 </div>
@@ -161,7 +159,9 @@
   <?php elseif (isset($_GET['error']) && $_GET['error'] === 'insufficient_stock'): ?>
     window.onload = function() {
       const toast = document.getElementById("toast-error");
-      toast.innerText = "✗ Not enough stock. Available: <?= (int) $_GET['available'] ?>, Requested: <?= (int) $_GET['requested'] ?>";
+      toast.innerText = "Remove Succesfully";
+
+      toast.style.color = "White";
       toast.style.opacity = "0";
       toast.style.display = "block";
       toast.style.transition = "opacity 0.5s";

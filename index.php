@@ -260,8 +260,8 @@ switch ($action) {
             $stmt = $conn->prepare("DELETE FROM request WHERE request_id = ?");
             $stmt->execute([$_POST['request_id']]);
         }
-        header("Location: index.php?action=confirm-request");
-        exit();
+        header("Location: index.php?action=confirm-request&error=insufficient_stock&available={$available}&requested={$requested_qty}");
+            exit();
         break;
 
     case 'transaction-history':

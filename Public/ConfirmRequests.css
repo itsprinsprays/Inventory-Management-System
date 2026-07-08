@@ -281,7 +281,6 @@ table tr:hover td {
     z-index: 999;
 }
 
-
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
     .sidebar {
