@@ -91,7 +91,7 @@
                         <label>New Role:</label>
                         <select name="role" required>
                             <option value="admin"    <?= $user['role'] === 'admin'    ? 'selected' : '' ?>>Admin</option>
-                            <option value="employee" <?= $user['role'] === 'employee' ? 'selected' : '' ?>>Teacher</option>
+                            <option value="employee" <?= $user['role'] === 'employee' ? 'selected' : '' ?>>Employee</option>
                         </select>
                         <button type="submit" class="save-btn"><i class="fas fa-check"></i> Save</button>
                         <button type="button" class="cancel-btn" onclick="toggleEdit(<?= $user['Employee_id'] ?>)">
