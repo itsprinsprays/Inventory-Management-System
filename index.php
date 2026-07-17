@@ -285,6 +285,16 @@ switch ($action) {
         include "View/UserInformation.php";
         break;
 
+    case 'deleteUser':
+    requireRole('admin');
+    if (isset($_GET['id'])) {
+        $userController->deleteUser($_GET['id']);
+    }
+    
+    header("Location: index.php?action=registerPage");
+    exit();
+    break;
+
     case 'add-employee':
         requireRole('admin');
         $message = "";

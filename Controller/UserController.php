@@ -32,5 +32,9 @@ class UserController {
     public function updateRole($employee_id, $role) {
         return $this->user->updateRole($employee_id, $role); // ← was $this->userModel
     }
+
+    public function deleteUser($employee_id) {
+        return $this->user->deleteUser($employee_id);
+    }
 }
 ?>

@@ -73,5 +73,11 @@ private function usernameExists($username) {
     $stmt->execute([$role, $employee_id]);
     return $stmt->rowCount() > 0;
 }
+
+public function deleteUser($employee_id) {
+    $stmt = $this->conn->prepare("DELETE FROM user WHERE Employee_id = ?");
+    return $stmt->execute([$employee_id]);
+}
+
 }
 ?>
