@@ -13,7 +13,6 @@
   require_once "Controller/ProductController.php";
 
   $controller = new ProductController($conn);
-  $products = $controller->getAllProducts();
 ?>
 
 <body>
@@ -83,28 +82,8 @@
           </tr>
         </thead>
 
-        <tbody>
-          <?php foreach ($products as $product): ?>
-            <?php $status = $controller->getStatus($product['stock_quantity']); ?>
-            <tr>
-              <td><?= htmlspecialchars($product['product_name']) ?></td>
-              <td><?= htmlspecialchars($product['stock_quantity']) ?></td>
-              <td><?= htmlspecialchars($product['unit'] ?? '') ?></td>
-              <td>
-                <span class="status <?= strtolower($status) ?>">
-                  <?= $status ?>
-                </span>
-              </td>
-              <td>
-  <?php if (!empty($product['stock_quantity']) && $product['stock_quantity'] > 0): ?>
-<a href="index.php?action=submit-request-Page&product_id=<?= $product['product_id'] ?>&product_name=<?= urlencode($product['product_name']) ?>&unit=<?= urlencode($product['unit'] ?? '') ?>&stock_quantity=<?= $product['stock_quantity'] ?>" class="pullout-btn">Request</a>
-
-  <?php else: ?>
-    <a class="pullout-btn disabled" style="pointer-events:none; opacity:0.4; cursor:not-allowed;">Request</a>
-  <?php endif; ?>
-</td>
-            </tr>
-          <?php endforeach; ?>
+        <tbody id="productTable">
+        
         </tbody>
 
       </table>
@@ -134,6 +113,6 @@
   });
 }
   </script>
-
+<script src="/Integrated_Programming/InventorySystem/Inventory-Management-System/JS/product.js"></script>
 </body>
 </html>
