@@ -12,10 +12,28 @@ class Product {
         return $stmt->execute([$name, $description, $quantity, $unit]);
     }
 
-    public function restock($product_id, $quantity) {   
-        $stmt = $this->conn->prepare("UPDATE product SET stock_quantity = (stock_quantity + ?) WHERE product_id = ?");
-        return $stmt->execute([$quantity, $product_id]);
+   public function restock($product_id, $quantity) {
+    // Step 1: Update stock
+    $stmt = $this->conn->prepare(
+        "UPDATE product SET stock_quantity = stock_quantity + ? WHERE product_id = ?"
+    );
+    $stmt->execute([$quantity, $product_id]);
+
+    // Step 2: Get updated stock
+    $stmt = $this->conn->prepare(
+        "SELECT stock_quantity FROM product WHERE product_id = ?"
+    );
+    $stmt->execute([$product_id]);
+    $newStock = $stmt->fetchColumn();
+
+    // Step 3: Compare
+    if ($newStock < 2000) {
+        return "Stock is below threshold: $newStock";
     }
+
+    return "Stock updated successfully: $newStock";
+}
+
 
     public function getAllProducts() {
         $stmt = $this->conn->prepare("SELECT * FROM product WHERE is_archived = 1");
