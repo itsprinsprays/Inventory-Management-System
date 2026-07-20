@@ -154,26 +154,43 @@ switch ($action) {
         header("Location: index.php?action=archive-ui");
         exit;
         break;
-
-    case 'restock':
+case 'restock':
+    requireRole('admin');
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
-        requireRole('admin');
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
-            $product_id = $_POST['product_id'] ?? null;
-            $quantity   = $_POST['stock_quantity'] ?? 0;
+        $product_id   = $_POST['product_id'] ?? null;
+        $product_name = $_POST['product_name'] ?? '';
+        $unit         = $_POST['unit'] ?? '';
+        $quantity     = (int)($_POST['stock_quantity'] ?? 0);
 
+        $stock = $productController->stockQuantity($product_id);
+        $total = $stock + $quantity;
 
+        if ($total > 1500) {
+            $message = "<div class='w3-panel w3-red w3-round'>
+                          ✗ Cannot restock. Stock would exceed limit (1500).
+                        </div>";
+        } else {
             $result = $productController->restock($product_id, $quantity);
-
             if ($result) {
-                header("Location: index.php?action=inventory&success=restocked");
-                exit();
+                $message = "<div class='w3-panel w3-green w3-round'>
+                              ✓ Product successfully restocked. New stock: {$total}
+                            </div>";
             } else {
-                echo "Failed to restock product.";
+                $message = "<div class='w3-panel w3-red w3-round'>
+                              ✗ Failed to restock product.
+                            </div>";
             }
-        } 
-        break;
+        }
+
+        // Pass product details + message back to the view
+        include __DIR__ . "/View/RestockPage.php";
+    }
+    break;
+
+
+
+
 
     case 'restock-page':
 
