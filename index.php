@@ -64,8 +64,15 @@ switch ($action) {
                 'unit' => $_POST['unit']
             ];
 
-         $message = $productController->storeNewProduct($data) ? "Product Added successfully" : "Failed to add product";
+         $result = $productController->storeNewProduct($data);
 
+        if ($result === 'success') {
+            $message = "Product added successfully.";
+        } elseif ($result === 'duplicate') {
+            $message = "A product with this name already exists. Use Restock instead.";
+        } else {
+            $message = "Failed to add product.";
+        }
         }
 
         include "View/AddProductPage.php";
@@ -313,27 +320,32 @@ case 'restock':
     break;
 
     case 'add-employee':
-        requireRole('admin');
-        $message = "";
-    
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = [
-                'name'           => trim($_POST['name'] ?? ''),
-                'contact_number' => trim($_POST['contact_number'] ?? ''),
-                'email'          => trim($_POST['email'] ?? ''),
-                'address'        => trim($_POST['address'] ?? ''),
-            ];
-    
-            if ($data['name'] && $data['contact_number'] && $data['email'] && $data['address']) {
-                $result = $employeeController->storeNewEmployee($data);
-                $message = $result ? "Employee added successfully." : "Failed to add employee.";
-            } else {
-                $message = "All fields are required.";
-            }
+    requireRole('admin');
+    $message = "";
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = [
+            'name'           => trim($_POST['name'] ?? ''),
+            'contact_number' => trim($_POST['contact_number'] ?? ''),
+            'email'          => trim($_POST['email'] ?? ''),
+            'address'        => trim($_POST['address'] ?? ''),
+        ];
+
+        if ($data['name'] && $data['contact_number'] && $data['email'] && $data['address']) {
+            $result = $employeeController->storeNewEmployee($data);
+
+            $message = match ($result) {
+                'success'   => "Employee added successfully.",
+                'duplicate' => "An employee with this email or contact number already exists.",
+                default     => "Failed to add employee.",
+            };
+        } else {
+            $message = "All fields are required.";
         }
-    
-        include "View/AddEmployee.php";
-        break;
+    }
+
+    include "View/AddEmployee.php";
+    break;
     
     case 'edit-employee':
         requireRole('admin');
@@ -396,6 +408,8 @@ case 'restock':
             
             case 'product':
     $imported = 0;
+    $skipped = 0;
+
     foreach ($dom->getElementsByTagName("product") as $node) {
         $data = [
             'id'             => $node->getElementsByTagName("id")->item(0)?->nodeValue ?? null,
@@ -404,13 +418,22 @@ case 'restock':
             'stock_quantity' => $node->getElementsByTagName("stock_quantity")->item(0)?->nodeValue ?? 0,
             'unit'           => $node->getElementsByTagName("unit")->item(0)?->nodeValue ?? '',
         ];
-        if ($productController->storeNewProduct($data)) {
+
+        $result = $productController->storeNewProduct($data);
+
+        if ($result === 'success') {
             $imported++;
+        } elseif ($result === 'duplicate') {
+            $skipped++;
         }
     }
 
-    if ($imported > 0) {
+    if ($imported > 0 && $skipped > 0) {
+        $message = "Imported {$imported} product(s). Skipped {$skipped} duplicate(s).";
+    } elseif ($imported > 0) {
         $message = "Products imported successfully ({$imported} records).";
+    } elseif ($skipped > 0) {
+        $message = "No new products imported — all {$skipped} record(s) were duplicates.";
     } else {
         $message = "No product records found in XML.";
     }

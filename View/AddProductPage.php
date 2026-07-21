@@ -36,7 +36,7 @@
 
         <label class="form-label w3-text-grey">INITIAL STOCK</label>
         <input class="w3-input w3-border w3-round w3-margin-bottom"
-          type="number" name="stock_quantity" min="0" value="0" required>
+          type="number" name="stock_quantity" min="0" value="0" max="1500" required>
 
         <label class="form-label w3-text-grey">UNIT</label>
         <select class="w3-select w3-border w3-round" name="unit" required>

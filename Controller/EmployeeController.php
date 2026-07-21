@@ -9,13 +9,20 @@ class EmployeeController {
         $this->employee = new Employee($db);
     }
 
-    public function storeNewEmployee($data) {
-        return $this->employee->addNewEmployee(
-            $data['name'], 
-            $data['contact_number'], 
-            $data['email'], 
-            $data['address']);
+   public function storeNewEmployee($data) {
+    if ($this->employee->isDuplicate($data['email'], $data['contact_number'])) {
+        return 'duplicate';
     }
+
+    $success = $this->employee->addNewEmployee(
+        $data['name'], 
+        $data['contact_number'], 
+        $data['email'], 
+        $data['address']
+    );
+
+    return $success ? 'success' : 'error';
+}
 
     public function getAllEmployees() {
         return $this->employee->getAllEmployees();

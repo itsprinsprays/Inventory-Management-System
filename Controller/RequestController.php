@@ -1,6 +1,7 @@
 <?php
 
 require_once "Model/Request.php";
+require_once "Services/EmailService.php";
 
 class RequestController {
     private $request;
@@ -9,19 +10,33 @@ class RequestController {
         $this->request = new Request($db); 
     }
 
-   public function storeNewRequest($data) {
-    return $this->request->createRequest(
+  public function storeNewRequest($data) {
+
+    $success = $this->request->createRequest(
         $data['product_id'],
         $data['product_name'],
         $data['stock_quantity'],
         $data['unit'],
         $data['employee_id']
     );
+
+    if($success){
+
+        $emailService = new EmailService();
+
+        $emailService->sendRequestNotification(
+            "princejediel.benitez@cvsu.edu.ph",               // Replace later
+            $_SESSION['username'],           // Requested by
+            $data['product_name'],
+            $data['stock_quantity']
+        );
+    }
+
+    return $success;
 }
 
     public function getAllRequest() {
         return $this->request->getAllRequest();
     }
 }
-
 ?>

@@ -7,6 +7,14 @@ class Product {
         $this->conn = $db;
     }
 
+    public function isDuplicate($product_name) {
+    $stmt = $this->conn->prepare(
+        "SELECT COUNT(*) FROM product WHERE LOWER(product_name) = LOWER(?)"
+    );
+    $stmt->execute([$product_name]);
+    return $stmt->fetchColumn() > 0;
+}
+
     public function addNewProduct($name, $description, $quantity, $unit) {
         $stmt = $this->conn->prepare("INSERT INTO product (product_name, description, stock_quantity, unit) VALUES (?, ?, ?, ?)");
         return $stmt->execute([$name, $description, $quantity, $unit]);
@@ -68,7 +76,7 @@ class Product {
     }
 
     public function countCriticalStock() {
-        $stmt = $this->conn->prepare("SELECT COUNT(*) as total FROM product WHERE stock_quantity < 10 and is_archived = 1 ");
+        $stmt = $this->conn->prepare("SELECT COUNT(*) as total FROM product WHERE stock_quantity < 10 && stock_quantity >=1 and is_archived = 1 ");
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ? $result['total'] : 0;
