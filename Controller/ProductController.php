@@ -10,12 +10,19 @@ class ProductController {
     }
 
     public function storeNewProduct($data) {
-        return $this->product->addNewProduct(
-            $data['name'], 
-            $data['description'], 
-            $data['stock_quantity'],
-            $data['unit']);
+    if ($this->product->isDuplicate($data['name'])) {
+        return 'duplicate';
     }
+
+    $success = $this->product->addNewProduct(
+        $data['name'], 
+        $data['description'], 
+        $data['stock_quantity'],
+        $data['unit']
+    );
+
+    return $success ? 'success' : 'error';
+}
 
     public function minustock($product_id, $quantity) {
         return $this->product->minustock($product_id, $quantity);

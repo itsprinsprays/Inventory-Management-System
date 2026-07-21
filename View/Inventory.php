@@ -19,16 +19,17 @@ $products = $controller->getAllProducts();
 <body>
 
   <?php 
-        $hasCritical = false;
-        foreach($products as $product) {
-            if($controller->getStatus($product['stock_quantity']) === 'CRITICAL') {
-                $hasCritical = true;
-                break;
-            }
-        }
+        $criticalCount = 0;
+foreach ($products as $product) {
+    if ($controller->getStatus($product['stock_quantity']) === 'CRITICAL') {
+        $criticalCount++;
+    }
+}
+echo $criticalCount;
+
         ?>
 
-        <?php if($hasCritical): ?>
+        <?php if($criticalCount): ?>
       <div class="warning-overlay" id="warningPopup">
         <div class="warning-box">
           <h2>⚠️ Critical Stock Alert</h2>

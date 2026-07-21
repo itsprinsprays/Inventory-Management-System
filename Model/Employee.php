@@ -7,11 +7,19 @@ class Employee {
         $this->conn = $db;
     }
 
-   public function addNewEmployee($name, $contact_number, $email, $address) {
+    public function isDuplicate($email, $contact_number) {
+        $stmt = $this->conn->prepare(
+            "SELECT COUNT(*) FROM employee WHERE email = ? OR contact_number = ?"
+        );
+        $stmt->execute([$email, $contact_number]);
+        return $stmt->fetchColumn() > 0;
+    }
+
+    public function addNewEmployee($name, $contact_number, $email, $address) {
         $stmt = $this->conn->prepare("INSERT INTO employee (`name`, contact_number, email, `address`) VALUES (?, ?, ?, ?)");
         return $stmt->execute([$name, $contact_number, $email, $address]);
     }
-
+    
     public function getAllEmployees() {
         $stmt = $this->conn->prepare("SELECT * FROM employee");
         $stmt->execute();
