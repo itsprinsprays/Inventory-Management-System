@@ -25,8 +25,8 @@ class RequestController {
         $emailService = new EmailService();
 
         $emailService->sendRequestNotification(
-            "princejediel.benitez@cvsu.edu.ph",               // Replace later
-            $_SESSION['username'],           // Requested by
+            "princejediel.benitez@cvsu.edu.ph",               
+            $_SESSION['username'],           
             $data['product_name'],
             $data['stock_quantity']
         );

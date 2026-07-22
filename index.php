@@ -2,6 +2,8 @@
 
 session_start();
 
+date_default_timezone_set('Asia/Manila');
+
 require_once "config/connection.php";
 require_once "controller/ProductController.php";
 require_once "controller/UserController.php";
@@ -468,6 +470,31 @@ case 'employee':
     include "View/ImportXML.php";
     break;
 
+   case 'generate-receipt':
+    requireRole('admin');
+
+    $transaction_id = $_GET['transaction_id'] ?? null;
+
+    if (!$transaction_id) {
+        header("Location: index.php?action=transaction-history");
+        exit();
+    }
+
+    $transaction = $transactionController->getTransactionById($transaction_id);
+
+    if (!$transaction) {
+        header("Location: index.php?action=transaction-history");
+        exit();
+    }
+
+    require_once "Services/QRCodeService.php";
+    $qrService = new QRCodeService();
+
+    $qrText = "Transaction #{$transaction['transaction_id']} | {$transaction['product_name']} | Qty: {$transaction['stock_quantity']} {$transaction['unit']} | Employee: {$transaction['employee_name']}";
+    $qrImageBase64 = $qrService->generateQRCode($qrText);
+
+    include "View/Receipt.php";
+    break;
     default:
 
         header("Location: index.php?action=login");

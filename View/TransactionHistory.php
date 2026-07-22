@@ -85,6 +85,7 @@
     <th>Employee Name</th>
     <th>Employee ID</th>
     <th>Status</th>
+    <th>Receipt</th>
   </tr>
 </thead>
 
@@ -104,6 +105,12 @@
         <span class="status <?= strtolower($transaction['status']) ?>">
           <?= htmlspecialchars($transaction['status']) ?>
         </span>
+      </td>
+      <td>
+        <a href="index.php?action=generate-receipt&transaction_id=<?= urlencode($transaction['transaction_id']) ?>"
+           target="_blank" class="btn-receipt">
+          <i class="fas fa-receipt"></i> Receipt
+        </a>
       </td>
     </tr>
   <?php endforeach; ?>
