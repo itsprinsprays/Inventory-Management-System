@@ -27,4 +27,10 @@ class Transaction {
         $stmt = $this->conn->prepare("DELETE from request where request_id = ?");
         return $stmt->execute([$request_id]);
      }
+
+    public function getTransactionById($transaction_id) {
+    $stmt = $this->conn->prepare("SELECT * FROM `transaction` WHERE transaction_id = ?");
+    $stmt->execute([$transaction_id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 }

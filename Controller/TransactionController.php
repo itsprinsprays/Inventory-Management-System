@@ -30,4 +30,8 @@ class TransactionController {
         return $this->transaction->deleteTransaction($request_id);
     }
 
+    public function getTransactionById($transaction_id) {
+    return $this->transaction->getTransactionById($transaction_id);
+}
+
 }
